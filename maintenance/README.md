@@ -74,7 +74,7 @@ Cet exemple n’écrit **aucun octet de la SD**. Les chemins privés et le hash 
 reçu sont renseignés après l’acquisition réelle, pas avant.
 
 ```sh
-python3 -I -B inkyImager/maintenance/prepare-backend-update.py \
+python3 -I -B maintenance/prepare-backend-update.py \
   --workspace /chemin/prive700 \
   --receipt /chemin/prive700/acquisition.json \
   --receipt-sha256 SHA256_DU_RECU_REEL \
@@ -108,7 +108,7 @@ l’éjection sans réécrire une partition déjà vérifiée.
 ## Tests
 
 ```sh
-python3 -I -B -m unittest discover -s inkyImager/maintenance/tests -p 'test_*.py' -v
+python3 -I -B -m unittest discover -s maintenance/tests -p 'test_*.py' -v
 ```
 
 Les tests utilisent des images ext4 régulières de 32 MiB, des contenus de
