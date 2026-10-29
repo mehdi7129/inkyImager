@@ -70,6 +70,8 @@ son image et appose une signature locale. Compiler ou packager ne flashe pas de 
 
 `--jobs` limite le nombre de compilations simultanées (2 par défaut). Les
 caches et fichiers temporaires du packaging sont placés sous `--scratch-path`.
+L'icône existante est versionnée dans `Resources/AppIcon.icns` et copiée telle
+quelle ; sa régénération Swift n'est pas nécessaire à chaque packaging.
 L'option `--sign-identity` prépare une signature Developer ID ; elle exige
 `--timestamp`, qui autorise explicitement l'appel au service d'horodatage
 Apple. Aucune notarisation ou publication n'est effectuée par ce script.

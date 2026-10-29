@@ -9,6 +9,7 @@ import shutil
 import subprocess
 import plistlib
 import re
+import struct
 
 ROOT = Path(__file__).resolve().parents[1]
 
@@ -87,10 +88,13 @@ def main():
     require(digest(target_image) == manifest['compressedSHA256'], 'Copied resource checksum mismatch')
     (resources / 'InkyOS.json').write_text(json.dumps(manifest, indent=2, sort_keys=True) + '\n')
     (resources / 'NOTICE.txt').write_text('inkyImager uses the macOS system liblzma for XZ decoding.\nInkyOS includes Raspberry Pi OS and Inky Studio; copyright notices are retained in the image.\n')
-    iconset = scratch / 'inkyImager.iconset'
-    subprocess.run(['xcrun', 'swift', '-module-cache-path', str(scratch / 'icon-module-cache'),
-                    str(ROOT / 'scripts/draw-icon.swift'), str(iconset)], env=environment, check=True)
-    subprocess.run(['/usr/bin/iconutil', '-c', 'icns', str(iconset), '-o', str(resources / 'AppIcon.icns')], check=True)
+    # The unchanged reviewed icon is versioned. Regenerating it through the
+    # Swift interpreter during every package build needlessly spikes memory.
+    icon = ROOT / 'Resources/AppIcon.icns'
+    icon_data = icon.read_bytes()
+    require(8 <= len(icon_data) <= 8 * 1024**2 and icon_data[:4] == b'icns' and
+            struct.unpack('>I', icon_data[4:8])[0] == len(icon_data), 'Invalid reviewed ICNS resource')
+    shutil.copyfile(icon, resources / 'AppIcon.icns')
     info = {'CFBundleName': 'inkyImager', 'CFBundleDisplayName': 'inkyImager',
             'CFBundleIdentifier': 'fr.mehdiguiard.inkyimager', 'CFBundleExecutable': 'inkyImager',
             'CFBundlePackageType': 'APPL', 'CFBundleShortVersionString': args.app_version,
