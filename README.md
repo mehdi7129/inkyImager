@@ -7,6 +7,20 @@ sur une carte SD et préparer le Wi-Fi d’un cadre photo e-paper
 Le parcours : **Wi-Fi saisi sur le Mac → carte SD vérifiée → démarrage du Pi →
 QR scanné sur l’iPhone → photo affichée sur le cadre**.
 
+[![Tests macOS](https://github.com/mehdi7129/inkyImager/actions/workflows/tests.yml/badge.svg)](https://github.com/mehdi7129/inkyImager/actions/workflows/tests.yml)
+
+## Télécharger
+
+**[Télécharger inkyImager 0.1.2 pour Mac Apple Silicon](https://github.com/mehdi7129/inkyImager/releases/download/v0.1.2/inkyImager-0.1.2-NOTARIZED.zip)**
+
+macOS **14 ou ultérieur**, Apple Silicon uniquement. Décompresser le ZIP,
+puis déplacer **inkyImager.app** dans Applications. L’app est signée Developer
+ID, notarisée par Apple et contient son ticket agrafé. Aucun compte Apple de
+développement, Python ou Homebrew n’est nécessaire pour l’utiliser.
+
+Le ZIP contient l’image [InkyOS 2026.10.29-rc1](https://github.com/mehdi7129/inkyOS/releases/tag/2026.10.29-rc1).
+Les hashes SHA-256 et la provenance sont joints à la release.
+
 ## Utiliser l’app
 
 Prévoir environ **6 Go libres sur le Mac** pour le téléchargement, l’app et la
@@ -36,19 +50,19 @@ photos, accès, identité et Wi-Fi. Le partage QR entre deux iPhone a fonctionn�
 du premier coup ; Mehdi rapporte ensuite plusieurs jours sans bug avec Inky
 Studio. Ce retour utilisateur concerne cette installation existante.
 
-Une **candidate locale inkyImager 0.1.2 (3)** a été assemblée avec une image
-générique vierge intégrant directement ce service. Elle réutilise le parcours
-Wi-Fi sur le Mac puis QR sur l'iPhone. Les artefacts préparés ne constituent
-pas encore un téléchargement public signé et notarisé, ni une nouvelle
-qualification physique de toutes les installations.
+**inkyImager 0.1.2 (3)** intègre une image générique vierge avec le service de
+partage QR. La signature, l’horodatage, la notarisation, le ticket agrafé et
+Gatekeeper ont été vérifiés, y compris après extraction du ZIP. L’interface
+signée a été ouverte et contrôlée sans lancer de flash.
 
-Le périmètre reste **macOS 14+ sur Apple Silicon**, le **Pi Zero 2 W**, le profil
-**Inky Impression 7,3 pouces / 800 × 480 / AC073**, la France et un réseau
-**WPA2 sur 2,4 GHz**. Ne pas extrapoler ce résultat aux autres dalles ou réseaux.
+Le périmètre reste **macOS 14+ sur Apple Silicon**, **Pi Zero 2 W**, profil
+**Inky Impression 7,3 pouces / 800 × 480 / AC073**, France et réseau
+**WPA2 sur 2,4 GHz**. L’image embarquée est une **release candidate** : son
+premier démarrage sur une nouvelle carte n’a pas encore été observé. Les
+retours d’usage du cadre existant et les tests logiciels restent distincts.
 
-Le dépôt publie les sources. La signature Developer ID avec horodatage Apple,
-la notarisation, le stapling et la publication sont des étapes de livraison
-séparées. Le packaging par défaut reste local et ad-hoc, sans appel Apple.
+Consulter le [changelog](CHANGELOG.md), le [guide de release](docs/RELEASING.md)
+et les [informations de distribution](docs/DISTRIBUTION.md).
 
 ## Compiler
 

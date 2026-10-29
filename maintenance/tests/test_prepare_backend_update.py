@@ -284,6 +284,26 @@ class Ext4Tests(unittest.TestCase):
         path.write_bytes(value); path.chmod(0o600)
         fs.command('ea_set -f "{}" {} {}'.format(path, target, name), write=True)
 
+    def test_posix_acl_raw_value_is_preserved_and_changes_are_detected(self):
+        manifest, reference, payload, record_path = self.fixture.load()
+        fs = editor.Ext4(self.fixture.image)
+        inode = fs.inventory()['/etc/hostname']['inode']
+        entries = [(1, 7, 0xffffffff), (2, 5, 1000), (4, 5, 0xffffffff),
+                   (16, 5, 0xffffffff), (32, 0, 0xffffffff)]
+        acl = lambda: struct.pack('<I', 2) + b''.join(struct.pack('<HHI', *row) for row in entries)
+        self.seed_xattr(fs, '/etc/hostname', 'system.posix_acl_access', acl())
+        # debugfs translates ACLs to the Linux format unless raw mode is used.
+        # The on-disk list reports 28 bytes, while translated output is 44.
+        before = fs.xattr_digest(inode)
+        result = editor.apply_to_copy(self.fixture.image, manifest, reference, payload, record_path,
+                                      self.fixture.log('acl-preservation'))
+        self.assertTrue(result['preservationVerified'])
+        self.assertEqual(fs.xattr_digest(inode), before)
+        entries[1] = (2, 4, 1000)
+        self.seed_xattr(fs, '/etc/hostname', 'system.posix_acl_access', acl())
+        self.assertNotEqual(fs.xattr_digest(inode), before)
+        self.assertEqual(list(self.root.glob('.xattr-*')), [])
+
     def test_long_xattr_complete_value_changes_digest_despite_identical_listing(self):
         fs = editor.Ext4(self.fixture.image)
         inode = fs.inventory()['/etc/hostname']['inode']

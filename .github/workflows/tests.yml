@@ -1,0 +1,27 @@
+name: macOS tests
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  fixtures:
+    # Apple Silicon standard runner: https://docs.github.com/en/actions/reference/runners/github-hosted-runners
+    runs-on: macos-15
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - name: Development dependencies
+        run: brew install xz e2fsprogs
+      - name: Swift fixtures (no physical media)
+        run: swift test --jobs 2
+      - name: Packaging fixtures
+        run: python3 -I -B -m unittest discover -s scripts/tests -v
+      - name: ext4 maintenance fixtures
+        run: python3 -I -B -m unittest discover -s maintenance/tests -p 'test_*.py' -v
+      - run: git diff --check

@@ -46,8 +46,10 @@ existante. Il exige la place de p2 plus une réserve de 1 GiB avant extraction.
    propriétaire, groupes, liens, attributs et hashes du contenu. Les fichiers
    privés sont hashés en flux, sans dump de contenu dans les logs ou stdout.
    Chaque valeur complète d’attribut étendu est lue dans un fichier temporaire
-   `0600`, hashée avec son nom et sa taille, puis supprimée ; la liste abrégée
-   de debugfs ne sert jamais de preuve du contenu. Les liens symboliques et
+   `0600`, hashée avec son nom et sa taille, puis supprimée. La lecture utilise
+   `ea_get -r` pour garder l'encodage brut des ACL POSIX : la conversion Linux
+   par défaut peut produire une taille différente de celle annoncée par
+   `ea_list`. La liste abrégée ne sert jamais de preuve du contenu. Les liens symboliques et
    les devices ext4 ne sont jamais suivis ou ouverts.
 5. Vérifier tous les fichiers du manifeste b75, sauf le hash global du
    `RECORD` installé qui peut contenir des extras locaux. Vérifier les trois

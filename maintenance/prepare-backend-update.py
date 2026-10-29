@@ -334,7 +334,9 @@ class Ext4:
                 require(not any(c in str(output) for c in '\x00\n\r"\\'), 'Unsafe private attribute output path')
                 # ea_list truncates or hides long values. Fetch the complete raw
                 # value into a private file instead; never log or print it.
-                self.command('ea_get -f "{}" <{}> {}'.format(output, inode, name))
+                # Raw mode keeps POSIX ACLs in the same on-disk encoding and
+                # length reported by ea_list, rather than translating them.
+                self.command('ea_get -r -f "{}" <{}> {}'.format(output, inode, name))
                 info = output.lstat()
                 require(stat.S_ISREG(info.st_mode) and info.st_uid == os.getuid() and info.st_nlink == 1 and
                         stat.S_IMODE(info.st_mode) == 0o600 and info.st_size == size,
