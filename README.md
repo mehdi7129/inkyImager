@@ -9,6 +9,11 @@ QR scanné sur l’iPhone → photo affichée sur le cadre**.
 
 ## Utiliser l’app
 
+Prévoir environ **6 Go libres sur le Mac** pour le téléchargement, l’app et la
+préparation. Le fichier RAW temporaire est créé dans le cache privé du Mac ;
+l’app exige sa taille (environ 3,06 Go) plus 1 Gio de réserve avant de commencer.
+
+
 1. Saisir le nom et le mot de passe du Wi-Fi **2,4 GHz**.
 2. Insérer la SD, sélectionner la carte puis cliquer sur **Flasher la carte**.
    Cette installation neuve efface la carte sélectionnée.
@@ -31,7 +36,7 @@ photos, accès, identité et Wi-Fi. Le partage QR entre deux iPhone a fonctionn�
 du premier coup ; Mehdi rapporte ensuite plusieurs jours sans bug avec Inky
 Studio. Ce retour utilisateur concerne cette installation existante.
 
-Une **candidate locale inkyImager 0.1.2 (3)** est en préparation avec une image
+Une **candidate locale inkyImager 0.1.2 (3)** a été assemblée avec une image
 générique vierge intégrant directement ce service. Elle réutilise le parcours
 Wi-Fi sur le Mac puis QR sur l'iPhone. Les artefacts préparés ne constituent
 pas encore un téléchargement public signé et notarisé, ni une nouvelle
@@ -98,12 +103,13 @@ la décompression, les erreurs système et les plages d’écriture. Le test FAT
 optionnel nécessite `INKY_IMAGER_FAT_FIXTURE` pointant vers une image régulière
 de test ; il ne doit jamais cibler un périphérique.
 
-Au nouveau chemin du dépôt, la suite Swift compte **30 tests réussis** et un
-test FAT optionnel non exécuté. Les **14 tests natifs de maintenance** en font
-partie. Les **12 tests de l’éditeur ext4** passent
-sur fixtures, dont de vraies images ext4 de 32 MiB. Ces derniers utilisent les
-outils e2fsprogs épinglés décrits dans le [guide de maintenance](maintenance/README.md).
-Ils ne constituent pas une mise à jour déjà effectuée sur le cadre.
+La recette locale du 29 octobre couvre **31 tests Swift réussis**, dont les
+**14 tests natifs de maintenance** et le test FAT avec une véritable image
+synthétique. Les **7 tests de packaging** vérifient les archives XZ et l'accord
+explicite nécessaire avant une demande d'horodatage Apple. Les tests de
+l'éditeur ext4 sont distincts et utilisent les outils e2fsprogs décrits dans le
+[guide de maintenance](maintenance/README.md). Les fixtures ne constituent pas
+un essai sur une carte physique ni une qualification de tous les matériels.
 
 ## Maintenance d’une carte existante
 
