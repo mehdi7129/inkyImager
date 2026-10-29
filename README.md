@@ -23,22 +23,27 @@ Le Pi l’importe au premier démarrage puis supprime le fichier transitoire de 
 partition de démarrage. Aucun mot de passe Wi-Fi n’est placé dans les arguments
 de commande ou les journaux.
 
-## État au 23 octobre 2026
+## État au 29 octobre 2026
 
-La version locale **0.1.1** a permis le flash, le démarrage jusqu’au QR et le
-parcours photo avec Inky Studio iOS 16, confirmés sur le cadre de test.
-Le profil initial vise **macOS 14+ sur Apple Silicon**, le **Pi Zero 2 W**,
-la France et un réseau **WPA2 sur 2,4 GHz**. Les autres matériels et profils
-réseau ne sont pas qualifiés par cet essai.
+Le cadre de référence de Mehdi a reçu le service de partage
+`716104b130d34d1973001e78f15e25989d4c2e76` par une maintenance conservant les
+photos, accès, identité et Wi-Fi. Le partage QR entre deux iPhone a fonctionné
+du premier coup ; Mehdi rapporte ensuite plusieurs jours sans bug avec Inky
+Studio. Ce retour utilisateur concerne cette installation existante.
 
-Inky Studio iOS **17** est distribué en interne sur TestFlight. Le partage
-d’accès PHOTOS par QR entre iPhone exige aussi la mise à jour du service du
-cadre : le backend installé reste `b75bf1e7…` et le candidat `716104b1…` est
-préparé, **pas encore appliqué à la SD de test**.
+Une **candidate locale inkyImager 0.1.2 (3)** est en préparation avec une image
+générique vierge intégrant directement ce service. Elle réutilise le parcours
+Wi-Fi sur le Mac puis QR sur l'iPhone. Les artefacts préparés ne constituent
+pas encore un téléchargement public signé et notarisé, ni une nouvelle
+qualification physique de toutes les installations.
 
-Ce dépôt publie les sources. L’app 0.1.1 a été assemblée et signée localement ;
-la distribution publique d’un binaire notarisé reste à préparer. L’image OS et
-son manifeste sont fournis au packaging, sans être stockés dans Git.
+Le périmètre reste **macOS 14+ sur Apple Silicon**, le **Pi Zero 2 W**, le profil
+**Inky Impression 7,3 pouces / 800 × 480 / AC073**, la France et un réseau
+**WPA2 sur 2,4 GHz**. Ne pas extrapoler ce résultat aux autres dalles ou réseaux.
+
+Le dépôt publie les sources. La signature Developer ID avec horodatage Apple,
+la notarisation, le stapling et la publication sont des étapes de livraison
+séparées. Le packaging par défaut reste local et ad-hoc, sans appel Apple.
 
 ## Compiler
 
@@ -53,13 +58,31 @@ swift build -c release
 python3 scripts/build-app.py \
   --image /chemin/InkyOS.img.xz \
   --manifest /chemin/InkyOS.json \
-  --destination /chemin/de/sortie/inkyImager.app
+  --destination /chemin/de/sortie/inkyImager.app \
+  --scratch-path /chemin/de/build/sur/disque/externe \
+  --app-version 0.1.2 --build-number 3
 ```
 
 L’image générique et son manifeste vérifiés proviennent du
 [profil d’assemblage InkyOS](https://github.com/mehdi7129/inkyOS/tree/main/inkyImager/OS).
 Le script exige une destination neuve, vérifie les hashes, assemble l’app avec
 son image et appose une signature locale. Compiler ou packager ne flashe pas de SD.
+
+`--jobs` limite le nombre de compilations simultanées (2 par défaut). Les
+caches et fichiers temporaires du packaging sont placés sous `--scratch-path`.
+L'option `--sign-identity` prépare une signature Developer ID ; elle exige
+`--timestamp`, qui autorise explicitement l'appel au service d'horodatage
+Apple. Aucune notarisation ou publication n'est effectuée par ce script.
+
+Le [contrôleur du paquet](scripts/verify-app.py) vérifie la version, la signature,
+les liens système et la ressource XZ, puis décompresse celle-ci en mémoire par
+blocs pour comparer la taille et le SHA du RAW à un pin de release indépendant.
+Ses tests utilisent de vraies archives XZ synthétiques corrompues/tronquées :
+
+```sh
+python3 -I -B -m unittest discover -s scripts/tests -v
+```
+
 
 ## Tester
 
@@ -90,8 +113,8 @@ puis écriture de la seule partition système et relecture.
 Les outils sont `inkyMaintenance` et les scripts de [maintenance/](maintenance/).
 Ils sont destinés à une opération accompagnée ; les requêtes et pins sont
 établis depuis la carte réellement détectée. Consulter le
-[guide](maintenance/README.md) avant toute opération. La maintenance réelle du
-backend de partage reste en attente de la SD.
+[guide](maintenance/README.md) avant toute opération. La maintenance du cadre de référence a été effectuée le 25 octobre ;
+elle ne remplace pas une image générique distribuable pour un nouvel utilisateur.
 
 ## Écosystème
 
