@@ -186,13 +186,37 @@ class RecordTests(unittest.TestCase):
                 editor.update_record(raw, module)
 
 
+class ToolPinTests(unittest.TestCase):
+    def test_tool_hash_drift_is_refused(self):
+        # Ordinary synthetic files only: never replace or execute system tools.
+        with tempfile.TemporaryDirectory(prefix='inky-tool-pin-test-') as temporary:
+            debugfs = Path(temporary) / 'debugfs'
+            fsck = Path(temporary) / 'e2fsck'
+            for tool in (debugfs, fsck):
+                tool.write_bytes(b'reviewed fixture tool')
+            pins = {tool.name: hashlib.sha256(tool.read_bytes()).hexdigest() for tool in (debugfs, fsck)}
+            with patch.object(editor, 'DEBUGFS', debugfs), patch.object(editor, 'FSCK', fsck), \
+                    patch.dict(editor.TOOL_PINS, pins, clear=True):
+                editor.verify_tools()
+                debugfs.write_bytes(b'modified fixture tool')
+                with self.assertRaisesRegex(ValueError, 'Reviewed filesystem tool changed'):
+                    editor.verify_tools()
+
+
 @unittest.skipUnless(Path(MKE2FS).is_file() and editor.DEBUGFS.is_file() and editor.FSCK.is_file(),
-                     'Reviewed local e2fsprogs tools required for regular-file fixtures')
+                     'e2fsprogs tools required for regular-file fixtures')
 class Ext4Tests(unittest.TestCase):
     def setUp(self):
         self.temp = tempfile.TemporaryDirectory(prefix='inky-maintenance-test-', dir='/private/tmp')
         self.addCleanup(self.temp.cleanup)
         self.root = Path(self.temp.name)
+        # CI Homebrew bottles differ from the accompanied physical-maintenance
+        # tool pins. Bind only this synthetic regular-file fixture to the tools
+        # present in the test process; production TOOL_PINS stay unchanged.
+        fixture_pins = {tool.name: hashlib.sha256(tool.read_bytes()).hexdigest() for tool in (editor.DEBUGFS, editor.FSCK)}
+        pins = patch.dict(editor.TOOL_PINS, fixture_pins, clear=True)
+        pins.start()
+        self.addCleanup(pins.stop)
         self.fixture = Fixture(self.root)
 
     def test_full_prepare_preserves_source_and_user_state(self):

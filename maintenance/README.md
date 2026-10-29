@@ -120,3 +120,11 @@ la conservation de fichiers/permissions/liens/devices, les attributs étendus
 longs de 64/128 octets et leurs falsifications de même longueur, les mauvais hashes,
 les chemins hors périmètre et la détection d’une corruption volontaire d’un
 fichier protégé. Aucun Pi, SD, Bluetooth, Wi-Fi ou backend cible n’est utilisé.
+
+## Tests sur les runners CI
+
+Les fixtures utilisent uniquement des fichiers ext4 synthétiques. Dans le
+processus de test, leurs pins sont liés aux outils e2fsprogs installés par le
+runner ; les hashes binaires de la maintenance physique accompagnée restent
+strictement inchangés dans le code de production. Un test séparé vérifie
+qu’un fichier outil modifié après fixation de son hash est refusé.
