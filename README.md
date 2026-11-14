@@ -11,9 +11,9 @@ QR scanné sur l’iPhone → photo affichée sur le cadre**.
 
 ## Télécharger
 
-**[Télécharger inkyImager 0.1.2 pour Mac Apple Silicon](https://github.com/mehdi7129/inkyImager/releases/download/v0.1.2/inkyImager-0.1.2-NOTARIZED.zip)**
+**[Télécharger inkyImager 0.1.3 Universal pour Mac Intel et Apple Silicon](https://github.com/mehdi7129/inkyImager/releases/download/v0.1.3/inkyImager-0.1.3-UNIVERSAL-NOTARIZED.zip)**
 
-macOS **14 ou ultérieur**, Apple Silicon uniquement. Décompresser le ZIP,
+macOS **14 ou ultérieur**, Mac **Intel et Apple Silicon** (Universal `x86_64` + `arm64`). Décompresser le ZIP,
 puis déplacer **inkyImager.app** dans Applications. L’app est signée Developer
 ID, notarisée par Apple et contient son ticket agrafé. Aucun compte Apple de
 développement, Python ou Homebrew n’est nécessaire pour l’utiliser.
@@ -42,7 +42,15 @@ Le Pi l’importe au premier démarrage puis supprime le fichier transitoire de 
 partition de démarrage. Aucun mot de passe Wi-Fi n’est placé dans les arguments
 de commande ou les journaux.
 
-## État au 29 octobre 2026
+## Version Universal — 14 novembre 2026
+
+**inkyImager 0.1.3 (4)** contient les architectures `arm64` et `x86_64` dans
+l’app et son helper. L’image InkyOS embarquée reste identique à celle de 0.1.2.
+Les tests Swift natifs couvrent Apple Silicon et Intel dans GitHub Actions.
+La compatibilité annoncée commence à macOS 14 ; aucun essai de flash sur un
+Mac Intel physique n’est revendiqué.
+
+## Validation du cadre et de l’image — 29 octobre 2026
 
 Le cadre de référence de Mehdi a reçu le service de partage
 `716104b130d34d1973001e78f15e25989d4c2e76` par une maintenance conservant les
@@ -67,8 +75,9 @@ et les [informations de distribution](docs/DISTRIBUTION.md).
 ## Compiler
 
 Prérequis de développement : Xcode avec Swift 6, Python 3.9+ pour le packaging,
-et les en-têtes liblzma de `xz`. Leur chemin Apple Silicon est actuellement
-fixé à `/opt/homebrew/opt/xz/include` dans [Package.swift](Package.swift).
+et les en-têtes liblzma de `xz` (`brew install xz`). [Package.swift](Package.swift)
+les détecte dans `/opt/homebrew/opt/xz/include` ou `/usr/local/opt/xz/include`.
+Pour une installation personnalisée, définir `INKY_XZ_INCLUDE`.
 Les exécutables produits utilisent la liblzma système de macOS.
 
 ```sh
@@ -79,8 +88,12 @@ python3 scripts/build-app.py \
   --manifest /chemin/InkyOS.json \
   --destination /chemin/de/sortie/inkyImager.app \
   --scratch-path /chemin/de/build/sur/disque/externe \
-  --app-version 0.1.2 --build-number 3
+  --app-version 0.1.3 --build-number 4
 ```
+
+Le packaging compile explicitement `arm64` et `x86_64`, puis assemble les deux
+architectures avec `lipo` pour l’app et son helper avant signature. Un simple
+`swift build` reste natif pour le Mac de développement.
 
 L’image générique et son manifeste vérifiés proviennent du
 [profil d’assemblage InkyOS](https://github.com/mehdi7129/inkyOS/tree/main/inkyImager/OS).
@@ -96,7 +109,7 @@ L'option `--sign-identity` prépare une signature Developer ID ; elle exige
 Apple. Aucune notarisation ou publication n'est effectuée par ce script.
 
 Le [contrôleur du paquet](scripts/verify-app.py) vérifie la version, la signature,
-les liens système et la ressource XZ, puis décompresse celle-ci en mémoire par
+les deux architectures de chaque exécutable, les liens système et la ressource XZ, puis décompresse celle-ci en mémoire par
 blocs pour comparer la taille et le SHA du RAW à un pin de release indépendant.
 Ses tests utilisent de vraies archives XZ synthétiques corrompues/tronquées :
 

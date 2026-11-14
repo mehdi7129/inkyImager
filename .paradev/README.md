@@ -1,9 +1,11 @@
 # Workspaces Paradev
 
-Le setup cible le profil actuel du projet : macOS 14+ sur Apple Silicon,
+Le setup cible macOS 14+ sur Apple Silicon ou Intel,
 Xcode avec Swift 6+ et Python 3.9+. Il vérifie les prérequis, installe `xz`
 via Homebrew si ses headers sont absents, puis lance `swift package resolve`.
-Homebrew doit être installé dans `/opt/homebrew` si cette installation est nécessaire.
+Les headers sont détectés dans `/opt/homebrew/opt/xz/include` (Apple Silicon)
+ou `/usr/local/opt/xz/include` (Intel). Un chemin personnalisé peut être fourni
+avec `INKY_XZ_INCLUDE`.
 Les compilations restent à la demande : `swift build` et `swift test`.
 
 Le projet n'a ni dev server, ni base de données, ni conteneur à lancer :

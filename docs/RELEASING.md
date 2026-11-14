@@ -2,8 +2,8 @@
 
 1. Épingler le code OS, le backend et les hashes RAW/XZ de l’image générique ; ne jamais distribuer une copie de SD personnalisée.
 2. Exécuter les tests Swift, packaging et, si modifiée, la maintenance ext4 sur fixtures régulières.
-3. Utiliser `scripts/build-app.py` avec une destination neuve, version/build explicites et scratch disposant de place. Le mode par défaut est ad hoc et offline.
-4. Vérifier le bundle avec `scripts/verify-app.py`, avec le hash RAW et les commits OS/backend sélectionnés indépendamment du bundle.
+3. Utiliser `scripts/build-app.py` avec une destination neuve, version/build explicites et scratch disposant de place. Le script produit toujours une app Universal : chaque exécutable doit contenir `arm64` et `x86_64`. Le mode de signature par défaut est ad hoc et offline.
+4. Vérifier le bundle avec `scripts/verify-app.py`, avec le hash RAW et les commits OS/backend sélectionnés indépendamment du bundle. Le contrôleur exige les deux architectures dans l’app et le helper et examine leurs liens dynamiques.
 5. Pour la distribution, signer l’exécutable helper puis l’app avec Developer ID, hardened runtime et timestamp. Utiliser uniquement l’identité et le profil de notarisation du propriétaire.
 6. Soumettre un ZIP à `notarytool`, attendre `Accepted`, agrafer le ticket sur l’app et vérifier avec `stapler validate`, `codesign --verify --deep --strict` et `spctl --assess --type execute`.
 7. Recréer un ZIP **après** stapling. Extraire cette archive, comparer les fichiers/permissions et revérifier signature, ticket et Gatekeeper.

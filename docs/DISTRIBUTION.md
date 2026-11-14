@@ -1,6 +1,8 @@
 # Distribution et composants
 
-Le ZIP officiel contient l’app macOS et une image générique InkyOS compressée.
+Depuis 0.1.3, le ZIP officiel contient l’app macOS Universal (Intel `x86_64` et
+Apple Silicon `arm64`, macOS 14+) et une image générique InkyOS compressée.
+Le helper embarqué contient lui aussi les deux architectures.
 L’app utilise les bibliothèques système de macOS, dont liblzma. Les en-têtes
 xz nécessaires à la compilation ne sont pas une dépendance à installer pour
 utiliser le ZIP.

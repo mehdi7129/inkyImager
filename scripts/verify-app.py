@@ -44,6 +44,18 @@ def inspect_image(path, manifest, expected_raw_sha256):
             'compressed_sha256': manifest['compressedSHA256']}
 
 
+def inspect_executable(binary):
+    require(binary.is_file() and not binary.is_symlink() and os.access(binary, os.X_OK),
+            'Missing ordinary executable')
+    architectures = subprocess.check_output(['/usr/bin/lipo', '-archs', str(binary)], text=True).split()
+    require(set(architectures) == {'arm64', 'x86_64'},
+            'Universal arm64/x86_64 executable required: ' + binary.name)
+    linked = subprocess.check_output(['/usr/bin/otool', '-arch', 'all', '-L', str(binary)], text=True)
+    require('/opt/homebrew/' not in linked and '/usr/local/' not in linked,
+            'Executable requires a developer-only dynamic library')
+    return sorted(architectures)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--app', type=Path, required=True)
@@ -64,11 +76,7 @@ def main():
     require(bool(info['NSRemovableVolumesUsageDescription']), 'Removable-volume purpose is absent')
     for name in ('inkyImager', 'inkyImagerHelper'):
         binary = contents / 'MacOS' / name
-        require(binary.is_file() and not binary.is_symlink() and os.access(binary, os.X_OK),
-                'Missing ordinary executable')
-        linked = subprocess.check_output(['/usr/bin/otool', '-L', str(binary)], text=True)
-        require('/opt/homebrew/' not in linked and '/usr/local/' not in linked,
-                'Executable requires a developer-only dynamic library')
+        inspect_executable(binary)
     subprocess.run(['/usr/bin/codesign', '--verify', '--deep', '--strict', str(app)], check=True)
     resources = contents / 'Resources'
     manifest = json.loads((resources / 'InkyOS.json').read_text())
@@ -79,7 +87,7 @@ def main():
     result = inspect_image(resources / 'InkyOS.img.xz', manifest, args.raw_sha256)
     print(json.dumps({'status': 'PASS', 'app_version': args.app_version, 'build_number': args.build_number,
                       'studio_commit': args.studio_commit, 'os_commit': args.os_commit, **result,
-                      'signature_verified': True, 'app_launched': False, 'SD_accessed': False,
+                      'architectures': ['arm64', 'x86_64'], 'signature_verified': True, 'app_launched': False, 'SD_accessed': False,
                       'notarization_or_Gatekeeper_approval_claimed': False}, sort_keys=True))
 
 

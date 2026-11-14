@@ -34,8 +34,8 @@ def main():
     parser.add_argument('--destination', type=Path, default=Path.home() / 'Applications/inkyImager.app')
     parser.add_argument('--scratch-path', type=Path, default=Path.home() / 'Library/Caches/inkyImager-build')
     parser.add_argument('--jobs', type=int, default=2, help='Limit compiler concurrency on the build Mac.')
-    parser.add_argument('--app-version', default='0.1.2')
-    parser.add_argument('--build-number', default='3')
+    parser.add_argument('--app-version', default='0.1.3')
+    parser.add_argument('--build-number', default='4')
     parser.add_argument('--sign-identity', default='-', help='Default: local ad-hoc signature.')
     parser.add_argument('--timestamp', action='store_true',
                         help='Explicitly permit Apple timestamp requests for Developer ID signing.')
@@ -62,12 +62,17 @@ def main():
     temporary = scratch / 'tmp'
     temporary.mkdir(mode=0o700, exist_ok=True)
     environment = dict(os.environ, TMPDIR=str(temporary))
-    command = ['swift', 'build', '--scratch-path', str(scratch),
-               '--cache-path', str(scratch / 'shared-cache'), '--config-path', str(scratch / 'config'),
-               '--security-path', str(scratch / 'security'), '--manifest-cache', 'local',
-               '--jobs', str(args.jobs), '-c', 'release']
-    subprocess.run(command, cwd=ROOT, env=environment, check=True)
-    products = Path(subprocess.check_output(command + ['--show-bin-path'], cwd=ROOT, env=environment).decode().strip())
+    # Build each slice explicitly: never let the build host choose the release architecture.
+    products = {}
+    for architecture in ('arm64', 'x86_64'):
+        command = ['swift', 'build', '--arch', architecture,
+                   '--scratch-path', str(scratch / architecture),
+                   '--cache-path', str(scratch / 'shared-cache'), '--config-path', str(scratch / 'config'),
+                   '--security-path', str(scratch / 'security'), '--manifest-cache', 'local',
+                   '--jobs', str(args.jobs), '-c', 'release']
+        subprocess.run(command, cwd=ROOT, env=environment, check=True)
+        products[architecture] = Path(subprocess.check_output(
+            command + ['--show-bin-path'], cwd=ROOT, env=environment, text=True).strip())
     destination.parent.mkdir(parents=True, exist_ok=True)
     contents = destination / 'Contents'
     macos = contents / 'MacOS'
@@ -75,9 +80,14 @@ def main():
     macos.mkdir(parents=True)
     resources.mkdir()
     for executable in ('inkyImager', 'inkyImagerHelper'):
-        shutil.copyfile(products / executable, macos / executable)
+        subprocess.run(['/usr/bin/lipo', '-create',
+                        *[str(products[arch] / executable) for arch in ('arm64', 'x86_64')],
+                        '-output', str(macos / executable)], check=True)
+        architectures = subprocess.check_output(
+            ['/usr/bin/lipo', '-archs', str(macos / executable)], text=True).split()
+        require(set(architectures) == {'arm64', 'x86_64'}, 'Universal arm64/x86_64 executable required')
         (macos / executable).chmod(0o755)
-        linked = subprocess.check_output(['/usr/bin/otool', '-L', str(macos / executable)]).decode()
+        linked = subprocess.check_output(['/usr/bin/otool', '-arch', 'all', '-L', str(macos / executable)]).decode()
         require('/opt/homebrew/' not in linked and '/usr/local/' not in linked, 'Developer-only dynamic dependency')
     # APFS clone avoids another physical copy of the large image on the development Mac.
     target_image = resources / 'InkyOS.img.xz'
@@ -113,6 +123,7 @@ def main():
     print(json.dumps({'app': str(destination), 'image_sha256': manifest['imageSHA256'],
                       'compressed_sha256': manifest['compressedSHA256'], 'signed_local': True,
                       'app_version': args.app_version, 'build_number': args.build_number,
+                      'architectures': ['arm64', 'x86_64'],
                       'signature_kind': 'ad_hoc' if args.sign_identity == '-' else 'developer_id',
                       'timestamped': args.timestamp, 'notarized': False, 'sd_written': False}, sort_keys=True))
 

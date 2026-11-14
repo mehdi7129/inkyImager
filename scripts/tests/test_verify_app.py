@@ -4,6 +4,7 @@ import lzma
 from pathlib import Path
 import tempfile
 import unittest
+from unittest.mock import patch
 
 SPEC = importlib.util.spec_from_file_location('verify_app', Path(__file__).parents[1] / 'verify-app.py')
 verifier = importlib.util.module_from_spec(SPEC)
@@ -50,6 +51,38 @@ class ImageArtifactTests(unittest.TestCase):
         self.manifest['compressedSHA256'] = verifier.digest(self.image)
         with self.assertRaises((EOFError, lzma.LZMAError)):
             verifier.inspect_image(self.image, self.manifest, self.pin)
+
+
+class UniversalExecutableTests(unittest.TestCase):
+    def setUp(self):
+        self.temp = tempfile.TemporaryDirectory()
+        self.addCleanup(self.temp.cleanup)
+        self.binary = Path(self.temp.name) / 'inkyImagerHelper'
+        self.binary.write_bytes(b'synthetic executable fixture')
+        self.binary.chmod(0o755)
+
+    def test_thin_helper_is_refused_even_if_the_main_app_is_universal(self):
+        for architecture in ('arm64', 'x86_64'):
+            with self.subTest(architecture=architecture):
+                with patch.object(verifier.subprocess, 'check_output', return_value=architecture):
+                    with self.assertRaisesRegex(ValueError, 'Universal arm64/x86_64'):
+                        verifier.inspect_executable(self.binary)
+
+    def test_homebrew_dependency_in_either_slice_is_refused(self):
+        for prefix in ('/opt/homebrew/', '/usr/local/'):
+            with self.subTest(prefix=prefix):
+                with patch.object(verifier.subprocess, 'check_output', side_effect=[
+                    'x86_64 arm64', 'system libraries\n' + prefix + 'lib/liblzma.dylib'
+                ]):
+                    with self.assertRaisesRegex(ValueError, 'developer-only'):
+                        verifier.inspect_executable(self.binary)
+
+    def test_system_linked_universal_binary_is_accepted(self):
+        with patch.object(verifier.subprocess, 'check_output', side_effect=[
+            'x86_64 arm64', '/usr/lib/liblzma.5.dylib'
+        ]) as output:
+            self.assertEqual(verifier.inspect_executable(self.binary), ['arm64', 'x86_64'])
+            self.assertEqual(output.call_args.args[0][1:4], ['-arch', 'all', '-L'])
 
 
 if __name__ == '__main__':
