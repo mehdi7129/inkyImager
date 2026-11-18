@@ -11,14 +11,14 @@ QR scanné sur l’iPhone → photo affichée sur le cadre**.
 
 ## Télécharger
 
-**[Télécharger inkyImager 0.1.3 Universal pour Mac Intel et Apple Silicon](https://github.com/mehdi7129/inkyImager/releases/download/v0.1.3/inkyImager-0.1.3-UNIVERSAL-NOTARIZED.zip)**
+**[Télécharger le DMG inkyImager 0.1.3 Universal](https://github.com/mehdi7129/inkyImager/releases/download/v0.1.3/inkyImager-0.1.3-Universal.dmg)**
 
-macOS **14 ou ultérieur**, Mac **Intel et Apple Silicon** (Universal `x86_64` + `arm64`). Décompresser le ZIP,
-puis déplacer **inkyImager.app** dans Applications. L’app est signée Developer
-ID, notarisée par Apple et contient son ticket agrafé. Aucun compte Apple de
+macOS **14 ou ultérieur**, Mac **Intel et Apple Silicon** (Universal `x86_64` + `arm64`).
+Ouvrir le DMG, puis glisser **inkyImager.app** dans **Applications**. L’app et
+le DMG sont signés Developer ID et notarisés par Apple. Aucun compte Apple de
 développement, Python ou Homebrew n’est nécessaire pour l’utiliser.
 
-Le ZIP contient l’image [InkyOS 2026.10.29-rc1](https://github.com/mehdi7129/inkyOS/releases/tag/2026.10.29-rc1).
+L’app contient l’image [InkyOS 2026.10.29-rc1](https://github.com/mehdi7129/inkyOS/releases/tag/2026.10.29-rc1).
 Les hashes SHA-256 et la provenance sont joints à la release.
 
 ## Utiliser l’app

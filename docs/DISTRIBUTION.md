@@ -1,11 +1,12 @@
 # Distribution et composants
 
-Depuis 0.1.3, le ZIP officiel contient l’app macOS Universal (Intel `x86_64` et
-Apple Silicon `arm64`, macOS 14+) et une image générique InkyOS compressée.
+Le DMG officiel contient l’app macOS Universal (Intel `x86_64` et
+Apple Silicon `arm64`, macOS 14+) et un raccourci vers Applications.
+L’app embarque une image générique InkyOS compressée.
 Le helper embarqué contient lui aussi les deux architectures.
 L’app utilise les bibliothèques système de macOS, dont liblzma. Les en-têtes
 xz nécessaires à la compilation ne sont pas une dépendance à installer pour
-utiliser le ZIP.
+utiliser l’app.
 
 L’image contient Raspberry Pi OS, ses paquets et Inky Studio. Les notices des
 paquets sont conservées dans `/usr/share/doc` de l’image ; chaque composant
