@@ -11,15 +11,32 @@ QR scanné sur l’iPhone → photo affichée sur le cadre**.
 
 ## Télécharger
 
-**[Télécharger le DMG inkyImager 0.1.3 Universal](https://github.com/mehdi7129/inkyImager/releases/download/v0.1.3/inkyImager-0.1.3-Universal.dmg)**
+**[Télécharger le DMG inkyImager 0.1.4 Universal](https://github.com/mehdi7129/inkyImager/releases/download/v0.1.4/inkyImager-0.1.4-Universal.dmg)**
 
 macOS **14 ou ultérieur**, Mac **Intel et Apple Silicon** (Universal `x86_64` + `arm64`).
 Ouvrir le DMG, puis glisser **inkyImager.app** dans **Applications**. L’app et
 le DMG sont signés Developer ID et notarisés par Apple. Aucun compte Apple de
 développement, Python ou Homebrew n’est nécessaire pour l’utiliser.
 
-L’app contient l’image [InkyOS 2026.10.29-rc1](https://github.com/mehdi7129/inkyOS/releases/tag/2026.10.29-rc1).
+L’app contient l’image [InkyOS 2026.11.20-rc2](https://github.com/mehdi7129/inkyOS/releases/tag/2026.11.20-rc2).
 Les hashes SHA-256 et la provenance sont joints à la release.
+
+Le bouton **Mise à jour** vérifie la dernière version stable sur GitHub et
+ouvre le téléchargement du DMG. Pour l’installer, remplacer l’app dans
+Applications. Le bouton est indisponible pendant une opération SD.
+
+## Écrans Raspberry Pi
+
+InkyOS détecte l’écran via son EEPROM au premier démarrage. Les tests logiciels
+couvrent les anciennes Impression 4″, 5,7″ et 7,3″, les Spectra 6 4″, 7,3″ et
+13,3″, ainsi que les wHAT et pHAT. Les tests incluent les Spectra 7,3″ et 13,3″
+en révisions AC et non AC. Cette image reste candidate. Le premier démarrage
+et la lecture du QR sur les nouveaux écrans restent à confirmer sur matériel.
+
+Sur pHAT, approcher l’iPhone et faire la mise au point sur le QR. Les
+anciennes cartes sans EEPROM exploitable demandent une configuration
+spécifique. Les Inky Frame à Pico intégré utilisent leur propre firmware UF2.
+Voir la [matrice de compatibilité](https://github.com/mehdi7129/inkyOS/blob/main/docs/DISPLAY-COMPATIBILITY.md).
 
 ## Utiliser l’app
 
@@ -63,11 +80,9 @@ partage QR. La signature, l’horodatage, la notarisation, le ticket agrafé et
 Gatekeeper ont été vérifiés, y compris après extraction du ZIP. L’interface
 signée a été ouverte et contrôlée sans lancer de flash.
 
-Le périmètre reste **macOS 14+ sur Apple Silicon**, **Pi Zero 2 W**, profil
-**Inky Impression 7,3 pouces / 800 × 480 / AC073**, France et réseau
-**WPA2 sur 2,4 GHz**. L’image embarquée est une **release candidate** : son
-premier démarrage sur une nouvelle carte n’a pas encore été observé. Les
-retours d’usage du cadre existant et les tests logiciels restent distincts.
+La configuration physique essayée en octobre est un **Pi Zero 2 W** avec
+**Inky Impression 7,3 pouces / 800 × 480 / AC073**, en France, sur un réseau
+**WPA2 à 2,4 GHz**.
 
 Consulter le [changelog](CHANGELOG.md), le [guide de release](docs/RELEASING.md)
 et les [informations de distribution](docs/DISTRIBUTION.md).
@@ -88,7 +103,7 @@ python3 scripts/build-app.py \
   --manifest /chemin/InkyOS.json \
   --destination /chemin/de/sortie/inkyImager.app \
   --scratch-path /chemin/de/build/sur/disque/externe \
-  --app-version 0.1.3 --build-number 4
+  --app-version 0.1.4 --build-number 5
 ```
 
 Le packaging compile explicitement `arm64` et `x86_64`, puis assemble les deux

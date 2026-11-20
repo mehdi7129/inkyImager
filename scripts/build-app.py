@@ -34,8 +34,8 @@ def main():
     parser.add_argument('--destination', type=Path, default=Path.home() / 'Applications/inkyImager.app')
     parser.add_argument('--scratch-path', type=Path, default=Path.home() / 'Library/Caches/inkyImager-build')
     parser.add_argument('--jobs', type=int, default=2, help='Limit compiler concurrency on the build Mac.')
-    parser.add_argument('--app-version', default='0.1.3')
-    parser.add_argument('--build-number', default='4')
+    parser.add_argument('--app-version', default='0.1.4')
+    parser.add_argument('--build-number', default='5')
     parser.add_argument('--sign-identity', default='-', help='Default: local ad-hoc signature.')
     parser.add_argument('--timestamp', action='store_true',
                         help='Explicitly permit Apple timestamp requests for Developer ID signing.')

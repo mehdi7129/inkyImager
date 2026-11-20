@@ -7,6 +7,6 @@
 5. Pour la distribution, signer l’exécutable helper puis l’app avec Developer ID, hardened runtime et timestamp. Utiliser uniquement l’identité et le profil de notarisation du propriétaire.
 6. Créer un dossier contenant `inkyImager.app` et un lien symbolique `Applications` vers `/Applications`. Créer le DMG en lecture seule avec `hdiutil create -srcfolder <dossier> -format UDZO <fichier.dmg>`. Signer le DMG avec Developer ID et un horodatage.
 7. Soumettre le DMG à `notarytool`, attendre `Accepted`, agrafer le ticket et vérifier la signature et le ticket du DMG. Monter le DMG en lecture seule, comparer les fichiers et permissions de l’app, puis vérifier sa signature avec `codesign --verify --deep --strict` et `spctl --assess --type execute`.
-8. Mettre à jour le README et le changelog. Publier le tag, le DMG agrafé, son SHA-256 et sa provenance. Indiquer le commit compilé si les sources de la release contiennent des changements documentaires ultérieurs.
+8. Mettre à jour le README et le changelog. Publier le tag, le DMG agrafé, son SHA-256 et sa provenance. Pour que le bouton **Mise à jour** trouve une release stable, nommer le tag `v<version>` et le DMG `inkyImager-<version>-Universal.dmg`. Indiquer le commit compilé si les sources contiennent des changements documentaires ultérieurs.
 
 La CI teste le code mais ne signe, ne notarise, ne publie et ne flashe rien. Les credentials de signature ne sont pas requis dans GitHub Actions.

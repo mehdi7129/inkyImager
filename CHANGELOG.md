@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.1.4 — 2026-11-20
+
+- Bouton **Mise à jour** pour vérifier GitHub et télécharger le DMG stable Universal, hors opération SD.
+- Image InkyOS 2026.11.20-rc2 avec détection des Impression, Spectra 6, pHAT et wHAT équipés d’une EEPROM prise en charge.
+- Écran d’accueil adapté aux petits panneaux, au même format QR PHOTO qu’avant pour Inky Studio.
+
+Les nouveaux écrans et leur lecture du QR ont été évalués en logiciel. La lecture optique et le premier démarrage physique restent à qualifier.
+
 ## 0.1.3 — 2026-11-14
 
 - App et helper Universal : compilation explicite pour Intel (`x86_64`) et Apple Silicon (`arm64`), puis assemblage avant signature.
