@@ -4,7 +4,10 @@ import ImagerCore
 @MainActor
 struct ImagerView: View {
     @ObservedObject var model: ImagerModel
+    @Environment(\.openURL) private var openURL
     @State private var passwordVisible = false
+    @State private var checkingForUpdates = false
+    @State private var updateFeedback: UpdateFeedback?
 
     private let ink = Color(red: 0.10, green: 0.11, blue: 0.12)
     private let canvas = Color(red: 0.96, green: 0.96, blue: 0.95)
@@ -27,6 +30,10 @@ struct ImagerView: View {
         .tint(ink)
         .preferredColorScheme(.light)
         .frame(minWidth: 660, minHeight: 620)
+        .onChange(of: canCheckForUpdates) { _, canCheck in
+            if !canCheck { updateFeedback = nil }
+        }
+        .alert(item: $updateFeedback, content: updateAlert)
     }
 
     private var header: some View {
@@ -46,8 +53,83 @@ struct ImagerView: View {
                     .foregroundStyle(.secondary)
             }
             Spacer(minLength: 0)
+
+            Button(action: checkForUpdates) {
+                if checkingForUpdates {
+                    HStack(spacing: 8) {
+                        ProgressView().controlSize(.small)
+                        Text("Recherche…")
+                    }
+                } else {
+                    Label("Mise à jour", systemImage: "arrow.down.circle")
+                }
+            }
+            .disabled(checkingForUpdates || !canCheckForUpdates)
+            .help("Rechercher une mise à jour d’inkyImager")
+            .accessibilityLabel(checkingForUpdates ? "Recherche de mise à jour en cours" : "Rechercher une mise à jour d’inkyImager")
         }
         .padding(.bottom, 2)
+    }
+
+    private var canCheckForUpdates: Bool {
+        !model.isBusy && !model.ejectPending
+    }
+
+    private func checkForUpdates() {
+        guard canCheckForUpdates, !checkingForUpdates else { return }
+        checkingForUpdates = true
+        let version = Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as? String ?? ""
+        Task {
+            defer { checkingForUpdates = false }
+            let feedback: UpdateFeedback
+            do {
+                if let update = try await ImagerUpdateChecker.check(installedVersion: version) {
+                    feedback = .available(update)
+                } else {
+                    feedback = .upToDate
+                }
+            } catch is URLError {
+                feedback = .failed("Vérifiez votre connexion, puis réessayez.")
+            } catch {
+                feedback = .failed(error.localizedDescription)
+            }
+            guard canCheckForUpdates else { return }
+            updateFeedback = feedback
+        }
+    }
+
+    private func updateAlert(_ feedback: UpdateFeedback) -> Alert {
+        switch feedback {
+        case .available(let update):
+            return Alert(
+                title: Text("inkyImager \(update.version) est disponible"),
+                message: Text("Téléchargez le DMG, puis glissez inkyImager dans Applications."),
+                primaryButton: .default(Text("Télécharger le DMG")) {
+                    guard canCheckForUpdates else { return }
+                    openURL(update.downloadURL)
+                },
+                secondaryButton: .cancel(Text("Plus tard"))
+            )
+        case .upToDate:
+            return Alert(title: Text("inkyImager est à jour"), dismissButton: .default(Text("OK")))
+        case .failed(let message):
+            return Alert(title: Text("Impossible de vérifier la mise à jour"), message: Text(message),
+                         dismissButton: .default(Text("OK")))
+        }
+    }
+
+    private enum UpdateFeedback: Identifiable {
+        case available(ImagerUpdate)
+        case upToDate
+        case failed(String)
+
+        var id: String {
+            switch self {
+            case .available: return "available"
+            case .upToDate: return "upToDate"
+            case .failed: return "failed"
+            }
+        }
     }
 
     private var imageCard: some View {
