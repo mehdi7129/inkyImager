@@ -176,3 +176,10 @@ elle ne remplace pas une image générique distribuable pour un nouvel utilisate
 
 Les images, copies de SD, photos, identités, credentials et diagnostics réels
 restent hors du dépôt. Les fixtures sont synthétiques.
+
+## Licence
+
+Le code d’inkyImager est sous [licence MIT](LICENSE). Vous pouvez le forker,
+le modifier et redistribuer vos versions en conservant l’avis de licence.
+L’image [InkyOS](https://github.com/mehdi7129/inkyOS) embarquée et les
+logiciels qu’elle contient conservent leurs propres licences.
