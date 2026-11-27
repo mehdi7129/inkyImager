@@ -47,8 +47,11 @@ transitoire de la partition de démarrage.
 
 La détection repose sur l’EEPROM et le pilote Pimoroni `inky` 2.6.0. Les essais
 logiciels couvrent les Impression 4″, 5,7″ et 7,3″, les Spectra 6 4″, 7,3″ et
-13,3″, ainsi que les pHAT et wHAT. Le premier démarrage de cette image sur carte,
-le rafraîchissement e-paper et la lecture optique restent à vérifier sur matériel.
+13,3″, ainsi que les pHAT et wHAT.
+
+**Essai sur matériel avec la 0.1.5.** Le mainteneur a confirmé le bon
+fonctionnement de ses deux écrans Spectra, dont un grand format, et de son
+Inky Impression. Les références et révisions exactes restent à préciser.
 
 Les **Inky Frame à Pico intégré** suivent le parcours firmware UF2 de Pimoroni.
 Les anciens écrans sans EEPROM exploitable demandent une configuration spécifique.

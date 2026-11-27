@@ -9,7 +9,7 @@
 - InkyOS 2026.11.27-rc3 et backend PHOTO 0.5.0rc4. La capsule Wi-Fi est retirée après enregistrement durable. Le premier QR a une échéance fixe de cinq minutes.
 - Contrôle strict de la signature des deux architectures dans l’app et le helper. Distribution par DMG Universal pour macOS 14 et ultérieur.
 
-Validation logicielle locale : 49 tests Swift et 13 tests de packaging. Les essais de flash physique, de démarrage sur Raspberry Pi et de lecture optique du QR restent à effectuer sur cette version.
+Les 49 tests Swift et 13 tests de packaging ont réussi. Le mainteneur a ensuite confirmé le fonctionnement sur deux écrans Spectra, dont un grand format, et un Inky Impression.
 
 ## 0.1.4 — 2026-11-20
 
