@@ -4,6 +4,14 @@ import ImagerCore
 
 final class PersonalizationTests: XCTestCase {
     func testPrivateFATImageRoundTrip() throws {
+        try roundTrip(schemaVersion: 1, language: .fr)
+    }
+
+    func testPrivateFATImageRoundTripWithLanguage() throws {
+        try roundTrip(schemaVersion: 2, language: .zhHant)
+    }
+
+    private func roundTrip(schemaVersion: Int, language: ImagerLanguage) throws {
         guard let source = ProcessInfo.processInfo.environment["INKY_IMAGER_FAT_FIXTURE"] else {
             throw XCTSkip("Run explicitly with a regular image fixture; never a physical device.")
         }
@@ -18,7 +26,8 @@ final class PersonalizationTests: XCTestCase {
         let before = try ImageTools.sha256(url: original)
         _ = try ImagePreparation.execute("/bin/cp", ["-c", original.path, image.path])
         let wifi = WiFiConfiguration(ssid: "Cadre épreuve ;\\\"", password: "Only-fixture-1234!$", country: "FR")
-        try ImagePreparation.personalize(image: image, wifi: wifi, filename: "inky-imager.json")
+        try ImagePreparation.personalize(image: image, wifi: wifi, filename: "inky-imager.json",
+                                         personalizationSchemaVersion: schemaVersion, language: language)
         XCTAssertNotEqual(try ImageTools.sha256(url: image), before)
         XCTAssertEqual(try ImageTools.sha256(url: original), before)
         // A fresh read-only mount proves the JSON survived unmount/detach.
@@ -35,6 +44,8 @@ final class PersonalizationTests: XCTestCase {
         XCTAssertEqual(saved["ssid"], wifi.ssid)
         XCTAssertEqual(saved["password"], wifi.password)
         XCTAssertEqual(saved["country"], "FR")
+        XCTAssertEqual(value["schema_version"] as? Int, schemaVersion)
+        XCTAssertEqual(value["language"] as? String, schemaVersion == 2 ? language.rawValue : nil)
         _ = try ImagePreparation.execute("/usr/sbin/diskutil", ["unmount", whole + "s1"])
     }
 }

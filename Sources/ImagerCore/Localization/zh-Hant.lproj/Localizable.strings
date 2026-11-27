@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actualiser</key>
+	<string>重新整理</string>
+	<key>Afficher le mot de passe</key>
+	<string>顯示密碼</string>
+	<key>Aucune éjection en attente pour cette carte.</key>
+	<string>此卡片沒有待處理的退出操作。</string>
+	<key>Autorisez l’écriture de la carte dans la fenêtre macOS.</key>
+	<string>請在 macOS 對話框中允許寫入此卡片。</string>
+	<key>Branchez votre carte, puis cliquez sur Actualiser.</key>
+	<string>連接 SD 卡，然後按一下「重新整理」。</string>
+	<key>Carte SD</key>
+	<string>SD 卡</string>
+	<key>Carte SD à installer</key>
+	<string>安裝目標 SD 卡</string>
+	<key>Carte prête</key>
+	<string>卡片已就緒</string>
+	<key>Carte prête. Insérez-la dans le Pi éteint, puis allumez-le.</key>
+	<string>卡片已就緒。將它插入已關機的 Pi，然後開機。</string>
+	<key>Carte vérifiée</key>
+	<string>卡片已驗證</string>
+	<key>Carte vérifiée, éjection à terminer.</key>
+	<string>卡片已驗證，尚未退出。</string>
+	<key>Carte vérifiée. macOS retient encore son éjection.</key>
+	<string>卡片已驗證。macOS 仍阻止退出此卡片。</string>
+	<key>Carte vérifiée. Éjection…</key>
+	<string>卡片已驗證。正在退出…</string>
+	<key>Cette installation n’indique pas sa version. Installez la version publiée sur GitHub.</key>
+	<string>此安裝未標明版本。請安裝 GitHub 上推出的版本。</string>
+	<key>Cette version ne sait pas préparer la configuration de cette image InkyOS.</key>
+	<string>此版本無法為該 InkyOS 映像檔準備設定。</string>
+	<key>Chemin de travail invalide.</key>
+	<string>工作路徑無效。</string>
+	<key>Choisir une carte SD</key>
+	<string>選擇 SD 卡</string>
+	<key>Choisissez une carte entière, pas une partition.</key>
+	<string>請選擇整張卡片，而非分割區。</string>
+	<key>Configuration du Wi-Fi…</key>
+	<string>正在設定 Wi-Fi…</string>
+	<key>Données inattendues après l’image XZ.</key>
+	<string>XZ 映像檔之後出現未預期的資料。</string>
+	<key>Dossier de travail inaccessible.</key>
+	<string>無法存取工作資料夾。</string>
+	<key>Efface la carte choisie et installe InkyOS avec votre Wi-Fi.</key>
+	<string>清除所選卡片並安裝包含 Wi-Fi 設定的 InkyOS。</string>
+	<key>Flasher la carte</key>
+	<string>寫入 SD 卡</string>
+	<key>Format d’image non reconnu.</key>
+	<string>無法辨識映像檔格式。</string>
+	<key>Il faut au moins 4 Go libres pour préparer la carte.</key>
+	<string>準備卡片需要至少 4 GB 的可用空間。</string>
+	<key>Image intégrée</key>
+	<string>內建映像檔</string>
+	<key>Impossible de créer l’image temporaire.</key>
+	<string>無法建立暫存映像檔。</string>
+	<key>Impossible de protéger la progression.</key>
+	<string>無法保護進度檔案。</string>
+	<key>Impossible de protéger l’image temporaire.</key>
+	<string>無法保護暫存映像檔。</string>
+	<key>Impossible de préparer le Wi-Fi dans l’image.</key>
+	<string>無法在映像檔中準備 Wi-Fi。</string>
+	<key>Impossible de préparer le décodeur XZ.</key>
+	<string>無法初始化 XZ 解碼器。</string>
+	<key>Impossible de préparer une commande système.</key>
+	<string>無法準備系統指令。</string>
+	<key>Impossible de publier la progression.</key>
+	<string>無法發佈進度。</string>
+	<key>Impossible de relire la configuration Wi-Fi.</key>
+	<string>無法讀回 Wi-Fi 設定。</string>
+	<key>Impossible de relire l’image.</key>
+	<string>無法讀回映像檔。</string>
+	<key>Impossible de synchroniser la progression.</key>
+	<string>無法同步進度檔案。</string>
+	<key>Impossible de synchroniser l’image temporaire.</key>
+	<string>無法同步暫存映像檔。</string>
+	<key>Impossible de vérifier la mise à jour</key>
+	<string>無法檢查更新</string>
+	<key>Impossible d’enregistrer la progression.</key>
+	<string>無法儲存進度。</string>
+	<key>Impossible d’identifier le disque système du Mac.</key>
+	<string>無法識別 Mac 系統磁碟。</string>
+	<key>Impossible d’ouvrir l’image InkyOS.</key>
+	<string>無法開啟 InkyOS 映像檔。</string>
+	<key>Installation annulée.</key>
+	<string>安裝已取消。</string>
+	<key>Installation interrompue</key>
+	<string>安裝已中斷</string>
+	<key>Insérez une carte SD</key>
+	<string>插入 SD 卡</string>
+	<key>La carte a été retirée.</key>
+	<string>卡片已拔出。</string>
+	<key>La carte est vérifiée. Cliquez sur Éjecter pour terminer.</key>
+	<string>卡片已驗證。按一下「退出」即可完成。</string>
+	<key>La carte n’a pas confirmé la synchronisation.</key>
+	<string>此卡片未確認同步。</string>
+	<key>La carte n’est plus disponible.</key>
+	<string>此卡片已無法使用。</string>
+	<key>La carte sélectionnée a changé. Sélectionnez-la à nouveau.</key>
+	<string>所選卡片已變更。請重新選擇。</string>
+	<key>La configuration Wi-Fi est trop longue.</key>
+	<string>Wi-Fi 設定過長。</string>
+	<key>La fin de l’installation n’a pas pu être confirmée.</key>
+	<string>無法確認安裝是否完成。</string>
+	<key>La lecture s’est interrompue avant la fin de l’image.</key>
+	<string>讀取在映像檔結束前中斷。</string>
+	<key>La partition de démarrage InkyOS n’a pas été trouvée.</key>
+	<string>找不到 InkyOS 開機分割區。</string>
+	<key>La progression est inaccessible.</key>
+	<string>無法存取進度。</string>
+	<key>La préparation est encore utilisée par macOS.</key>
+	<string>macOS 仍在使用暫存映像檔。</string>
+	<key>La relecture ne correspond pas à l’image. Laissez la carte branchée.</key>
+	<string>讀回的資料與映像檔不符。請保持卡片連接。</string>
+	<key>La requête ne correspond plus à cette installation.</key>
+	<string>該要求不再與此安裝相符。</string>
+	<key>La requête privée n’est pas valide.</key>
+	<string>私有要求無效。</string>
+	<key>La taille de l’image a changé.</key>
+	<string>映像檔大小已變更。</string>
+	<key>La version publiée sur GitHub n’a pas pu être vérifiée. Réessayez plus tard.</key>
+	<string>無法驗證 GitHub 上推出的版本。請稍後再試。</string>
+	<key>La vérification de l’image InkyOS a échoué.</key>
+	<string>InkyOS 映像檔驗證失敗。</string>
+	<key>La vérification des paramètres Wi-Fi a échoué.</key>
+	<string>Wi-Fi 設定驗證失敗。</string>
+	<key>Le DMG Universal de la nouvelle version n’est pas encore disponible.</key>
+	<string>新版本的通用 DMG 尚不可用。</string>
+	<key>Le disque système du Mac n’a pas pu être protégé.</key>
+	<string>無法保護 Mac 系統磁碟。</string>
+	<key>Le dossier de travail n’est pas protégé.</key>
+	<string>工作資料夾未受保護。</string>
+	<key>Le dossier privé doit appartenir à l’utilisateur.</key>
+	<string>私有資料夾必須歸使用者所有。</string>
+	<key>Le fichier de progression a changé.</key>
+	<string>進度檔案已變更。</string>
+	<key>Le fichier n’est plus lisible.</key>
+	<string>檔案已無法讀取。</string>
+	<key>Le fichier privé est indisponible.</key>
+	<string>無法存取私有檔案。</string>
+	<key>Le support ouvert n’est pas la carte sélectionnée.</key>
+	<string>開啟的裝置並非所選卡片。</string>
+	<key>Le support sélectionné n’est plus disponible.</key>
+	<string>所選裝置已無法使用。</string>
+	<key>Le système de votre cadre photo.</key>
+	<string>數位相框的作業系統。</string>
+	<key>Lecture de l’image impossible.</key>
+	<string>無法讀取映像檔。</string>
+	<key>Les permissions du fichier privé sont incorrectes.</key>
+	<string>私有檔案權限不正確。</string>
+	<key>L’identité de la carte est indisponible.</key>
+	<string>無法識別此卡片。</string>
+	<key>L’image InkyOS n’est pas encore disponible dans cette installation.</key>
+	<string>此安裝版本尚無 InkyOS 映像檔。</string>
+	<key>L’image XZ est incomplète ou endommagée.</key>
+	<string>XZ 映像檔不完整或已損毀。</string>
+	<key>L’image a changé pendant l’opération.</key>
+	<string>操作期間映像檔發生變更。</string>
+	<key>L’image a changé pendant l’écriture.</key>
+	<string>寫入期間映像檔發生變更。</string>
+	<key>L’image contient déjà une configuration Wi-Fi.</key>
+	<string>映像檔已包含 Wi-Fi 設定。</string>
+	<key>L’image doit être un fichier ordinaire non lié.</key>
+	<string>映像檔必須是一般檔案，而非連結。</string>
+	<key>L’image dépasse la taille annoncée.</key>
+	<string>映像檔超出預期大小。</string>
+	<key>L’image est incomplète.</key>
+	<string>映像檔不完整。</string>
+	<key>L’image est vide.</key>
+	<string>映像檔是空的。</string>
+	<key>L’image intégrée est endommagée. Réinstallez inkyImager.</key>
+	<string>內建映像檔已損毀。請重新安裝 inkyImager。</string>
+	<key>L’image ou la carte sélectionnée n’est pas valide.</key>
+	<string>映像檔或所選卡片無效。</string>
+	<key>L’image préparée est endommagée.</key>
+	<string>已準備的映像檔已損毀。</string>
+	<key>L’installation doit être lancée depuis votre session inkyImager.</key>
+	<string>請從 inkyImager 工作階段啟動安裝。</string>
+	<key>L’installation d’inkyImager est incomplète.</key>
+	<string>inkyImager 安裝不完整。</string>
+	<key>L’opération n’a pas pu être terminée.</key>
+	<string>無法完成此操作。</string>
+	<key>L’écriture n’a pas pu être terminée. Laissez la carte branchée.</key>
+	<string>無法完成寫入。請保持卡片連接。</string>
+	<key>Masquer le mot de passe</key>
+	<string>隱藏密碼</string>
+	<key>Mise à jour</key>
+	<string>更新</string>
+	<key>Mot de passe</key>
+	<string>密碼</string>
+	<key>Mot de passe du Wi-Fi</key>
+	<string>Wi-Fi 密碼</string>
+	<key>Nom de fichier invalide.</key>
+	<string>檔案名稱無效。</string>
+	<key>Nom du Wi-Fi</key>
+	<string>Wi-Fi 名稱</string>
+	<key>Nom du réseau</key>
+	<string>網絡名稱</string>
+	<key>Nom du réseau Wi-Fi</key>
+	<string>Wi-Fi 網絡名稱</string>
+	<key>Pays : %@</key>
+	<string>國家或地區：%@</string>
+	<key>Plus tard</key>
+	<string>稍後</string>
+	<key>Progression de l’installation</key>
+	<string>安裝進度</string>
+	<key>Préparation de l’image…</key>
+	<string>正在準備映像檔…</string>
+	<key>Préparation de votre Wi-Fi…</key>
+	<string>正在準備 Wi-Fi…</string>
+	<key>Préparez la carte SD de votre cadre.</key>
+	<string>準備相框所需的 SD 卡。</string>
+	<key>Prête à installer</key>
+	<string>可以安裝</string>
+	<key>Recherche de mise à jour en cours</key>
+	<string>正在檢查更新</string>
+	<key>Rechercher les cartes SD connectées</key>
+	<string>尋找已連接的 SD 卡</string>
+	<key>Rechercher une mise à jour d’inkyImager</key>
+	<string>檢查 inkyImager 更新</string>
+	<key>Recherche…</key>
+	<string>正在檢查…</string>
+	<key>Relecture de la carte…</key>
+	<string>正在讀回卡片…</string>
+	<key>Retirez la carte, insérez-la dans le Pi éteint, puis allumez votre cadre.</key>
+	<string>取出卡片，插入已關機的 Pi，然後啟動相框。</string>
+	<key>Réponse système illisible.</key>
+	<string>無法讀取系統回應。</string>
+	<key>Réponse système trop volumineuse.</key>
+	<string>系統回應過大。</string>
+	<key>Seules les cartes SD et les supports USB amovibles sont proposés.</key>
+	<string>僅列出 SD 卡與可移除的 USB 媒體。</string>
+	<key>Synchronisation de la carte impossible.</key>
+	<string>無法同步此卡片。</string>
+	<key>Taille d’image invalide.</key>
+	<string>映像檔大小無效。</string>
+	<key>Termine l’éjection de la carte déjà vérifiée.</key>
+	<string>完成已驗證卡片的退出操作。</string>
+	<key>Terminez l’éjection avant de retirer la carte.</key>
+	<string>請先退出卡片，再將它拔出。</string>
+	<key>Toutes les données de la carte choisie seront effacées.</key>
+	<string>所選卡片上的所有資料都會被清除。</string>
+	<key>Télécharger le DMG</key>
+	<string>下載 DMG</string>
+	<key>Téléchargez le DMG, puis glissez inkyImager dans Applications.</key>
+	<string>下載 DMG，然後將 inkyImager 拖入「應用程式」。</string>
+	<key>Un dossier de travail a changé ou est lié.</key>
+	<string>工作資料夾已變更或是連結。</string>
+	<key>Votre Wi-Fi</key>
+	<string>Wi-Fi 設定</string>
+	<key>Votre carte SD</key>
+	<string>SD 卡</string>
+	<key>Votre carte est prête.</key>
+	<string>你的卡片已準備就緒。</string>
+	<key>Vous pouvez la retirer et allumer votre cadre.</key>
+	<string>現在可取出卡片並啟動相框。</string>
+	<key>Vérification de la carte…</key>
+	<string>正在驗證卡片…</string>
+	<key>Vérification de l’image InkyOS…</key>
+	<string>正在驗證 InkyOS 映像檔…</string>
+	<key>Vérification de l’image…</key>
+	<string>正在驗證映像檔…</string>
+	<key>Vérifiez votre connexion, puis réessayez.</key>
+	<string>請檢查網絡連線後再試。</string>
+	<key>Wi-Fi 2,4 GHz</key>
+	<string>2.4 GHz Wi-Fi</string>
+	<key>inkyImager %@ est disponible</key>
+	<string>inkyImager %@ 已推出</string>
+	<key>inkyImager est à jour</key>
+	<string>inkyImager 已是最新版本</string>
+	<key>inkyImager prépare uniquement la carte SD que vous sélectionnez.</key>
+	<string>inkyImager 只會準備你選取的 SD 卡。</string>
+	<key>macOS n’a pas autorisé l’accès à la carte SD sélectionnée.</key>
+	<string>macOS 未授權存取所選 SD 卡。</string>
+	<key>macOS n’a pas confirmé la fermeture de la préparation.</key>
+	<string>macOS 未確認暫存映像檔已關閉。</string>
+	<key>macOS n’a pas pu terminer %1$@ (code %2$d).</key>
+	<string>macOS 無法完成 %1$@（代碼 %2$d）。</string>
+	<key>macOS n’a pas terminé %1$@ à temps (code %2$d). La carte doit rester branchée.</key>
+	<string>macOS 未能及時完成 %1$@（代碼 %2$d）。請保持卡片連接。</string>
+	<key>macOS retient encore la carte.</key>
+	<string>macOS 仍在使用此卡片。</string>
+	<key>macOS utilise encore la préparation. Réessayez pour la fermer avant de poursuivre.</key>
+	<string>macOS 仍在使用暫存映像檔。請重試關閉映像檔，再繼續操作。</string>
+	<key>Écriture de la carte…</key>
+	<string>正在寫入卡片…</string>
+	<key>Écriture de l’image impossible.</key>
+	<string>無法寫入映像檔。</string>
+	<key>Écriture d’InkyOS…</key>
+	<string>正在寫入 InkyOS…</string>
+	<key>Éjecter la carte vérifiée</key>
+	<string>退出已驗證的卡片</string>
+	<key>Éjection de la carte…</key>
+	<string>正在退出卡片…</string>
+</dict>
+</plist>

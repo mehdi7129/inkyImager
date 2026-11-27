@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actualiser</key>
+	<string>再読み込み</string>
+	<key>Afficher le mot de passe</key>
+	<string>パスワードを表示</string>
+	<key>Aucune éjection en attente pour cette carte.</key>
+	<string>このカードに保留中の取り出し操作はありません。</string>
+	<key>Autorisez l’écriture de la carte dans la fenêtre macOS.</key>
+	<string>macOSのダイアログでカードへの書き込みを許可してください。</string>
+	<key>Branchez votre carte, puis cliquez sur Actualiser.</key>
+	<string>カードを接続して「再読み込み」をクリックしてください。</string>
+	<key>Carte SD</key>
+	<string>SDカード</string>
+	<key>Carte SD à installer</key>
+	<string>インストール先のSDカード</string>
+	<key>Carte prête</key>
+	<string>カードの準備完了</string>
+	<key>Carte prête. Insérez-la dans le Pi éteint, puis allumez-le.</key>
+	<string>カードの準備ができました。電源を切ったPiに挿入してから電源を入れてください。</string>
+	<key>Carte vérifiée</key>
+	<string>カードを検証済み</string>
+	<key>Carte vérifiée, éjection à terminer.</key>
+	<string>カードを検証しました。取り出しは保留中です。</string>
+	<key>Carte vérifiée. macOS retient encore son éjection.</key>
+	<string>カードを検証しました。macOSでまだ取り出せません。</string>
+	<key>Carte vérifiée. Éjection…</key>
+	<string>カードを検証しました。取り出し中…</string>
+	<key>Cette installation n’indique pas sa version. Installez la version publiée sur GitHub.</key>
+	<string>このインストールにはバージョン情報がありません。GitHubで公開されているバージョンをインストールしてください。</string>
+	<key>Cette version ne sait pas préparer la configuration de cette image InkyOS.</key>
+	<string>このバージョンではこのInkyOSイメージを設定できません。</string>
+	<key>Chemin de travail invalide.</key>
+	<string>作業パスが無効です。</string>
+	<key>Choisir une carte SD</key>
+	<string>SDカードを選択</string>
+	<key>Choisissez une carte entière, pas une partition.</key>
+	<string>パーティションではなく、カード全体を選択してください。</string>
+	<key>Configuration du Wi-Fi…</key>
+	<string>Wi-Fiを設定中…</string>
+	<key>Données inattendues après l’image XZ.</key>
+	<string>XZイメージの後に予期しないデータがあります。</string>
+	<key>Dossier de travail inaccessible.</key>
+	<string>作業フォルダにアクセスできません。</string>
+	<key>Efface la carte choisie et installe InkyOS avec votre Wi-Fi.</key>
+	<string>選択したカードを消去し、Wi-Fi設定を含むInkyOSをインストールします。</string>
+	<key>Flasher la carte</key>
+	<string>SDカードに書き込む</string>
+	<key>Format d’image non reconnu.</key>
+	<string>不明なイメージ形式です。</string>
+	<key>Il faut au moins 4 Go libres pour préparer la carte.</key>
+	<string>カードの準備には4 GB以上の空き容量が必要です。</string>
+	<key>Image intégrée</key>
+	<string>内蔵イメージ</string>
+	<key>Impossible de créer l’image temporaire.</key>
+	<string>一時イメージを作成できませんでした。</string>
+	<key>Impossible de protéger la progression.</key>
+	<string>進行状況ファイルを保護できませんでした。</string>
+	<key>Impossible de protéger l’image temporaire.</key>
+	<string>一時イメージを保護できませんでした。</string>
+	<key>Impossible de préparer le Wi-Fi dans l’image.</key>
+	<string>イメージのWi-Fi設定を準備できませんでした。</string>
+	<key>Impossible de préparer le décodeur XZ.</key>
+	<string>XZデコーダーを初期化できませんでした。</string>
+	<key>Impossible de préparer une commande système.</key>
+	<string>システムコマンドを準備できませんでした。</string>
+	<key>Impossible de publier la progression.</key>
+	<string>進行状況を公開できませんでした。</string>
+	<key>Impossible de relire la configuration Wi-Fi.</key>
+	<string>Wi-Fi設定を読み戻せませんでした。</string>
+	<key>Impossible de relire l’image.</key>
+	<string>イメージを読み戻せませんでした。</string>
+	<key>Impossible de synchroniser la progression.</key>
+	<string>進行状況ファイルを同期できませんでした。</string>
+	<key>Impossible de synchroniser l’image temporaire.</key>
+	<string>一時イメージを同期できませんでした。</string>
+	<key>Impossible de vérifier la mise à jour</key>
+	<string>アップデートを確認できません</string>
+	<key>Impossible d’enregistrer la progression.</key>
+	<string>進行状況を保存できませんでした。</string>
+	<key>Impossible d’identifier le disque système du Mac.</key>
+	<string>Macのシステムディスクを識別できませんでした。</string>
+	<key>Impossible d’ouvrir l’image InkyOS.</key>
+	<string>InkyOSイメージを開けませんでした。</string>
+	<key>Installation annulée.</key>
+	<string>インストールをキャンセルしました。</string>
+	<key>Installation interrompue</key>
+	<string>インストールが中断されました</string>
+	<key>Insérez une carte SD</key>
+	<string>SDカードを挿入</string>
+	<key>La carte a été retirée.</key>
+	<string>カードが取り外されました。</string>
+	<key>La carte est vérifiée. Cliquez sur Éjecter pour terminer.</key>
+	<string>カードを検証しました。「取り出す」をクリックして完了してください。</string>
+	<key>La carte n’a pas confirmé la synchronisation.</key>
+	<string>カードが同期を確認しませんでした。</string>
+	<key>La carte n’est plus disponible.</key>
+	<string>カードを利用できなくなりました。</string>
+	<key>La carte sélectionnée a changé. Sélectionnez-la à nouveau.</key>
+	<string>選択したカードが変わりました。もう一度選択してください。</string>
+	<key>La configuration Wi-Fi est trop longue.</key>
+	<string>Wi-Fi設定が長すぎます。</string>
+	<key>La fin de l’installation n’a pas pu être confirmée.</key>
+	<string>インストールの完了を確認できませんでした。</string>
+	<key>La lecture s’est interrompue avant la fin de l’image.</key>
+	<string>イメージの読み込みが途中で止まりました。</string>
+	<key>La partition de démarrage InkyOS n’a pas été trouvée.</key>
+	<string>InkyOSの起動パーティションが見つかりませんでした。</string>
+	<key>La progression est inaccessible.</key>
+	<string>進行状況にアクセスできません。</string>
+	<key>La préparation est encore utilisée par macOS.</key>
+	<string>macOSが一時イメージを使用中です。</string>
+	<key>La relecture ne correspond pas à l’image. Laissez la carte branchée.</key>
+	<string>読み戻したデータがイメージと一致しません。カードは接続したままにしてください。</string>
+	<key>La requête ne correspond plus à cette installation.</key>
+	<string>リクエストがこのインストールと一致しなくなりました。</string>
+	<key>La requête privée n’est pas valide.</key>
+	<string>プライベートリクエストが無効です。</string>
+	<key>La taille de l’image a changé.</key>
+	<string>イメージのサイズが変更されました。</string>
+	<key>La version publiée sur GitHub n’a pas pu être vérifiée. Réessayez plus tard.</key>
+	<string>GitHubで公開されたバージョンを確認できませんでした。時間をおいてもう一度お試しください。</string>
+	<key>La vérification de l’image InkyOS a échoué.</key>
+	<string>InkyOSイメージの検証に失敗しました。</string>
+	<key>La vérification des paramètres Wi-Fi a échoué.</key>
+	<string>Wi-Fi設定の検証に失敗しました。</string>
+	<key>Le DMG Universal de la nouvelle version n’est pas encore disponible.</key>
+	<string>新しいバージョンのユニバーサルDMGはまだ利用できません。</string>
+	<key>Le disque système du Mac n’a pas pu être protégé.</key>
+	<string>Macのシステムディスクを保護できませんでした。</string>
+	<key>Le dossier de travail n’est pas protégé.</key>
+	<string>作業フォルダが保護されていません。</string>
+	<key>Le dossier privé doit appartenir à l’utilisateur.</key>
+	<string>プライベートフォルダの所有者はユーザーでなければなりません。</string>
+	<key>Le fichier de progression a changé.</key>
+	<string>進行状況ファイルが変更されました。</string>
+	<key>Le fichier n’est plus lisible.</key>
+	<string>ファイルを読み取れなくなりました。</string>
+	<key>Le fichier privé est indisponible.</key>
+	<string>プライベートファイルを利用できません。</string>
+	<key>Le support ouvert n’est pas la carte sélectionnée.</key>
+	<string>開いたデバイスが選択したカードと一致しません。</string>
+	<key>Le support sélectionné n’est plus disponible.</key>
+	<string>選択したデバイスを利用できなくなりました。</string>
+	<key>Le système de votre cadre photo.</key>
+	<string>フォトフレームのオペレーティングシステム。</string>
+	<key>Lecture de l’image impossible.</key>
+	<string>イメージを読み込めませんでした。</string>
+	<key>Les permissions du fichier privé sont incorrectes.</key>
+	<string>プライベートファイルのアクセス権が正しくありません。</string>
+	<key>L’identité de la carte est indisponible.</key>
+	<string>カードを識別できません。</string>
+	<key>L’image InkyOS n’est pas encore disponible dans cette installation.</key>
+	<string>このインストールには、まだ InkyOS イメージがありません。</string>
+	<key>L’image XZ est incomplète ou endommagée.</key>
+	<string>XZイメージが不完全か破損しています。</string>
+	<key>L’image a changé pendant l’opération.</key>
+	<string>処理中にイメージが変更されました。</string>
+	<key>L’image a changé pendant l’écriture.</key>
+	<string>書き込み中にイメージが変更されました。</string>
+	<key>L’image contient déjà une configuration Wi-Fi.</key>
+	<string>イメージにはすでにWi-Fi設定があります。</string>
+	<key>L’image doit être un fichier ordinaire non lié.</key>
+	<string>イメージにはリンクではなく通常のファイルを指定してください。</string>
+	<key>L’image dépasse la taille annoncée.</key>
+	<string>イメージが想定より大きくなっています。</string>
+	<key>L’image est incomplète.</key>
+	<string>イメージが不完全です。</string>
+	<key>L’image est vide.</key>
+	<string>イメージが空です。</string>
+	<key>L’image intégrée est endommagée. Réinstallez inkyImager.</key>
+	<string>内蔵イメージが破損しています。inkyImagerを再インストールしてください。</string>
+	<key>L’image ou la carte sélectionnée n’est pas valide.</key>
+	<string>イメージまたは選択したカードが無効です。</string>
+	<key>L’image préparée est endommagée.</key>
+	<string>準備済みのイメージが破損しています。</string>
+	<key>L’installation doit être lancée depuis votre session inkyImager.</key>
+	<string>inkyImagerのセッションからインストールを開始してください。</string>
+	<key>L’installation d’inkyImager est incomplète.</key>
+	<string>inkyImagerのインストールが不完全です。</string>
+	<key>L’opération n’a pas pu être terminée.</key>
+	<string>操作を完了できませんでした。</string>
+	<key>L’écriture n’a pas pu être terminée. Laissez la carte branchée.</key>
+	<string>書き込みを完了できませんでした。カードは接続したままにしてください。</string>
+	<key>Masquer le mot de passe</key>
+	<string>パスワードを隠す</string>
+	<key>Mise à jour</key>
+	<string>アップデート</string>
+	<key>Mot de passe</key>
+	<string>パスワード</string>
+	<key>Mot de passe du Wi-Fi</key>
+	<string>Wi-Fiパスワード</string>
+	<key>Nom de fichier invalide.</key>
+	<string>ファイル名が無効です。</string>
+	<key>Nom du Wi-Fi</key>
+	<string>Wi-Fi名</string>
+	<key>Nom du réseau</key>
+	<string>ネットワーク名</string>
+	<key>Nom du réseau Wi-Fi</key>
+	<string>Wi-Fiネットワーク名</string>
+	<key>Pays : %@</key>
+	<string>国：%@</string>
+	<key>Plus tard</key>
+	<string>後で</string>
+	<key>Progression de l’installation</key>
+	<string>インストールの進行状況</string>
+	<key>Préparation de l’image…</key>
+	<string>イメージを準備中…</string>
+	<key>Préparation de votre Wi-Fi…</key>
+	<string>Wi-Fiを準備中…</string>
+	<key>Préparez la carte SD de votre cadre.</key>
+	<string>フォトフレームのSDカードを準備します。</string>
+	<key>Prête à installer</key>
+	<string>インストールの準備完了</string>
+	<key>Recherche de mise à jour en cours</key>
+	<string>アップデートを確認中</string>
+	<key>Rechercher les cartes SD connectées</key>
+	<string>接続中のSDカードを検索</string>
+	<key>Rechercher une mise à jour d’inkyImager</key>
+	<string>inkyImagerのアップデートを確認</string>
+	<key>Recherche…</key>
+	<string>確認中…</string>
+	<key>Relecture de la carte…</key>
+	<string>カードを読み戻し中…</string>
+	<key>Retirez la carte, insérez-la dans le Pi éteint, puis allumez votre cadre.</key>
+	<string>カードを取り出し、電源を切ったPiに挿入してから、フレームの電源を入れてください。</string>
+	<key>Réponse système illisible.</key>
+	<string>システムの応答を読み取れませんでした。</string>
+	<key>Réponse système trop volumineuse.</key>
+	<string>システムの応答が大きすぎます。</string>
+	<key>Seules les cartes SD et les supports USB amovibles sont proposés.</key>
+	<string>SDカードと取り外し可能なUSBデバイスだけが表示されます。</string>
+	<key>Synchronisation de la carte impossible.</key>
+	<string>カードを同期できませんでした。</string>
+	<key>Taille d’image invalide.</key>
+	<string>イメージサイズが無効です。</string>
+	<key>Termine l’éjection de la carte déjà vérifiée.</key>
+	<string>検証済みカードの取り出しを完了します。</string>
+	<key>Terminez l’éjection avant de retirer la carte.</key>
+	<string>カードを抜く前に、取り出し操作を完了してください。</string>
+	<key>Toutes les données de la carte choisie seront effacées.</key>
+	<string>選択したカードのデータはすべて消去されます。</string>
+	<key>Télécharger le DMG</key>
+	<string>DMGをダウンロード</string>
+	<key>Téléchargez le DMG, puis glissez inkyImager dans Applications.</key>
+	<string>DMGをダウンロードし、inkyImagerを「アプリケーション」へドラッグしてください。</string>
+	<key>Un dossier de travail a changé ou est lié.</key>
+	<string>作業フォルダが変更されたか、リンクになっています。</string>
+	<key>Votre Wi-Fi</key>
+	<string>Wi-Fi設定</string>
+	<key>Votre carte SD</key>
+	<string>SDカード</string>
+	<key>Votre carte est prête.</key>
+	<string>カードの準備ができました。</string>
+	<key>Vous pouvez la retirer et allumer votre cadre.</key>
+	<string>カードを取り出してフレームの電源を入れてください。</string>
+	<key>Vérification de la carte…</key>
+	<string>カードを検証中…</string>
+	<key>Vérification de l’image InkyOS…</key>
+	<string>InkyOSイメージを検証中…</string>
+	<key>Vérification de l’image…</key>
+	<string>イメージを検証中…</string>
+	<key>Vérifiez votre connexion, puis réessayez.</key>
+	<string>接続を確認して、もう一度お試しください。</string>
+	<key>Wi-Fi 2,4 GHz</key>
+	<string>2.4 GHz Wi-Fi</string>
+	<key>inkyImager %@ est disponible</key>
+	<string>inkyImager %@ を利用できます</string>
+	<key>inkyImager est à jour</key>
+	<string>inkyImagerは最新です</string>
+	<key>inkyImager prépare uniquement la carte SD que vous sélectionnez.</key>
+	<string>inkyImagerは選択したSDカードのみを準備します。</string>
+	<key>macOS n’a pas autorisé l’accès à la carte SD sélectionnée.</key>
+	<string>macOSは選択したSDカードへのアクセスを許可しませんでした。</string>
+	<key>macOS n’a pas confirmé la fermeture de la préparation.</key>
+	<string>macOSで一時イメージが閉じられたことを確認できませんでした。</string>
+	<key>macOS n’a pas pu terminer %1$@ (code %2$d).</key>
+	<string>macOSで%1$@を完了できませんでした（コード%2$d）。</string>
+	<key>macOS n’a pas terminé %1$@ à temps (code %2$d). La carte doit rester branchée.</key>
+	<string>macOSで%1$@が時間内に完了しませんでした（コード%2$d）。カードは接続したままにしてください。</string>
+	<key>macOS retient encore la carte.</key>
+	<string>macOSがカードを使用中です。</string>
+	<key>macOS utilise encore la préparation. Réessayez pour la fermer avant de poursuivre.</key>
+	<string>macOSが一時イメージを使用中です。続行する前にもう一度閉じてください。</string>
+	<key>Écriture de la carte…</key>
+	<string>カードに書き込み中…</string>
+	<key>Écriture de l’image impossible.</key>
+	<string>イメージを書き込めませんでした。</string>
+	<key>Écriture d’InkyOS…</key>
+	<string>InkyOSを書き込み中…</string>
+	<key>Éjecter la carte vérifiée</key>
+	<string>検証済みカードを取り出す</string>
+	<key>Éjection de la carte…</key>
+	<string>カードを取り出し中…</string>
+</dict>
+</plist>

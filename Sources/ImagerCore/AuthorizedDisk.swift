@@ -19,7 +19,7 @@ public enum AuthorizedDisk {
         let descriptor = inky_authopen(path, flags, &diagnostic, diagnostic.count)
         guard descriptor >= 0 else {
             let detail = String(cString: diagnostic)
-            throw ImagerError("macOS n’a pas autorisé l’accès à la carte SD sélectionnée." +
+            throw ImagerError(ImagerLocalization.text("macOS n’a pas autorisé l’accès à la carte SD sélectionnée.") +
                 (detail.isEmpty ? "" : "\n" + detail))
         }
         do {

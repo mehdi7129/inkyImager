@@ -147,7 +147,7 @@ public enum FlashEngine {
                                              directory: directory, owner: request.ownerUID)
         defer { close(image) }
         guard before.st_size == request.imageBytes else { throw ImagerError("La taille de l’image a changé.") }
-        try writer.publish(FlashProgress(phase: .preparing, fraction: 0, message: "Vérification de l’image…"), force: true)
+        try writer.publish(FlashProgress(phase: .preparing, fraction: 0, message: ImagerLocalization.text("Vérification de l’image…")), force: true)
         guard try digestStream(image, count: request.imageBytes) == request.imageSHA256 else {
             throw ImagerError("L’image préparée est endommagée.")
         }
@@ -157,10 +157,10 @@ public enum FlashEngine {
         let card = try AuthorizedDisk.open(target: request.target)
         do {
             try requireUnchanged(image, before)
-            try writer.publish(FlashProgress(phase: .writing, fraction: 0, message: "Écriture d’InkyOS…"), force: true)
+            try writer.publish(FlashProgress(phase: .writing, fraction: 0, message: ImagerLocalization.text("Écriture d’InkyOS…")), force: true)
             let copied = try digestStream(image, count: request.imageBytes, progress: { done, total in
                 try? writer.publish(FlashProgress(phase: .writing, fraction: Double(done) / Double(total),
-                    message: "Écriture d’InkyOS…", bytesDone: done, bytesTotal: total))
+                    message: ImagerLocalization.text("Écriture d’InkyOS…"), bytesDone: done, bytesTotal: total))
             }, destination: card)
             guard copied == request.imageSHA256 else { throw ImagerError("L’image a changé pendant l’écriture.") }
             try requireUnchanged(image, before)
@@ -169,10 +169,10 @@ public enum FlashEngine {
             guard ioctl(card, 0x20006416) == 0 else { throw ImagerError("La carte n’a pas confirmé la synchronisation.") }
             try DiskService.requireSame(request.target)
             try seekStart(card)
-            try writer.publish(FlashProgress(phase: .verifying, fraction: 0, message: "Relecture de la carte…"), force: true)
+            try writer.publish(FlashProgress(phase: .verifying, fraction: 0, message: ImagerLocalization.text("Relecture de la carte…")), force: true)
             let observed = try digestStream(card, count: request.imageBytes, progress: { done, total in
                 try? writer.publish(FlashProgress(phase: .verifying, fraction: Double(done) / Double(total),
-                    message: "Relecture de la carte…", bytesDone: done, bytesTotal: total))
+                    message: ImagerLocalization.text("Relecture de la carte…"), bytesDone: done, bytesTotal: total))
             })
             guard observed == request.imageSHA256 else {
                 throw ImagerError("La relecture ne correspond pas à l’image. Laissez la carte branchée.")
@@ -184,7 +184,7 @@ public enum FlashEngine {
     }
 
     private static func eject(_ target: SDCard, writer: ProgressWriter) throws {
-        try writer.publish(FlashProgress(phase: .ejecting, fraction: 1, message: "Carte vérifiée. Éjection…",
+        try writer.publish(FlashProgress(phase: .ejecting, fraction: 1, message: ImagerLocalization.text("Carte vérifiée. Éjection…"),
                                          readbackVerified: true), force: true)
         do {
             if DiskService.isPresent(registryID: target.registryID) {
@@ -199,11 +199,11 @@ public enum FlashEngine {
                 }
             }
             try writer.publish(FlashProgress(phase: .finished, fraction: 1,
-                message: "Carte prête. Insérez-la dans le Pi éteint, puis allumez-le.", readbackVerified: true), force: true)
+                message: ImagerLocalization.text("Carte prête. Insérez-la dans le Pi éteint, puis allumez-le."), readbackVerified: true), force: true)
         } catch {
             // Never repeat write/verify when Spotlight retains an already verified card.
             try writer.publish(FlashProgress(phase: .finished, fraction: 1,
-                message: "Carte vérifiée. macOS retient encore son éjection.",
+                message: ImagerLocalization.text("Carte vérifiée. macOS retient encore son éjection."),
                 ejectOnlyFailure: true, readbackVerified: true), force: true)
         }
     }

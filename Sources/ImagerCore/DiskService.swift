@@ -8,10 +8,14 @@ public struct SystemCommandFailure: LocalizedError, Sendable {
     public let standardError: String
     public let timedOut: Bool
 
+    public var summary: String {
+        let format = timedOut
+            ? "macOS n’a pas terminé %1$@ à temps (code %2$d). La carte doit rester branchée."
+            : "macOS n’a pas pu terminer %1$@ (code %2$d)."
+        return ImagerLocalization.format(format, executable, exitStatus)
+    }
+
     public var errorDescription: String? {
-        let summary = timedOut
-            ? "macOS n’a pas terminé \(executable) à temps (code \(exitStatus)). La carte doit rester branchée."
-            : "macOS n’a pas pu terminer \(executable) (code \(exitStatus))."
         guard !standardError.isEmpty else { return summary }
         let diagnostic = String(standardError.prefix(2048))
         return summary + "\n" + diagnostic + (standardError.count > 2048 ? "\n[diagnostic tronqué]" : "")
@@ -20,11 +24,16 @@ public struct SystemCommandFailure: LocalizedError, Sendable {
 
 public enum SystemCommand {
     /// Fixed executables and argument arrays; no shell and no inherited environment.
-    public static func run(_ executable: String, _ arguments: [String], timeout: TimeInterval = 30) throws -> Data {
+    public static func run(_ executable: String, _ arguments: [String], timeout: TimeInterval = 30,
+                           helperLanguage: ImagerLanguage? = nil) throws -> Data {
         let process = Process()
         process.executableURL = URL(fileURLWithPath: executable)
         process.arguments = arguments
-        process.environment = ["PATH": "/usr/bin:/bin:/usr/sbin:/sbin", "LANG": "C", "LC_ALL": "C"]
+        var environment = ["PATH": "/usr/bin:/bin:/usr/sbin:/sbin", "LANG": "C", "LC_ALL": "C"]
+        if let helperLanguage, process.executableURL?.lastPathComponent == "inkyImagerHelper" {
+            environment[ImagerLocalization.helperLanguageEnvironment] = helperLanguage.rawValue
+        }
+        process.environment = environment
         func scratchFD() throws -> Int32 {
             var template = Array("/private/tmp/inkyimager-command.XXXXXX".utf8CString)
             let fd = mkstemp(&template)

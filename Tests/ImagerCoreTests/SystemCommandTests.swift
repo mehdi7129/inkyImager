@@ -13,7 +13,8 @@ final class SystemCommandTests: XCTestCase {
             XCTAssertFalse(failure.timedOut)
             XCTAssertTrue(failure.standardError.contains("Fixture preparation refusee"))
             XCTAssertTrue(failure.standardError.contains("4190"))
-            XCTAssertTrue(failure.localizedDescription.contains("code 1"))
+            XCTAssertTrue(failure.localizedDescription.contains(failure.summary))
+            XCTAssertTrue(failure.summary.contains("osascript"))
         }
     }
 

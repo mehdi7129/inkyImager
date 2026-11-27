@@ -7,7 +7,12 @@ import lzma
 import os
 from pathlib import Path
 import plistlib
+import re
 import subprocess
+
+
+ROOT = Path(__file__).resolve().parents[1]
+LOCALES = {'ar', 'de', 'en', 'es', 'fr', 'it', 'ja', 'ko', 'pt', 'zh-Hans', 'zh-Hant'}
 
 
 def require(condition, message):
@@ -56,6 +61,33 @@ def inspect_executable(binary):
     return sorted(architectures)
 
 
+def inspect_localizations(resources, info):
+    require(info.get('CFBundleDevelopmentRegion') == 'fr' and set(info.get('CFBundleLocalizations', [])) == LOCALES,
+            'Bundle language declaration differs')
+    source = ROOT / 'Sources/ImagerCore/Localization'
+    bundle = resources / 'inkyImager_ImagerCore.bundle/Contents/Resources'
+    for container in (bundle, resources, source):
+        require({path.stem for path in container.glob('*.lproj')} == LOCALES, 'Unexpected localized folders')
+    french = plistlib.loads((source / 'fr.lproj/Localizable.strings').read_bytes())
+    permission = info['NSRemovableVolumesUsageDescription']
+    placeholder = re.compile(r'%(?:\d+\$)?[@d]')
+    hashes = {}
+    for language in sorted(LOCALES):
+        relative = Path(f'{language}.lproj/Localizable.strings')
+        expected = plistlib.loads((source / relative).read_bytes())
+        installed = bundle / relative
+        require(expected.keys() == french.keys() and
+                all(type(text) is str and text.strip() and sorted(placeholder.findall(text)) == sorted(placeholder.findall(key))
+                    for key, text in expected.items()),
+                f'Invalid source strings for {language}')
+        require(plistlib.loads(installed.read_bytes()) == expected, f'Packaged catalog differs for {language}')
+        localized_info = plistlib.loads((resources / f'{language}.lproj/InfoPlist.strings').read_bytes())
+        require(localized_info == {'NSRemovableVolumesUsageDescription': expected[permission]},
+                f'Removable-volume prompt differs for {language}')
+        hashes[language] = digest(installed)
+    return hashes
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--app', type=Path, required=True)
@@ -64,6 +96,7 @@ def main():
     parser.add_argument('--raw-sha256', required=True)
     parser.add_argument('--studio-commit', required=True)
     parser.add_argument('--os-commit', required=True)
+    parser.add_argument('--personalization-schema', type=int, choices=(1, 2))
     args = parser.parse_args()
     app = args.app.resolve()
     contents = app / 'Contents'
@@ -80,13 +113,19 @@ def main():
     subprocess.run(['/usr/bin/codesign', '--verify', '--deep', '--strict', str(app)], check=True)
     resources = contents / 'Resources'
     manifest = json.loads((resources / 'InkyOS.json').read_text())
+    personalization_schema = manifest.get('personalizationSchemaVersion', 1)
+    require(type(personalization_schema) is int and personalization_schema in (1, 2) and
+            (args.personalization_schema is None or personalization_schema == args.personalization_schema),
+            'Image personalization schema differs')
     require(manifest['studioCommit'] == args.studio_commit and manifest['osCommit'] == args.os_commit,
             'Selected backend/OS provenance differs')
     require((resources / 'AppIcon.icns').is_file() and (resources / 'NOTICE.txt').is_file(),
             'Icon or notice is absent')
     result = inspect_image(resources / 'InkyOS.img.xz', manifest, args.raw_sha256)
+    localization_sha256 = inspect_localizations(resources, info)
     print(json.dumps({'status': 'PASS', 'app_version': args.app_version, 'build_number': args.build_number,
                       'studio_commit': args.studio_commit, 'os_commit': args.os_commit, **result,
+                      'personalization_schema_version': personalization_schema, 'localization_sha256': localization_sha256,
                       'architectures': ['arm64', 'x86_64'], 'signature_verified': True, 'app_launched': False, 'SD_accessed': False,
                       'notarization_or_Gatekeeper_approval_claimed': False}, sort_keys=True))
 

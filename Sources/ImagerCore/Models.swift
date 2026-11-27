@@ -49,5 +49,5 @@ public struct FlashRequest: Codable, Sendable {
 public struct ImagerError: LocalizedError, Sendable {
     public let message: String
     public init(_ message: String) { self.message = message }
-    public var errorDescription: String? { message }
+    public var errorDescription: String? { ImagerLocalization.text(message) }
 }

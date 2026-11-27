@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actualiser</key>
+	<string>تحديث القائمة</string>
+	<key>Afficher le mot de passe</key>
+	<string>إظهار كلمة المرور</string>
+	<key>Aucune éjection en attente pour cette carte.</key>
+	<string>لا يوجد إخراج معلّق لهذه البطاقة.</string>
+	<key>Autorisez l’écriture de la carte dans la fenêtre macOS.</key>
+	<string>اسمح بالكتابة على البطاقة في نافذة macOS.</string>
+	<key>Branchez votre carte, puis cliquez sur Actualiser.</key>
+	<string>صِل البطاقة ثم انقر على «تحديث القائمة».</string>
+	<key>Carte SD</key>
+	<string>بطاقة SD</string>
+	<key>Carte SD à installer</key>
+	<string>بطاقة SD المستهدفة</string>
+	<key>Carte prête</key>
+	<string>البطاقة جاهزة</string>
+	<key>Carte prête. Insérez-la dans le Pi éteint, puis allumez-le.</key>
+	<string>البطاقة جاهزة. أدخلها في جهاز Pi وهو مطفأ، ثم شغّله.</string>
+	<key>Carte vérifiée</key>
+	<string>تم التحقق من البطاقة</string>
+	<key>Carte vérifiée, éjection à terminer.</key>
+	<string>تم التحقق من البطاقة. لا يزال الإخراج معلقًا.</string>
+	<key>Carte vérifiée. macOS retient encore son éjection.</key>
+	<string>تم التحقق من البطاقة. لا يزال macOS يمنع إخراجها.</string>
+	<key>Carte vérifiée. Éjection…</key>
+	<string>تم التحقق من البطاقة. جارٍ الإخراج…</string>
+	<key>Cette installation n’indique pas sa version. Installez la version publiée sur GitHub.</key>
+	<string>لا يحدد هذا التثبيت رقم الإصدار. ثبّت الإصدار المنشور على GitHub.</string>
+	<key>Cette version ne sait pas préparer la configuration de cette image InkyOS.</key>
+	<string>يتعذّر على هذا الإصدار تجهيز الإعدادات لصورة InkyOS هذه.</string>
+	<key>Chemin de travail invalide.</key>
+	<string>مسار العمل غير صالح.</string>
+	<key>Choisir une carte SD</key>
+	<string>اختر بطاقة SD</string>
+	<key>Choisissez une carte entière, pas une partition.</key>
+	<string>اختر البطاقة بالكامل بدلًا من أحد الأقسام.</string>
+	<key>Configuration du Wi-Fi…</key>
+	<string>جارٍ إعداد Wi-Fi…</string>
+	<key>Données inattendues après l’image XZ.</key>
+	<string>توجد بيانات غير متوقعة بعد صورة XZ.</string>
+	<key>Dossier de travail inaccessible.</key>
+	<string>يتعذّر الوصول إلى مجلد العمل.</string>
+	<key>Efface la carte choisie et installe InkyOS avec votre Wi-Fi.</key>
+	<string>يمحو البطاقة المحددة ويثبّت InkyOS بإعدادات Wi-Fi الخاصة بك.</string>
+	<key>Flasher la carte</key>
+	<string>كتابة بطاقة SD</string>
+	<key>Format d’image non reconnu.</key>
+	<string>تنسيق صورة النظام غير معروف.</string>
+	<key>Il faut au moins 4 Go libres pour préparer la carte.</key>
+	<string>يلزم توفر مساحة خالية قدرها 4 غيغابايت على الأقل لتجهيز البطاقة.</string>
+	<key>Image intégrée</key>
+	<string>صورة النظام المضمّنة</string>
+	<key>Impossible de créer l’image temporaire.</key>
+	<string>تعذّر إنشاء صورة النظام المؤقتة.</string>
+	<key>Impossible de protéger la progression.</key>
+	<string>تعذّرت حماية ملف التقدّم.</string>
+	<key>Impossible de protéger l’image temporaire.</key>
+	<string>تعذّرت حماية صورة النظام المؤقتة.</string>
+	<key>Impossible de préparer le Wi-Fi dans l’image.</key>
+	<string>تعذّر تجهيز Wi-Fi في صورة النظام.</string>
+	<key>Impossible de préparer le décodeur XZ.</key>
+	<string>تعذّر تهيئة مفكك ترميز XZ.</string>
+	<key>Impossible de préparer une commande système.</key>
+	<string>تعذّر تجهيز أمر النظام.</string>
+	<key>Impossible de publier la progression.</key>
+	<string>تعذّر نشر التقدّم.</string>
+	<key>Impossible de relire la configuration Wi-Fi.</key>
+	<string>تعذّرت إعادة قراءة إعدادات Wi-Fi.</string>
+	<key>Impossible de relire l’image.</key>
+	<string>تعذّرت إعادة قراءة صورة النظام.</string>
+	<key>Impossible de synchroniser la progression.</key>
+	<string>تعذّرت مزامنة ملف التقدّم.</string>
+	<key>Impossible de synchroniser l’image temporaire.</key>
+	<string>تعذّرت مزامنة صورة النظام المؤقتة.</string>
+	<key>Impossible de vérifier la mise à jour</key>
+	<string>تعذّر التحقق من التحديثات</string>
+	<key>Impossible d’enregistrer la progression.</key>
+	<string>تعذّر حفظ التقدّم.</string>
+	<key>Impossible d’identifier le disque système du Mac.</key>
+	<string>تعذّر تحديد قرص نظام Mac.</string>
+	<key>Impossible d’ouvrir l’image InkyOS.</key>
+	<string>تعذّر فتح صورة InkyOS.</string>
+	<key>Installation annulée.</key>
+	<string>أُلغي التثبيت.</string>
+	<key>Installation interrompue</key>
+	<string>توقف التثبيت</string>
+	<key>Insérez une carte SD</key>
+	<string>أدرج بطاقة SD</string>
+	<key>La carte a été retirée.</key>
+	<string>تم نزع البطاقة.</string>
+	<key>La carte est vérifiée. Cliquez sur Éjecter pour terminer.</key>
+	<string>تم التحقق من البطاقة. انقر على «إخراج» للإنهاء.</string>
+	<key>La carte n’a pas confirmé la synchronisation.</key>
+	<string>لم تؤكد البطاقة المزامنة.</string>
+	<key>La carte n’est plus disponible.</key>
+	<string>البطاقة لم تعد متوفرة.</string>
+	<key>La carte sélectionnée a changé. Sélectionnez-la à nouveau.</key>
+	<string>تغيّرت البطاقة المحددة. اخترها مجددًا.</string>
+	<key>La configuration Wi-Fi est trop longue.</key>
+	<string>إعدادات Wi-Fi طويلة جدًا.</string>
+	<key>La fin de l’installation n’a pas pu être confirmée.</key>
+	<string>تعذّر تأكيد اكتمال التثبيت.</string>
+	<key>La lecture s’est interrompue avant la fin de l’image.</key>
+	<string>توقفت القراءة قبل نهاية صورة النظام.</string>
+	<key>La partition de démarrage InkyOS n’a pas été trouvée.</key>
+	<string>لم يُعثر على قسم إقلاع InkyOS.</string>
+	<key>La progression est inaccessible.</key>
+	<string>يتعذّر الوصول إلى التقدّم.</string>
+	<key>La préparation est encore utilisée par macOS.</key>
+	<string>لا يزال macOS يستخدم صورة النظام المؤقتة.</string>
+	<key>La relecture ne correspond pas à l’image. Laissez la carte branchée.</key>
+	<string>البيانات المعاد قراءتها لا تطابق صورة النظام. أبقِ البطاقة متصلة.</string>
+	<key>La requête ne correspond plus à cette installation.</key>
+	<string>لم يعد الطلب يطابق هذا التثبيت.</string>
+	<key>La requête privée n’est pas valide.</key>
+	<string>الطلب الخاص غير صالح.</string>
+	<key>La taille de l’image a changé.</key>
+	<string>تغيّر حجم صورة النظام.</string>
+	<key>La version publiée sur GitHub n’a pas pu être vérifiée. Réessayez plus tard.</key>
+	<string>تعذّر التحقق من الإصدار المنشور على GitHub. حاول لاحقًا.</string>
+	<key>La vérification de l’image InkyOS a échoué.</key>
+	<string>فشل التحقق من صورة InkyOS.</string>
+	<key>La vérification des paramètres Wi-Fi a échoué.</key>
+	<string>فشل التحقق من إعدادات Wi-Fi.</string>
+	<key>Le DMG Universal de la nouvelle version n’est pas encore disponible.</key>
+	<string>ملف DMG العام للإصدار الجديد غير متوفر بعد.</string>
+	<key>Le disque système du Mac n’a pas pu être protégé.</key>
+	<string>تعذّرت حماية قرص نظام Mac.</string>
+	<key>Le dossier de travail n’est pas protégé.</key>
+	<string>مجلد العمل غير محمي.</string>
+	<key>Le dossier privé doit appartenir à l’utilisateur.</key>
+	<string>يجب أن يكون المجلد الخاص مملوكًا للمستخدم.</string>
+	<key>Le fichier de progression a changé.</key>
+	<string>تغيّر ملف التقدّم.</string>
+	<key>Le fichier n’est plus lisible.</key>
+	<string>الملف لم يعد قابلًا للقراءة.</string>
+	<key>Le fichier privé est indisponible.</key>
+	<string>الملف الخاص غير متوفر.</string>
+	<key>Le support ouvert n’est pas la carte sélectionnée.</key>
+	<string>الجهاز المفتوح ليس البطاقة المحددة.</string>
+	<key>Le support sélectionné n’est plus disponible.</key>
+	<string>الجهاز المحدد لم يعد متوفرًا.</string>
+	<key>Le système de votre cadre photo.</key>
+	<string>نظام تشغيل إطار الصور.</string>
+	<key>Lecture de l’image impossible.</key>
+	<string>تعذّرت قراءة صورة النظام.</string>
+	<key>Les permissions du fichier privé sont incorrectes.</key>
+	<string>أذونات الملف الخاص غير صحيحة.</string>
+	<key>L’identité de la carte est indisponible.</key>
+	<string>يتعذّر التعرّف على البطاقة.</string>
+	<key>L’image InkyOS n’est pas encore disponible dans cette installation.</key>
+	<string>صورة InkyOS غير متوفرة بعد في هذا التثبيت.</string>
+	<key>L’image XZ est incomplète ou endommagée.</key>
+	<string>صورة XZ غير مكتملة أو تالفة.</string>
+	<key>L’image a changé pendant l’opération.</key>
+	<string>تغيّرت صورة النظام أثناء العملية.</string>
+	<key>L’image a changé pendant l’écriture.</key>
+	<string>تغيّرت صورة النظام أثناء الكتابة.</string>
+	<key>L’image contient déjà une configuration Wi-Fi.</key>
+	<string>تحتوي صورة النظام بالفعل على إعدادات Wi-Fi.</string>
+	<key>L’image doit être un fichier ordinaire non lié.</key>
+	<string>يجب أن تكون صورة النظام ملفًا عاديًا وليست رابطًا.</string>
+	<key>L’image dépasse la taille annoncée.</key>
+	<string>صورة النظام أكبر من الحجم المتوقع.</string>
+	<key>L’image est incomplète.</key>
+	<string>صورة النظام غير مكتملة.</string>
+	<key>L’image est vide.</key>
+	<string>صورة النظام فارغة.</string>
+	<key>L’image intégrée est endommagée. Réinstallez inkyImager.</key>
+	<string>صورة النظام المضمّنة تالفة. أعد تثبيت inkyImager.</string>
+	<key>L’image ou la carte sélectionnée n’est pas valide.</key>
+	<string>صورة النظام أو البطاقة المحددة غير صالحة.</string>
+	<key>L’image préparée est endommagée.</key>
+	<string>صورة النظام المجهزة تالفة.</string>
+	<key>L’installation doit être lancée depuis votre session inkyImager.</key>
+	<string>ابدأ التثبيت من جلسة inkyImager الخاصة بك.</string>
+	<key>L’installation d’inkyImager est incomplète.</key>
+	<string>تثبيت inkyImager غير مكتمل.</string>
+	<key>L’opération n’a pas pu être terminée.</key>
+	<string>تعذّر إكمال العملية.</string>
+	<key>L’écriture n’a pas pu être terminée. Laissez la carte branchée.</key>
+	<string>تعذّر إكمال الكتابة. أبقِ البطاقة متصلة.</string>
+	<key>Masquer le mot de passe</key>
+	<string>إخفاء كلمة المرور</string>
+	<key>Mise à jour</key>
+	<string>تحديث</string>
+	<key>Mot de passe</key>
+	<string>كلمة المرور</string>
+	<key>Mot de passe du Wi-Fi</key>
+	<string>كلمة مرور Wi-Fi</string>
+	<key>Nom de fichier invalide.</key>
+	<string>اسم الملف غير صالح.</string>
+	<key>Nom du Wi-Fi</key>
+	<string>اسم Wi-Fi</string>
+	<key>Nom du réseau</key>
+	<string>اسم الشبكة</string>
+	<key>Nom du réseau Wi-Fi</key>
+	<string>اسم شبكة Wi-Fi</string>
+	<key>Pays : %@</key>
+	<string>البلد: %@</string>
+	<key>Plus tard</key>
+	<string>لاحقًا</string>
+	<key>Progression de l’installation</key>
+	<string>تقدّم التثبيت</string>
+	<key>Préparation de l’image…</key>
+	<string>جارٍ تجهيز صورة النظام…</string>
+	<key>Préparation de votre Wi-Fi…</key>
+	<string>جارٍ تجهيز شبكة Wi-Fi…</string>
+	<key>Préparez la carte SD de votre cadre.</key>
+	<string>جهّز بطاقة SD لإطار الصور.</string>
+	<key>Prête à installer</key>
+	<string>جاهز للتثبيت</string>
+	<key>Recherche de mise à jour en cours</key>
+	<string>جارٍ التحقق من التحديثات</string>
+	<key>Rechercher les cartes SD connectées</key>
+	<string>البحث عن بطاقات SD المتصلة</string>
+	<key>Rechercher une mise à jour d’inkyImager</key>
+	<string>التحقق من تحديث inkyImager</string>
+	<key>Recherche…</key>
+	<string>جارٍ التحقق…</string>
+	<key>Relecture de la carte…</key>
+	<string>جارٍ إعادة قراءة البطاقة…</string>
+	<key>Retirez la carte, insérez-la dans le Pi éteint, puis allumez votre cadre.</key>
+	<string>انزع البطاقة وأدخلها في جهاز Pi وهو مطفأ، ثم شغّل إطار الصور.</string>
+	<key>Réponse système illisible.</key>
+	<string>تعذّرت قراءة استجابة النظام.</string>
+	<key>Réponse système trop volumineuse.</key>
+	<string>استجابة النظام كبيرة جدًا.</string>
+	<key>Seules les cartes SD et les supports USB amovibles sont proposés.</key>
+	<string>تُعرض فقط بطاقات SD ووسائط USB القابلة للإزالة.</string>
+	<key>Synchronisation de la carte impossible.</key>
+	<string>تعذّرت مزامنة البطاقة.</string>
+	<key>Taille d’image invalide.</key>
+	<string>حجم صورة النظام غير صالح.</string>
+	<key>Termine l’éjection de la carte déjà vérifiée.</key>
+	<string>يُكمل إخراج البطاقة التي تم التحقق منها.</string>
+	<key>Terminez l’éjection avant de retirer la carte.</key>
+	<string>أكمل إخراج البطاقة قبل نزعها.</string>
+	<key>Toutes les données de la carte choisie seront effacées.</key>
+	<string>ستُمحى جميع البيانات على البطاقة المحددة.</string>
+	<key>Télécharger le DMG</key>
+	<string>تنزيل DMG</string>
+	<key>Téléchargez le DMG, puis glissez inkyImager dans Applications.</key>
+	<string>نزّل ملف DMG ثم اسحب inkyImager إلى مجلد التطبيقات.</string>
+	<key>Un dossier de travail a changé ou est lié.</key>
+	<string>تغيّر أحد مجلدات العمل أو أنه رابط.</string>
+	<key>Votre Wi-Fi</key>
+	<string>شبكة Wi-Fi</string>
+	<key>Votre carte SD</key>
+	<string>بطاقة SD الخاصة بك</string>
+	<key>Votre carte est prête.</key>
+	<string>بطاقتك جاهزة.</string>
+	<key>Vous pouvez la retirer et allumer votre cadre.</key>
+	<string>يمكنك نزعها وتشغيل إطارك.</string>
+	<key>Vérification de la carte…</key>
+	<string>جارٍ التحقق من البطاقة…</string>
+	<key>Vérification de l’image InkyOS…</key>
+	<string>جارٍ التحقق من صورة InkyOS…</string>
+	<key>Vérification de l’image…</key>
+	<string>جارٍ التحقق من صورة النظام…</string>
+	<key>Vérifiez votre connexion, puis réessayez.</key>
+	<string>تحقّق من اتصالك وحاول مجددًا.</string>
+	<key>Wi-Fi 2,4 GHz</key>
+	<string>Wi-Fi ‏2.4 GHz</string>
+	<key>inkyImager %@ est disponible</key>
+	<string>يتوفر inkyImager %@</string>
+	<key>inkyImager est à jour</key>
+	<string>inkyImager محدّث</string>
+	<key>inkyImager prépare uniquement la carte SD que vous sélectionnez.</key>
+	<string>يجهّز inkyImager بطاقة SD التي تختارها فقط.</string>
+	<key>macOS n’a pas autorisé l’accès à la carte SD sélectionnée.</key>
+	<string>لم يسمح macOS بالوصول إلى بطاقة SD المحددة.</string>
+	<key>macOS n’a pas confirmé la fermeture de la préparation.</key>
+	<string>لم يؤكد macOS إغلاق صورة النظام المؤقتة.</string>
+	<key>macOS n’a pas pu terminer %1$@ (code %2$d).</key>
+	<string>تعذّر على macOS إكمال %1$@ (الرمز %2$d).</string>
+	<key>macOS n’a pas terminé %1$@ à temps (code %2$d). La carte doit rester branchée.</key>
+	<string>لم يُكمل macOS ‏%1$@ في المهلة المحددة (الرمز %2$d). أبقِ البطاقة متصلة.</string>
+	<key>macOS retient encore la carte.</key>
+	<string>لا يزال macOS يستخدم البطاقة.</string>
+	<key>macOS utilise encore la préparation. Réessayez pour la fermer avant de poursuivre.</key>
+	<string>لا يزال macOS يستخدم صورة النظام المؤقتة. حاول إغلاقها مجددًا قبل المتابعة.</string>
+	<key>Écriture de la carte…</key>
+	<string>جارٍ كتابة البطاقة…</string>
+	<key>Écriture de l’image impossible.</key>
+	<string>تعذّرت كتابة صورة النظام.</string>
+	<key>Écriture d’InkyOS…</key>
+	<string>جارٍ كتابة InkyOS…</string>
+	<key>Éjecter la carte vérifiée</key>
+	<string>إخراج البطاقة التي تم التحقق منها</string>
+	<key>Éjection de la carte…</key>
+	<string>جارٍ إخراج البطاقة…</string>
+</dict>
+</plist>

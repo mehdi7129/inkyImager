@@ -11,6 +11,7 @@ let xzInclude = ProcessInfo.processInfo.environment["INKY_XZ_INCLUDE"]
 
 let package = Package(
     name: "inkyImager",
+    defaultLocalization: "fr",
     platforms: [.macOS(.v14)],
     products: [
         .executable(name: "inkyImager", targets: ["inkyImager"]),
@@ -23,6 +24,7 @@ let package = Package(
                 cSettings: [.unsafeFlags(["-I", xzInclude])],
                 linkerSettings: [.linkedLibrary("lzma")]),
         .target(name: "ImagerCore", dependencies: ["CXZ", "CAuthOpen"],
+                resources: [.process("Localization")],
                 linkerSettings: [.linkedFramework("IOKit")]),
         .executableTarget(name: "inkyImager", dependencies: ["ImagerCore"]),
         .executableTarget(name: "inkyImagerHelper", dependencies: ["ImagerCore"]),

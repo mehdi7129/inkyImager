@@ -1,0 +1,298 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>Actualiser</key>
+	<string>Aggiorna elenco</string>
+	<key>Afficher le mot de passe</key>
+	<string>Mostra password</string>
+	<key>Aucune éjection en attente pour cette carte.</key>
+	<string>Non ci sono espulsioni in sospeso per questa scheda.</string>
+	<key>Autorisez l’écriture de la carte dans la fenêtre macOS.</key>
+	<string>Autorizza la scrittura sulla scheda nella finestra di macOS.</string>
+	<key>Branchez votre carte, puis cliquez sur Actualiser.</key>
+	<string>Collega la scheda, poi fai clic su Aggiorna elenco.</string>
+	<key>Carte SD</key>
+	<string>Scheda SD</string>
+	<key>Carte SD à installer</key>
+	<string>Scheda SD di destinazione</string>
+	<key>Carte prête</key>
+	<string>Scheda pronta</string>
+	<key>Carte prête. Insérez-la dans le Pi éteint, puis allumez-le.</key>
+	<string>Scheda pronta. Inseriscila nel Pi spento, poi accendilo.</string>
+	<key>Carte vérifiée</key>
+	<string>Scheda verificata</string>
+	<key>Carte vérifiée, éjection à terminer.</key>
+	<string>Scheda verificata. Espulsione in sospeso.</string>
+	<key>Carte vérifiée. macOS retient encore son éjection.</key>
+	<string>Scheda verificata. macOS impedisce ancora l’espulsione.</string>
+	<key>Carte vérifiée. Éjection…</key>
+	<string>Scheda verificata. Espulsione…</string>
+	<key>Cette installation n’indique pas sa version. Installez la version publiée sur GitHub.</key>
+	<string>Questa installazione non indica la versione. Installa la versione pubblicata su GitHub.</string>
+	<key>Cette version ne sait pas préparer la configuration de cette image InkyOS.</key>
+	<string>Questa versione non può preparare la configurazione per questa immagine InkyOS.</string>
+	<key>Chemin de travail invalide.</key>
+	<string>Percorso di lavoro non valido.</string>
+	<key>Choisir une carte SD</key>
+	<string>Scegli una scheda SD</string>
+	<key>Choisissez une carte entière, pas une partition.</key>
+	<string>Scegli l’intera scheda anziché una partizione.</string>
+	<key>Configuration du Wi-Fi…</key>
+	<string>Configurazione Wi-Fi…</string>
+	<key>Données inattendues après l’image XZ.</key>
+	<string>Dati imprevisti dopo l’immagine XZ.</string>
+	<key>Dossier de travail inaccessible.</key>
+	<string>La cartella di lavoro non è accessibile.</string>
+	<key>Efface la carte choisie et installe InkyOS avec votre Wi-Fi.</key>
+	<string>Cancella la scheda selezionata e installa InkyOS con le impostazioni Wi-Fi.</string>
+	<key>Flasher la carte</key>
+	<string>Scrivi la scheda</string>
+	<key>Format d’image non reconnu.</key>
+	<string>Formato dell’immagine non riconosciuto.</string>
+	<key>Il faut au moins 4 Go libres pour préparer la carte.</key>
+	<string>Servono almeno 4 GB liberi per preparare la scheda.</string>
+	<key>Image intégrée</key>
+	<string>Immagine integrata</string>
+	<key>Impossible de créer l’image temporaire.</key>
+	<string>Impossibile creare l’immagine temporanea.</string>
+	<key>Impossible de protéger la progression.</key>
+	<string>Impossibile proteggere il file di avanzamento.</string>
+	<key>Impossible de protéger l’image temporaire.</key>
+	<string>Impossibile proteggere l’immagine temporanea.</string>
+	<key>Impossible de préparer le Wi-Fi dans l’image.</key>
+	<string>Impossibile preparare il Wi-Fi nell’immagine.</string>
+	<key>Impossible de préparer le décodeur XZ.</key>
+	<string>Impossibile inizializzare il decoder XZ.</string>
+	<key>Impossible de préparer une commande système.</key>
+	<string>Impossibile preparare un comando di sistema.</string>
+	<key>Impossible de publier la progression.</key>
+	<string>Impossibile pubblicare l’avanzamento.</string>
+	<key>Impossible de relire la configuration Wi-Fi.</key>
+	<string>Impossibile rileggere la configurazione Wi-Fi.</string>
+	<key>Impossible de relire l’image.</key>
+	<string>Impossibile rileggere l’immagine.</string>
+	<key>Impossible de synchroniser la progression.</key>
+	<string>Impossibile sincronizzare il file di avanzamento.</string>
+	<key>Impossible de synchroniser l’image temporaire.</key>
+	<string>Impossibile sincronizzare l’immagine temporanea.</string>
+	<key>Impossible de vérifier la mise à jour</key>
+	<string>Impossibile cercare aggiornamenti</string>
+	<key>Impossible d’enregistrer la progression.</key>
+	<string>Impossibile salvare l’avanzamento.</string>
+	<key>Impossible d’identifier le disque système du Mac.</key>
+	<string>Impossibile identificare il disco di sistema del Mac.</string>
+	<key>Impossible d’ouvrir l’image InkyOS.</key>
+	<string>Impossibile aprire l’immagine InkyOS.</string>
+	<key>Installation annulée.</key>
+	<string>Installazione annullata.</string>
+	<key>Installation interrompue</key>
+	<string>Installazione interrotta</string>
+	<key>Insérez une carte SD</key>
+	<string>Inserisci una scheda SD</string>
+	<key>La carte a été retirée.</key>
+	<string>La scheda è stata rimossa.</string>
+	<key>La carte est vérifiée. Cliquez sur Éjecter pour terminer.</key>
+	<string>La scheda è verificata. Fai clic su Espelli per terminare.</string>
+	<key>La carte n’a pas confirmé la synchronisation.</key>
+	<string>La scheda non ha confermato la sincronizzazione.</string>
+	<key>La carte n’est plus disponible.</key>
+	<string>La scheda non è più disponibile.</string>
+	<key>La carte sélectionnée a changé. Sélectionnez-la à nouveau.</key>
+	<string>La scheda selezionata è cambiata. Selezionala di nuovo.</string>
+	<key>La configuration Wi-Fi est trop longue.</key>
+	<string>La configurazione Wi-Fi è troppo lunga.</string>
+	<key>La fin de l’installation n’a pas pu être confirmée.</key>
+	<string>Impossibile confermare il completamento dell’installazione.</string>
+	<key>La lecture s’est interrompue avant la fin de l’image.</key>
+	<string>La lettura si è interrotta prima della fine dell’immagine.</string>
+	<key>La partition de démarrage InkyOS n’a pas été trouvée.</key>
+	<string>Partizione di avvio InkyOS non trovata.</string>
+	<key>La progression est inaccessible.</key>
+	<string>Impossibile accedere all’avanzamento.</string>
+	<key>La préparation est encore utilisée par macOS.</key>
+	<string>macOS sta ancora usando l’immagine temporanea.</string>
+	<key>La relecture ne correspond pas à l’image. Laissez la carte branchée.</key>
+	<string>I dati riletti non corrispondono all’immagine. Lascia la scheda collegata.</string>
+	<key>La requête ne correspond plus à cette installation.</key>
+	<string>La richiesta non corrisponde più a questa installazione.</string>
+	<key>La requête privée n’est pas valide.</key>
+	<string>La richiesta privata non è valida.</string>
+	<key>La taille de l’image a changé.</key>
+	<string>Le dimensioni dell’immagine sono cambiate.</string>
+	<key>La version publiée sur GitHub n’a pas pu être vérifiée. Réessayez plus tard.</key>
+	<string>Impossibile verificare la versione pubblicata su GitHub. Riprova più tardi.</string>
+	<key>La vérification de l’image InkyOS a échoué.</key>
+	<string>La verifica dell’immagine InkyOS non è riuscita.</string>
+	<key>La vérification des paramètres Wi-Fi a échoué.</key>
+	<string>La verifica delle impostazioni Wi-Fi non è riuscita.</string>
+	<key>Le DMG Universal de la nouvelle version n’est pas encore disponible.</key>
+	<string>Il DMG universale della nuova versione non è ancora disponibile.</string>
+	<key>Le disque système du Mac n’a pas pu être protégé.</key>
+	<string>Impossibile proteggere il disco di sistema del Mac.</string>
+	<key>Le dossier de travail n’est pas protégé.</key>
+	<string>La cartella di lavoro non è protetta.</string>
+	<key>Le dossier privé doit appartenir à l’utilisateur.</key>
+	<string>La cartella privata deve appartenere all’utente.</string>
+	<key>Le fichier de progression a changé.</key>
+	<string>Il file di avanzamento è cambiato.</string>
+	<key>Le fichier n’est plus lisible.</key>
+	<string>Il file non è più leggibile.</string>
+	<key>Le fichier privé est indisponible.</key>
+	<string>Il file privato non è disponibile.</string>
+	<key>Le support ouvert n’est pas la carte sélectionnée.</key>
+	<string>Il dispositivo aperto non è la scheda selezionata.</string>
+	<key>Le support sélectionné n’est plus disponible.</key>
+	<string>Il dispositivo selezionato non è più disponibile.</string>
+	<key>Le système de votre cadre photo.</key>
+	<string>Il sistema della tua cornice digitale.</string>
+	<key>Lecture de l’image impossible.</key>
+	<string>Impossibile leggere l’immagine.</string>
+	<key>Les permissions du fichier privé sont incorrectes.</key>
+	<string>I permessi del file privato non sono corretti.</string>
+	<key>L’identité de la carte est indisponible.</key>
+	<string>Impossibile identificare la scheda.</string>
+	<key>L’image InkyOS n’est pas encore disponible dans cette installation.</key>
+	<string>L’immagine InkyOS non è ancora disponibile in questa installazione.</string>
+	<key>L’image XZ est incomplète ou endommagée.</key>
+	<string>L’immagine XZ è incompleta o danneggiata.</string>
+	<key>L’image a changé pendant l’opération.</key>
+	<string>L’immagine è cambiata durante l’operazione.</string>
+	<key>L’image a changé pendant l’écriture.</key>
+	<string>L’immagine è cambiata durante la scrittura.</string>
+	<key>L’image contient déjà une configuration Wi-Fi.</key>
+	<string>L’immagine contiene già una configurazione Wi-Fi.</string>
+	<key>L’image doit être un fichier ordinaire non lié.</key>
+	<string>L’immagine deve essere un file normale, non un collegamento.</string>
+	<key>L’image dépasse la taille annoncée.</key>
+	<string>L’immagine supera le dimensioni previste.</string>
+	<key>L’image est incomplète.</key>
+	<string>L’immagine è incompleta.</string>
+	<key>L’image est vide.</key>
+	<string>L’immagine è vuota.</string>
+	<key>L’image intégrée est endommagée. Réinstallez inkyImager.</key>
+	<string>L’immagine integrata è danneggiata. Reinstalla inkyImager.</string>
+	<key>L’image ou la carte sélectionnée n’est pas valide.</key>
+	<string>L’immagine o la scheda selezionata non è valida.</string>
+	<key>L’image préparée est endommagée.</key>
+	<string>L’immagine preparata è danneggiata.</string>
+	<key>L’installation doit être lancée depuis votre session inkyImager.</key>
+	<string>Avvia l’installazione dalla sessione di inkyImager.</string>
+	<key>L’installation d’inkyImager est incomplète.</key>
+	<string>L’installazione di inkyImager è incompleta.</string>
+	<key>L’opération n’a pas pu être terminée.</key>
+	<string>Impossibile completare l’operazione.</string>
+	<key>L’écriture n’a pas pu être terminée. Laissez la carte branchée.</key>
+	<string>Impossibile completare la scrittura. Lascia la scheda collegata.</string>
+	<key>Masquer le mot de passe</key>
+	<string>Nascondi password</string>
+	<key>Mise à jour</key>
+	<string>Aggiorna</string>
+	<key>Mot de passe</key>
+	<string>Password</string>
+	<key>Mot de passe du Wi-Fi</key>
+	<string>Password del Wi-Fi</string>
+	<key>Nom de fichier invalide.</key>
+	<string>Nome del file non valido.</string>
+	<key>Nom du Wi-Fi</key>
+	<string>Nome del Wi-Fi</string>
+	<key>Nom du réseau</key>
+	<string>Nome della rete</string>
+	<key>Nom du réseau Wi-Fi</key>
+	<string>Nome della rete Wi-Fi</string>
+	<key>Pays : %@</key>
+	<string>Paese: %@</string>
+	<key>Plus tard</key>
+	<string>Più tardi</string>
+	<key>Progression de l’installation</key>
+	<string>Avanzamento dell’installazione</string>
+	<key>Préparation de l’image…</key>
+	<string>Preparazione dell’immagine…</string>
+	<key>Préparation de votre Wi-Fi…</key>
+	<string>Preparazione del Wi-Fi…</string>
+	<key>Préparez la carte SD de votre cadre.</key>
+	<string>Prepara la scheda SD della tua cornice.</string>
+	<key>Prête à installer</key>
+	<string>Pronto per l’installazione</string>
+	<key>Recherche de mise à jour en cours</key>
+	<string>Ricerca di aggiornamenti in corso</string>
+	<key>Rechercher les cartes SD connectées</key>
+	<string>Cerca le schede SD collegate</string>
+	<key>Rechercher une mise à jour d’inkyImager</key>
+	<string>Cerca un aggiornamento di inkyImager</string>
+	<key>Recherche…</key>
+	<string>Ricerca…</string>
+	<key>Relecture de la carte…</key>
+	<string>Rilettura della scheda…</string>
+	<key>Retirez la carte, insérez-la dans le Pi éteint, puis allumez votre cadre.</key>
+	<string>Rimuovi la scheda, inseriscila nel Pi spento e accendi la cornice.</string>
+	<key>Réponse système illisible.</key>
+	<string>Risposta di sistema illeggibile.</string>
+	<key>Réponse système trop volumineuse.</key>
+	<string>La risposta di sistema è troppo grande.</string>
+	<key>Seules les cartes SD et les supports USB amovibles sont proposés.</key>
+	<string>Vengono mostrate solo schede SD e unità USB rimovibili.</string>
+	<key>Synchronisation de la carte impossible.</key>
+	<string>Impossibile sincronizzare la scheda.</string>
+	<key>Taille d’image invalide.</key>
+	<string>Dimensione dell’immagine non valida.</string>
+	<key>Termine l’éjection de la carte déjà vérifiée.</key>
+	<string>Completa l’espulsione della scheda già verificata.</string>
+	<key>Terminez l’éjection avant de retirer la carte.</key>
+	<string>Completa l’espulsione prima di rimuovere la scheda.</string>
+	<key>Toutes les données de la carte choisie seront effacées.</key>
+	<string>Tutti i dati della scheda selezionata verranno cancellati.</string>
+	<key>Télécharger le DMG</key>
+	<string>Scarica DMG</string>
+	<key>Téléchargez le DMG, puis glissez inkyImager dans Applications.</key>
+	<string>Scarica il DMG, poi trascina inkyImager in Applicazioni.</string>
+	<key>Un dossier de travail a changé ou est lié.</key>
+	<string>Una cartella di lavoro è cambiata o è un collegamento.</string>
+	<key>Votre Wi-Fi</key>
+	<string>La tua rete Wi-Fi</string>
+	<key>Votre carte SD</key>
+	<string>La tua scheda SD</string>
+	<key>Votre carte est prête.</key>
+	<string>La scheda è pronta.</string>
+	<key>Vous pouvez la retirer et allumer votre cadre.</key>
+	<string>Puoi rimuoverla e accendere la cornice.</string>
+	<key>Vérification de la carte…</key>
+	<string>Verifica della scheda…</string>
+	<key>Vérification de l’image InkyOS…</key>
+	<string>Verifica dell’immagine InkyOS…</string>
+	<key>Vérification de l’image…</key>
+	<string>Verifica dell’immagine…</string>
+	<key>Vérifiez votre connexion, puis réessayez.</key>
+	<string>Controlla la connessione e riprova.</string>
+	<key>Wi-Fi 2,4 GHz</key>
+	<string>Wi-Fi a 2,4 GHz</string>
+	<key>inkyImager %@ est disponible</key>
+	<string>È disponibile inkyImager %@</string>
+	<key>inkyImager est à jour</key>
+	<string>inkyImager è aggiornato</string>
+	<key>inkyImager prépare uniquement la carte SD que vous sélectionnez.</key>
+	<string>inkyImager prepara solo la scheda SD selezionata.</string>
+	<key>macOS n’a pas autorisé l’accès à la carte SD sélectionnée.</key>
+	<string>macOS non ha autorizzato l’accesso alla scheda SD selezionata.</string>
+	<key>macOS n’a pas confirmé la fermeture de la préparation.</key>
+	<string>macOS non ha confermato la chiusura dell’immagine temporanea.</string>
+	<key>macOS n’a pas pu terminer %1$@ (code %2$d).</key>
+	<string>macOS non ha potuto completare %1$@ (codice %2$d).</string>
+	<key>macOS n’a pas terminé %1$@ à temps (code %2$d). La carte doit rester branchée.</key>
+	<string>macOS non ha completato %1$@ in tempo (codice %2$d). Lascia la scheda collegata.</string>
+	<key>macOS retient encore la carte.</key>
+	<string>macOS sta ancora usando la scheda.</string>
+	<key>macOS utilise encore la préparation. Réessayez pour la fermer avant de poursuivre.</key>
+	<string>macOS sta ancora usando l’immagine temporanea. Riprova a chiuderla prima di continuare.</string>
+	<key>Écriture de la carte…</key>
+	<string>Scrittura della scheda…</string>
+	<key>Écriture de l’image impossible.</key>
+	<string>Impossibile scrivere l’immagine.</string>
+	<key>Écriture d’InkyOS…</key>
+	<string>Scrittura di InkyOS…</string>
+	<key>Éjecter la carte vérifiée</key>
+	<string>Espelli la scheda verificata</string>
+	<key>Éjection de la carte…</key>
+	<string>Espulsione della scheda…</string>
+</dict>
+</plist>

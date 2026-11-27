@@ -12,6 +12,9 @@ import re
 import struct
 
 ROOT = Path(__file__).resolve().parents[1]
+RESOURCE_BUNDLE = 'inkyImager_ImagerCore.bundle'
+LOCALES = {'ar', 'de', 'en', 'es', 'fr', 'it', 'ja', 'ko', 'pt', 'zh-Hans', 'zh-Hant'}
+PERMISSION = 'inkyImager prépare uniquement la carte SD que vous sélectionnez.'
 
 
 def digest(path):
@@ -27,6 +30,28 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def load_catalogs(resources):
+    return {directory.stem: plistlib.loads((directory / 'Localizable.strings').read_bytes())
+            for directory in resources.glob('*.lproj')}
+
+
+def install_localizations(products, resources):
+    source = load_catalogs(ROOT / 'Sources/ImagerCore/Localization')
+    require(set(source) == LOCALES, 'Source catalog is missing a supported language')
+    keys = source['fr'].keys()
+    require(PERMISSION in keys and all(catalog.keys() == keys and all(catalog.values()) for catalog in source.values()),
+            'Incomplete localization catalog')
+    for architecture, directory in products.items():
+        built = load_catalogs(directory / RESOURCE_BUNDLE / 'Contents/Resources')
+        require(built == source, f'Localization resources differ from source for {architecture}')
+    shutil.copytree(products['arm64'] / RESOURCE_BUNDLE, resources / RESOURCE_BUNDLE)
+    for language, catalog in source.items():
+        directory = resources / f'{language}.lproj'
+        directory.mkdir()
+        with (directory / 'InfoPlist.strings').open('wb') as stream:
+            plistlib.dump({'NSRemovableVolumesUsageDescription': catalog[PERMISSION]}, stream)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--image', type=Path, required=True)
@@ -34,8 +59,8 @@ def main():
     parser.add_argument('--destination', type=Path, default=Path.home() / 'Applications/inkyImager.app')
     parser.add_argument('--scratch-path', type=Path, default=Path.home() / 'Library/Caches/inkyImager-build')
     parser.add_argument('--jobs', type=int, default=2, help='Limit compiler concurrency on the build Mac.')
-    parser.add_argument('--app-version', default='0.1.4')
-    parser.add_argument('--build-number', default='5')
+    parser.add_argument('--app-version', default='0.1.5')
+    parser.add_argument('--build-number', default='6')
     parser.add_argument('--sign-identity', default='-', help='Default: local ad-hoc signature.')
     parser.add_argument('--timestamp', action='store_true',
                         help='Explicitly permit Apple timestamp requests for Developer ID signing.')
@@ -52,6 +77,9 @@ def main():
     manifest = json.loads(args.manifest.read_text())
     require(manifest['schemaVersion'] == 1 and manifest['configurationFile'] == 'inky-imager.json',
             'Unexpected manifest schema or Wi-Fi configuration file')
+    personalization_schema = manifest.get('personalizationSchemaVersion', 1)
+    require(type(personalization_schema) is int and personalization_schema in (1, 2),
+            'Unsupported personalization schema')
     require(manifest['imageFile'] == 'InkyOS.img.xz', 'Unexpected image filename')
     require(type(manifest['imageBytes']) is int and manifest['imageBytes'] > 0 and
             all(re.fullmatch(r'[0-9a-f]{64}', manifest[key]) for key in ('imageSHA256', 'compressedSHA256')),
@@ -79,6 +107,7 @@ def main():
     resources = contents / 'Resources'
     macos.mkdir(parents=True)
     resources.mkdir()
+    install_localizations(products, resources)
     for executable in ('inkyImager', 'inkyImagerHelper'):
         subprocess.run(['/usr/bin/lipo', '-create',
                         *[str(products[arch] / executable) for arch in ('arm64', 'x86_64')],
@@ -111,7 +140,8 @@ def main():
             'CFBundleVersion': args.build_number, 'LSMinimumSystemVersion': '14.0',
             'CFBundleIconFile': 'AppIcon',
             'NSHighResolutionCapable': True,
-            'NSRemovableVolumesUsageDescription': 'inkyImager prépare uniquement la carte SD que vous sélectionnez.',
+            'CFBundleDevelopmentRegion': 'fr', 'CFBundleLocalizations': sorted(LOCALES),
+            'NSRemovableVolumesUsageDescription': PERMISSION,
             'NSHumanReadableCopyright': 'Copyright © 2026 Mehdi Guiard'}
     with (contents / 'Info.plist').open('wb') as stream:
         plistlib.dump(info, stream)
@@ -123,6 +153,7 @@ def main():
     print(json.dumps({'app': str(destination), 'image_sha256': manifest['imageSHA256'],
                       'compressed_sha256': manifest['compressedSHA256'], 'signed_local': True,
                       'app_version': args.app_version, 'build_number': args.build_number,
+                      'localizations': sorted(LOCALES), 'personalization_schema_version': personalization_schema,
                       'architectures': ['arm64', 'x86_64'],
                       'signature_kind': 'ad_hoc' if args.sign_identity == '-' else 'developer_id',
                       'timestamped': args.timestamp, 'notarized': False, 'sd_written': False}, sort_keys=True))

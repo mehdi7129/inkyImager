@@ -1,6 +1,8 @@
 import SwiftUI
 import ImagerCore
 
+private typealias L10n = ImagerLocalization
+
 @MainActor
 struct ImagerView: View {
     @ObservedObject var model: ImagerModel
@@ -29,6 +31,8 @@ struct ImagerView: View {
         .foregroundStyle(ink)
         .tint(ink)
         .preferredColorScheme(.light)
+        .environment(\.locale, L10n.locale)
+        .environment(\.layoutDirection, L10n.language == .ar ? .rightToLeft : .leftToRight)
         .frame(minWidth: 660, minHeight: 620)
         .onChange(of: canCheckForUpdates) { _, canCheck in
             if !canCheck { updateFeedback = nil }
@@ -48,7 +52,7 @@ struct ImagerView: View {
                 Text("inkyImager")
                     .font(.system(size: 29, weight: .semibold))
                     .tracking(-0.8)
-                Text("Préparez la carte SD de votre cadre.")
+                Text(L10n.text("Préparez la carte SD de votre cadre."))
                     .font(.system(size: 13))
                     .foregroundStyle(.secondary)
             }
@@ -58,15 +62,15 @@ struct ImagerView: View {
                 if checkingForUpdates {
                     HStack(spacing: 8) {
                         ProgressView().controlSize(.small)
-                        Text("Recherche…")
+                        Text(L10n.text("Recherche…"))
                     }
                 } else {
-                    Label("Mise à jour", systemImage: "arrow.down.circle")
+                    Label(L10n.text("Mise à jour"), systemImage: "arrow.down.circle")
                 }
             }
             .disabled(checkingForUpdates || !canCheckForUpdates)
-            .help("Rechercher une mise à jour d’inkyImager")
-            .accessibilityLabel(checkingForUpdates ? "Recherche de mise à jour en cours" : "Rechercher une mise à jour d’inkyImager")
+            .help(L10n.text("Rechercher une mise à jour d’inkyImager"))
+            .accessibilityLabel(checkingForUpdates ? L10n.text("Recherche de mise à jour en cours") : L10n.text("Rechercher une mise à jour d’inkyImager"))
         }
         .padding(.bottom, 2)
     }
@@ -89,7 +93,7 @@ struct ImagerView: View {
                     feedback = .upToDate
                 }
             } catch is URLError {
-                feedback = .failed("Vérifiez votre connexion, puis réessayez.")
+                feedback = .failed(L10n.text("Vérifiez votre connexion, puis réessayez."))
             } catch {
                 feedback = .failed(error.localizedDescription)
             }
@@ -102,18 +106,18 @@ struct ImagerView: View {
         switch feedback {
         case .available(let update):
             return Alert(
-                title: Text("inkyImager \(update.version) est disponible"),
-                message: Text("Téléchargez le DMG, puis glissez inkyImager dans Applications."),
-                primaryButton: .default(Text("Télécharger le DMG")) {
+                title: Text(L10n.format("inkyImager %@ est disponible", update.version)),
+                message: Text(L10n.text("Téléchargez le DMG, puis glissez inkyImager dans Applications.")),
+                primaryButton: .default(Text(L10n.text("Télécharger le DMG"))) {
                     guard canCheckForUpdates else { return }
                     openURL(update.downloadURL)
                 },
-                secondaryButton: .cancel(Text("Plus tard"))
+                secondaryButton: .cancel(Text(L10n.text("Plus tard")))
             )
         case .upToDate:
-            return Alert(title: Text("inkyImager est à jour"), dismissButton: .default(Text("OK")))
+            return Alert(title: Text(L10n.text("inkyImager est à jour")), dismissButton: .default(Text("OK")))
         case .failed(let message):
-            return Alert(title: Text("Impossible de vérifier la mise à jour"), message: Text(message),
+            return Alert(title: Text(L10n.text("Impossible de vérifier la mise à jour")), message: Text(message),
                          dismissButton: .default(Text("OK")))
         }
     }
@@ -145,7 +149,7 @@ struct ImagerView: View {
                 VStack(alignment: .leading, spacing: 4) {
                     Text("InkyOS")
                         .font(.system(size: 16, weight: .semibold))
-                    Text("Le système de votre cadre photo.")
+                    Text(L10n.text("Le système de votre cadre photo."))
                         .font(.system(size: 12))
                         .foregroundStyle(.secondary)
                 }
@@ -153,7 +157,7 @@ struct ImagerView: View {
                 Spacer(minLength: 12)
 
                 VStack(alignment: .trailing, spacing: 5) {
-                    Text("Image intégrée")
+                    Text(L10n.text("Image intégrée"))
                         .font(.system(size: 11, weight: .medium))
                         .padding(.horizontal, 10)
                         .padding(.vertical, 6)
@@ -171,28 +175,28 @@ struct ImagerView: View {
     private var wifiCard: some View {
         card {
             VStack(alignment: .leading, spacing: 14) {
-                sectionTitle("Votre Wi-Fi", symbol: "wifi")
+                sectionTitle(L10n.text("Votre Wi-Fi"), symbol: "wifi")
 
                 HStack(alignment: .top, spacing: 16) {
                     VStack(alignment: .leading, spacing: 6) {
-                        fieldLabel("Nom du réseau")
-                        TextField("Nom du Wi-Fi", text: $model.ssid)
+                        fieldLabel(L10n.text("Nom du réseau"))
+                        TextField(L10n.text("Nom du Wi-Fi"), text: $model.ssid)
                             .textFieldStyle(.roundedBorder)
-                            .accessibilityLabel("Nom du réseau Wi-Fi")
+                            .accessibilityLabel(L10n.text("Nom du réseau Wi-Fi"))
                     }
 
                     VStack(alignment: .leading, spacing: 6) {
-                        fieldLabel("Mot de passe")
+                        fieldLabel(L10n.text("Mot de passe"))
                         HStack(spacing: 6) {
                             Group {
                                 if passwordVisible {
-                                    TextField("Mot de passe du Wi-Fi", text: $model.password)
+                                    TextField(L10n.text("Mot de passe du Wi-Fi"), text: $model.password)
                                 } else {
-                                    SecureField("Mot de passe du Wi-Fi", text: $model.password)
+                                    SecureField(L10n.text("Mot de passe du Wi-Fi"), text: $model.password)
                                 }
                             }
                             .textFieldStyle(.roundedBorder)
-                            .accessibilityLabel("Mot de passe du Wi-Fi")
+                            .accessibilityLabel(L10n.text("Mot de passe du Wi-Fi"))
 
                             Button {
                                 passwordVisible.toggle()
@@ -204,8 +208,8 @@ struct ImagerView: View {
                             }
                             .buttonStyle(.plain)
                             .foregroundStyle(.secondary)
-                            .help(passwordVisible ? "Masquer le mot de passe" : "Afficher le mot de passe")
-                            .accessibilityLabel(passwordVisible ? "Masquer le mot de passe" : "Afficher le mot de passe")
+                            .help(passwordVisible ? L10n.text("Masquer le mot de passe") : L10n.text("Afficher le mot de passe"))
+                            .accessibilityLabel(passwordVisible ? L10n.text("Masquer le mot de passe") : L10n.text("Afficher le mot de passe"))
                         }
                     }
                 }
@@ -214,9 +218,9 @@ struct ImagerView: View {
                 HStack(spacing: 6) {
                     Image(systemName: "globe.europe.africa")
                         .accessibilityHidden(true)
-                    Text("Pays : \(countryName)")
+                    Text(L10n.format("Pays : %@", countryName))
                     Spacer(minLength: 12)
-                    Text("Wi-Fi 2,4 GHz")
+                    Text(L10n.text("Wi-Fi 2,4 GHz"))
                 }
                 .font(.system(size: 11))
                 .foregroundStyle(.secondary)
@@ -228,24 +232,24 @@ struct ImagerView: View {
         card {
             VStack(alignment: .leading, spacing: 12) {
                 HStack {
-                    sectionTitle("Votre carte SD", symbol: "sdcard")
+                    sectionTitle(L10n.text("Votre carte SD"), symbol: "sdcard")
                     Spacer()
                     Button {
                         model.refreshDevices()
                     } label: {
-                        Label("Actualiser", systemImage: "arrow.clockwise")
+                        Label(L10n.text("Actualiser"), systemImage: "arrow.clockwise")
                             .font(.system(size: 11, weight: .medium))
                     }
                     .buttonStyle(.borderless)
                     .disabled(model.isBusy || model.ejectPending)
-                    .help("Rechercher les cartes SD connectées")
+                    .help(L10n.text("Rechercher les cartes SD connectées"))
                 }
 
-                Picker("Carte SD", selection: $model.selectedDeviceID) {
-                    Text(model.devices.isEmpty ? "Insérez une carte SD" : "Choisir une carte SD")
+                Picker(L10n.text("Carte SD"), selection: $model.selectedDeviceID) {
+                    Text(model.devices.isEmpty ? L10n.text("Insérez une carte SD") : L10n.text("Choisir une carte SD"))
                         .tag(Optional<String>.none)
                     ForEach(model.devices) { device in
-                        Text("\(device.name) · \(capacity(device.capacity))")
+                        Text(verbatim: "\(device.name == "Carte SD" ? L10n.text("Carte SD") : device.name) · \(capacity(device.capacity))")
                             .tag(Optional(device.id))
                     }
                 }
@@ -253,10 +257,10 @@ struct ImagerView: View {
                 .labelsHidden()
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .disabled(model.isBusy || model.ejectPending || model.devices.isEmpty)
-                .accessibilityLabel("Carte SD à installer")
+                .accessibilityLabel(L10n.text("Carte SD à installer"))
 
                 if model.devices.isEmpty {
-                    Text("Branchez votre carte, puis cliquez sur Actualiser.")
+                    Text(L10n.text("Branchez votre carte, puis cliquez sur Actualiser."))
                         .font(.system(size: 11))
                         .foregroundStyle(.secondary)
                 }
@@ -267,7 +271,7 @@ struct ImagerView: View {
     private var footer: some View {
         VStack(alignment: .leading, spacing: 12) {
             if !model.isBusy && !model.ejectPending && model.phase != .finished {
-                Label("Toutes les données de la carte choisie seront effacées.", systemImage: "exclamationmark.circle")
+                Label(L10n.text("Toutes les données de la carte choisie seront effacées."), systemImage: "exclamationmark.circle")
                     .font(.system(size: 12))
                     .foregroundStyle(.secondary)
             }
@@ -284,7 +288,7 @@ struct ImagerView: View {
                     } else {
                         Image(systemName: model.ejectPending ? "eject" : "arrow.down.to.line")
                     }
-                    Text(model.isBusy ? phaseTitle : (model.ejectPending ? "Éjecter la carte vérifiée" : "Flasher la carte"))
+                    Text(model.isBusy ? phaseTitle : (model.ejectPending ? L10n.text("Éjecter la carte vérifiée") : L10n.text("Flasher la carte")))
                         .font(.system(size: 14, weight: .semibold))
                 }
                 .frame(maxWidth: .infinity)
@@ -296,16 +300,16 @@ struct ImagerView: View {
             }
             .buttonStyle(.plain)
             .disabled(!model.canFlash || model.isBusy)
-            .accessibilityHint(model.ejectPending ? "Termine l’éjection de la carte déjà vérifiée." : "Efface la carte choisie et installe InkyOS avec votre Wi-Fi.")
+            .accessibilityHint(model.ejectPending ? L10n.text("Termine l’éjection de la carte déjà vérifiée.") : L10n.text("Efface la carte choisie et installe InkyOS avec votre Wi-Fi."))
 
             if model.isBusy {
                 VStack(alignment: .leading, spacing: 7) {
                     ProgressView(value: min(max(model.progress, 0), 1))
-                        .accessibilityLabel("Progression de l’installation")
+                        .accessibilityLabel(L10n.text("Progression de l’installation"))
                     HStack {
                         Text(model.statusMessage.isEmpty ? phaseTitle : model.statusMessage)
                         Spacer(minLength: 8)
-                        Text("\(Int(min(max(model.progress, 0), 1) * 100)) %")
+                        Text(min(max(model.progress, 0), 1).formatted(.percent.precision(.fractionLength(0)).locale(L10n.locale)))
                             .monospacedDigit()
                     }
                     .font(.system(size: 11))
@@ -314,9 +318,9 @@ struct ImagerView: View {
             } else if model.ejectPending {
                 Label {
                     VStack(alignment: .leading, spacing: 3) {
-                        Text("Carte vérifiée, éjection à terminer.")
+                        Text(L10n.text("Carte vérifiée, éjection à terminer."))
                             .font(.system(size: 13, weight: .semibold))
-                        Text("Terminez l’éjection avant de retirer la carte.")
+                        Text(L10n.text("Terminez l’éjection avant de retirer la carte."))
                             .font(.system(size: 12))
                             .foregroundStyle(.secondary)
                     }
@@ -330,9 +334,9 @@ struct ImagerView: View {
             } else if model.phase == .finished {
                 Label {
                     VStack(alignment: .leading, spacing: 3) {
-                        Text("Votre carte est prête.")
+                        Text(L10n.text("Votre carte est prête."))
                             .font(.system(size: 13, weight: .semibold))
-                        Text(model.statusMessage.isEmpty ? "Vous pouvez la retirer et allumer votre cadre." : model.statusMessage)
+                        Text(model.statusMessage.isEmpty ? L10n.text("Vous pouvez la retirer et allumer votre cadre.") : model.statusMessage)
                             .font(.system(size: 12))
                             .foregroundStyle(.secondary)
                     }
@@ -361,20 +365,19 @@ struct ImagerView: View {
 
     private var phaseTitle: String {
         switch model.phase {
-        case .idle: "Prête à installer"
-        case .preparing: "Préparation de l’image…"
-        case .writing: "Écriture de la carte…"
-        case .verifying: "Vérification de la carte…"
-        case .configuring: "Configuration du Wi-Fi…"
-        case .ejecting: "Éjection de la carte…"
-        case .finished: model.ejectPending ? "Carte vérifiée" : "Carte prête"
-        case .failed: "Installation interrompue"
+        case .idle: L10n.text("Prête à installer")
+        case .preparing: L10n.text("Préparation de l’image…")
+        case .writing: L10n.text("Écriture de la carte…")
+        case .verifying: L10n.text("Vérification de la carte…")
+        case .configuring: L10n.text("Configuration du Wi-Fi…")
+        case .ejecting: L10n.text("Éjection de la carte…")
+        case .finished: model.ejectPending ? L10n.text("Carte vérifiée") : L10n.text("Carte prête")
+        case .failed: L10n.text("Installation interrompue")
         }
     }
 
     private var countryName: String {
-        if model.country.uppercased() == "FR" { return "France" }
-        return Locale(identifier: "fr_FR").localizedString(forRegionCode: model.country.uppercased())
+        L10n.locale.localizedString(forRegionCode: model.country.uppercased())
             ?? model.country.uppercased()
     }
 
@@ -400,6 +403,6 @@ struct ImagerView: View {
     }
 
     private func capacity(_ bytes: Int64) -> String {
-        ByteCountFormatter.string(fromByteCount: bytes, countStyle: .file)
+        bytes.formatted(.byteCount(style: .file).locale(L10n.locale))
     }
 }

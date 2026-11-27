@@ -9,6 +9,12 @@ public struct OSManifest: Codable, Sendable {
     public let imageSHA256: String
     public let imageBytes: Int64
     public let configurationFile: String
+    public let personalizationSchemaVersion: Int?
+
+    public var supportedPersonalizationSchemaVersion: Int? {
+        let version = personalizationSchemaVersion ?? 1
+        return [1, 2].contains(version) ? version : nil
+    }
 }
 
 public struct WiFiConfiguration: Codable, Sendable {
@@ -19,13 +25,17 @@ public struct WiFiConfiguration: Codable, Sendable {
 }
 
 private struct BootConfiguration: Encodable {
-    let schema_version = 1
+    let schema_version: Int
     let wifi: WiFiConfiguration
+    let language: ImagerLanguage?
 }
 
 public enum PreparationError: LocalizedError {
     case message(String)
-    public var errorDescription: String? { if case .message(let value) = self { return value }; return nil }
+    public var errorDescription: String? {
+        if case .message(let value) = self { return ImagerLocalization.text(value) }
+        return nil
+    }
 }
 
 public enum ImagePreparation {
@@ -48,8 +58,22 @@ public enum ImagePreparation {
         }
     }
 
-    public static func personalize(image: URL, wifi: WiFiConfiguration, filename: String) throws {
+    static func configurationData(wifi: WiFiConfiguration, personalizationSchemaVersion: Int, language: ImagerLanguage) throws -> Data {
+        guard [1, 2].contains(personalizationSchemaVersion) else {
+            throw PreparationError.message("Cette version ne sait pas préparer la configuration de cette image InkyOS.")
+        }
+        let configuration = BootConfiguration(schema_version: personalizationSchemaVersion, wifi: wifi,
+                                              language: personalizationSchemaVersion == 2 ? language : nil)
+        let data = try JSONEncoder().encode(configuration)
+        guard data.count <= 4096 else { throw PreparationError.message("La configuration Wi-Fi est trop longue.") }
+        return data
+    }
+
+    public static func personalize(image: URL, wifi: WiFiConfiguration, filename: String,
+                                   personalizationSchemaVersion: Int = 1,
+                                   language: ImagerLanguage = ImagerLocalization.language) throws {
         guard filename == "inky-imager.json" else { throw PreparationError.message("Format d’image non reconnu.") }
+        let data = try configurationData(wifi: wifi, personalizationSchemaVersion: personalizationSchemaVersion, language: language)
         let output = try execute("/usr/bin/hdiutil", ["attach", "-nomount", "-readwrite", "-noautofsck", "-plist",
             "-imagekey", "diskimage-class=CRawDiskImage", image.path])
         guard let plist = try PropertyListSerialization.propertyList(from: output, format: nil) as? [String: Any],
@@ -85,8 +109,6 @@ public enum ImagePreparation {
         guard !FileManager.default.fileExists(atPath: destination.path) else {
             throw PreparationError.message("L’image contient déjà une configuration Wi-Fi.")
         }
-        let data = try JSONEncoder().encode(BootConfiguration(wifi: wifi))
-        guard data.count <= 4096 else { throw PreparationError.message("La configuration Wi-Fi est trop longue.") }
         try data.write(to: destination, options: .withoutOverwriting)
         let fd = open(destination.path, O_RDONLY | O_NOFOLLOW)
         guard fd >= 0 else { throw PreparationError.message("Impossible de relire la configuration Wi-Fi.") }

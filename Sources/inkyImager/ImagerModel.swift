@@ -3,6 +3,8 @@ import Foundation
 import ImagerCore
 import Darwin
 
+private typealias L10n = ImagerLocalization
+
 @MainActor
 final class ImagerModel: ObservableObject {
     @Published var devices: [SDCard] = []
@@ -28,10 +30,11 @@ final class ImagerModel: ObservableObject {
            let data = try? Data(contentsOf: root.appendingPathComponent("InkyOS.json")),
            let metadata = try? JSONDecoder().decode(OSManifest.self, from: data),
            metadata.schemaVersion == 1, metadata.configurationFile == "inky-imager.json",
-           metadata.imageFile == "InkyOS.img.xz", metadata.imageBytes > 0 {
+           metadata.imageFile == "InkyOS.img.xz", metadata.imageBytes > 0,
+           metadata.supportedPersonalizationSchemaVersion != nil {
             manifest = metadata; resources = root; imageVersion = metadata.version
         } else {
-            statusMessage = "L’image InkyOS n’est pas encore disponible dans cette installation."
+            statusMessage = L10n.text("L’image InkyOS n’est pas encore disponible dans cette installation.")
         }
     }
 
@@ -55,7 +58,7 @@ final class ImagerModel: ObservableObject {
                 devices = found
                 if !found.contains(where: { $0.id == selectedDeviceID }) { selectedDeviceID = nil }
                 if found.count == 1 && selectedDeviceID == nil { selectedDeviceID = found[0].id }
-            } catch { saveFailure(error); errorMessage = error.localizedDescription }
+            } catch { saveFailure(error); errorMessage = friendly(error) }
         }
     }
 
@@ -64,10 +67,12 @@ final class ImagerModel: ObservableObject {
         if ejectPending { ejectCard(); return }
         guard cleanup() else { return }
         guard let metadata = manifest, let resource = resources,
+              let configurationVersion = metadata.supportedPersonalizationSchemaVersion,
               let card = devices.first(where: { $0.id == selectedDeviceID }) else { return }
         let wifi = WiFiConfiguration(ssid: ssid, password: password, country: country)
+        let language = ImagerLocalization.language
         isBusy = true; phase = .preparing; progress = 0; errorMessage = nil
-        statusMessage = "Vérification de l’image InkyOS…"
+        statusMessage = L10n.text("Vérification de l’image InkyOS…")
         Task {
             do {
                 let directory = try makeWorkspace()
@@ -85,8 +90,11 @@ final class ImagerModel: ObservableObject {
                         throw PreparationError.message("La vérification de l’image InkyOS a échoué.")
                     }
                 }.value
-                phase = .configuring; progress = 0.20; statusMessage = "Préparation de votre Wi-Fi…"
-                try await Task.detached { try ImagePreparation.personalize(image: image, wifi: wifi, filename: metadata.configurationFile) }.value
+                phase = .configuring; progress = 0.20; statusMessage = L10n.text("Préparation de votre Wi-Fi…")
+                try await Task.detached {
+                    try ImagePreparation.personalize(image: image, wifi: wifi, filename: metadata.configurationFile,
+                                                     personalizationSchemaVersion: configurationVersion, language: language)
+                }.value
                 let hash = try await Task.detached { try ImageTools.sha256(url: image) }.value
                 let request = FlashRequest(imagePath: image.path, imageSHA256: hash, imageBytes: metadata.imageBytes,
                     target: card, progressPath: directory.appendingPathComponent("progress.json").path, ownerUID: getuid())
@@ -116,10 +124,10 @@ final class ImagerModel: ObservableObject {
         isBusy = false; password = ""
         if ejectPending {
             phase = .finished
-            statusMessage = "La carte est vérifiée. Cliquez sur Éjecter pour terminer."
+            statusMessage = L10n.text("La carte est vérifiée. Cliquez sur Éjecter pour terminer.")
         } else {
             phase = .finished; progress = 1
-            statusMessage = "Retirez la carte, insérez-la dans le Pi éteint, puis allumez votre cadre."
+            statusMessage = L10n.text("Retirez la carte, insérez-la dans le Pi éteint, puis allumez votre cadre.")
             cleanup()
         }
     }
@@ -132,11 +140,12 @@ final class ImagerModel: ObservableObject {
         let progressURL = requestURL.deletingLastPathComponent().appendingPathComponent("progress.json")
         // The helper needs the verified receipt for an eject-only retry.
         let previousProgress = ejectOnly ? (try? Data(contentsOf: progressURL)) : nil
-        statusMessage = "Autorisez l’écriture de la carte dans la fenêtre macOS."
+        statusMessage = L10n.text("Autorisez l’écriture de la carte dans la fenêtre macOS.")
         // Keep the logged-in user's audit session and GUI responsibility. Only
         // Apple's authopen obtains privileged access to the selected raw device.
         let arguments = ["--request", requestURL.path] + (ejectOnly ? ["--eject"] : [])
-        let task = Task.detached { try SystemCommand.run(helper.path, arguments, timeout: 7200) }
+        let language = L10n.language
+        let task = Task.detached { try SystemCommand.run(helper.path, arguments, timeout: 7200, helperLanguage: language) }
         let watcher = Task { @MainActor in
             while !Task.isCancelled {
                 if let data = try? Data(contentsOf: progressURL), data != previousProgress,
@@ -193,7 +202,7 @@ final class ImagerModel: ObservableObject {
             workspace = nil; pendingRequest = nil
             return true
         } catch {
-            errorMessage = "macOS utilise encore la préparation. Réessayez pour la fermer avant de poursuivre."
+            errorMessage = L10n.text("macOS utilise encore la préparation. Réessayez pour la fermer avant de poursuivre.")
             return false
         }
     }
@@ -225,6 +234,11 @@ final class ImagerModel: ObservableObject {
     }
     private func friendly(_ error: Error) -> String {
         let message = error.localizedDescription
-        return message.contains("(-128)") ? "Installation annulée." : message
+        if message.contains("(-128)") { return L10n.text("Installation annulée.") }
+        if let failure = error as? SystemCommandFailure { return failure.summary }
+        if error is PreparationError || error is ImagerError {
+            return message.split(separator: "\n", maxSplits: 1).first.map(String.init) ?? message
+        }
+        return L10n.text("L’opération n’a pas pu être terminée.")
     }
 }

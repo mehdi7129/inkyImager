@@ -81,11 +81,11 @@ public enum ImagerUpdateChecker {
         var errorDescription: String? {
             switch self {
             case .invalidInstalledVersion:
-                return "Cette installation n’indique pas sa version. Installez la version publiée sur GitHub."
+                return ImagerLocalization.text("Cette installation n’indique pas sa version. Installez la version publiée sur GitHub.")
             case .invalidRelease:
-                return "La version publiée sur GitHub n’a pas pu être vérifiée. Réessayez plus tard."
+                return ImagerLocalization.text("La version publiée sur GitHub n’a pas pu être vérifiée. Réessayez plus tard.")
             case .missingInstaller:
-                return "Le DMG Universal de la nouvelle version n’est pas encore disponible."
+                return ImagerLocalization.text("Le DMG Universal de la nouvelle version n’est pas encore disponible.")
             }
         }
     }
