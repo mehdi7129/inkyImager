@@ -89,7 +89,9 @@ def main():
     scratch.mkdir(parents=True, exist_ok=True)
     temporary = scratch / 'tmp'
     temporary.mkdir(mode=0o700, exist_ok=True)
-    environment = dict(os.environ, TMPDIR=str(temporary))
+    module_cache = scratch / 'module-cache'
+    module_cache.mkdir(mode=0o700, exist_ok=True)
+    environment = dict(os.environ, TMPDIR=str(temporary), CLANG_MODULE_CACHE_PATH=str(module_cache))
     # Build each slice explicitly: never let the build host choose the release architecture.
     products = {}
     for architecture in ('arm64', 'x86_64'):

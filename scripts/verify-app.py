@@ -61,6 +61,16 @@ def inspect_executable(binary):
     return sorted(architectures)
 
 
+def verify_universal_signatures(app, helper, team_id=None):
+    command = ['/usr/bin/codesign', '--verify', '--deep', '--strict']
+    if team_id is not None:
+        require(re.fullmatch(r'[A-Z0-9]{10}', team_id) is not None, 'Invalid Developer ID team')
+        command += ['-R', f'=anchor apple generic and certificate leaf[subject.OU] = "{team_id}"']
+    for component in (app, helper):
+        for arch in ('arm64', 'x86_64'):
+            subprocess.run(command + ['--arch', arch, str(component)], check=True)
+
+
 def inspect_localizations(resources, info):
     require(info.get('CFBundleDevelopmentRegion') == 'fr' and set(info.get('CFBundleLocalizations', [])) == LOCALES,
             'Bundle language declaration differs')
@@ -97,6 +107,7 @@ def main():
     parser.add_argument('--studio-commit', required=True)
     parser.add_argument('--os-commit', required=True)
     parser.add_argument('--personalization-schema', type=int, choices=(1, 2))
+    parser.add_argument('--team-id', help='Require an Apple-issued signing certificate for the selected team.')
     args = parser.parse_args()
     app = args.app.resolve()
     contents = app / 'Contents'
@@ -110,7 +121,7 @@ def main():
     for name in ('inkyImager', 'inkyImagerHelper'):
         binary = contents / 'MacOS' / name
         inspect_executable(binary)
-    subprocess.run(['/usr/bin/codesign', '--verify', '--deep', '--strict', str(app)], check=True)
+    verify_universal_signatures(app, contents / 'MacOS/inkyImagerHelper', args.team_id)
     resources = contents / 'Resources'
     manifest = json.loads((resources / 'InkyOS.json').read_text())
     personalization_schema = manifest.get('personalizationSchemaVersion', 1)

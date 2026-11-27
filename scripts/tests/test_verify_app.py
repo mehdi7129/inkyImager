@@ -1,6 +1,7 @@
 import hashlib
 import importlib.util
 import lzma
+import subprocess
 from pathlib import Path
 import tempfile
 import unittest
@@ -83,6 +84,27 @@ class UniversalExecutableTests(unittest.TestCase):
         ]) as output:
             self.assertEqual(verifier.inspect_executable(self.binary), ['arm64', 'x86_64'])
             self.assertEqual(output.call_args.args[0][1:4], ['-arch', 'all', '-L'])
+
+
+class SignatureTests(unittest.TestCase):
+    def test_signature_verifies_every_app_and_helper_slice_with_team_requirement(self):
+        app = Path('fixture.app')
+        helper = app / 'Contents/MacOS/inkyImagerHelper'
+        with patch.object(verifier.subprocess, 'run') as run:
+            verifier.verify_universal_signatures(app, helper, 'X524H8XA4L')
+        observed = [(call.args[0][-2], call.args[0][-1]) for call in run.call_args_list]
+        self.assertEqual(observed, [(arch, str(component)) for component in (app, helper)
+                                    for arch in ('arm64', 'x86_64')])
+        for call in run.call_args_list:
+            self.assertTrue(call.kwargs['check'])
+            self.assertIn('--strict', call.args[0])
+            self.assertIn('X524H8XA4L', call.args[0][5])
+
+    def test_invalid_signature_in_any_slice_aborts_verification(self):
+        with patch.object(verifier.subprocess, 'run',
+                          side_effect=[None, subprocess.CalledProcessError(1, 'codesign')]):
+            with self.assertRaises(subprocess.CalledProcessError):
+                verifier.verify_universal_signatures(Path('fixture.app'), Path('fixture-helper'))
 
 
 if __name__ == '__main__':
