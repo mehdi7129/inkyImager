@@ -294,5 +294,13 @@
 	<string>検証済みカードを取り出す</string>
 	<key>Éjection de la carte…</key>
 	<string>カードを取り出し中…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>このデバイスを消去して書き込みますか？</string>
+	<key>%@ octets</key>
+	<string>%@ バイト</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>選択したデバイス上のすべてのデータが消去されます。</string>
+	<key>Annuler l’effacement</key>
+	<string>消去をキャンセル</string>
 </dict>
 </plist>

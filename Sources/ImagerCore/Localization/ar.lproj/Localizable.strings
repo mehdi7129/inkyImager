@@ -294,5 +294,13 @@
 	<string>إخراج البطاقة التي تم التحقق منها</string>
 	<key>Éjection de la carte…</key>
 	<string>جارٍ إخراج البطاقة…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>هل تريد مسح هذا القرص وكتابة النظام عليه؟</string>
+	<key>%@ octets</key>
+	<string>%@ بايت</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>ستُمحى كل البيانات على القرص المحدد.</string>
+	<key>Annuler l’effacement</key>
+	<string>إلغاء المسح</string>
 </dict>
 </plist>

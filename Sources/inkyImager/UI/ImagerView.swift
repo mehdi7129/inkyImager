@@ -1,4 +1,5 @@
 import SwiftUI
+import AppKit
 import ImagerCore
 
 private typealias L10n = ImagerLocalization
@@ -268,6 +269,21 @@ struct ImagerView: View {
         }
     }
 
+    private func confirmErase(_ card: SDCard) -> Bool {
+        let alert = NSAlert()
+        alert.alertStyle = .warning
+        alert.messageText = L10n.text("Effacer et flasher ce support ?")
+        let name = card.name == "Carte SD" ? L10n.text("Carte SD") : card.name
+        let bytes = card.capacity.formatted(.number.grouping(.never).locale(L10n.locale))
+        alert.informativeText = "\(name) · \(card.id) · \(L10n.format("%@ octets", bytes))\n\n"
+            + L10n.text("Toutes les données du support sélectionné seront effacées.")
+        alert.addButton(withTitle: L10n.text("Annuler l’effacement")).keyEquivalent = "\r"
+        let erase = alert.addButton(withTitle: L10n.text("Flasher la carte"))
+        erase.hasDestructiveAction = true
+        erase.keyEquivalent = ""
+        return alert.runModal() == .alertSecondButtonReturn
+    }
+
     private var footer: some View {
         VStack(alignment: .leading, spacing: 12) {
             if !model.isBusy && !model.ejectPending && model.phase != .finished {
@@ -278,7 +294,7 @@ struct ImagerView: View {
 
             Button {
                 passwordVisible = false
-                model.startFlash()
+                model.requestFlash(confirm: confirmErase)
             } label: {
                 HStack(spacing: 9) {
                     if model.isBusy {

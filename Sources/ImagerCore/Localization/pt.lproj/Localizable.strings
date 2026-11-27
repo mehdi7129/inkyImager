@@ -294,5 +294,13 @@
 	<string>Ejetar cartão verificado</string>
 	<key>Éjection de la carte…</key>
 	<string>A ejetar o cartão…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>Apagar este dispositivo e gravar a imagem?</string>
+	<key>%@ octets</key>
+	<string>%@ bytes</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>Todos os dados do dispositivo selecionado serão apagados.</string>
+	<key>Annuler l’effacement</key>
+	<string>Cancelar exclusão</string>
 </dict>
 </plist>

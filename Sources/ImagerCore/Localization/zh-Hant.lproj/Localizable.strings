@@ -294,5 +294,13 @@
 	<string>退出已驗證的卡片</string>
 	<key>Éjection de la carte…</key>
 	<string>正在退出卡片…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>要清除這個裝置並寫入映像檔嗎？</string>
+	<key>%@ octets</key>
+	<string>%@ 位元組</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>所選裝置上的所有資料都將被清除。</string>
+	<key>Annuler l’effacement</key>
+	<string>取消清除</string>
 </dict>
 </plist>

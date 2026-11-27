@@ -294,5 +294,13 @@
 	<string>Éjecter la carte vérifiée</string>
 	<key>Éjection de la carte…</key>
 	<string>Éjection de la carte…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>Effacer et flasher ce support ?</string>
+	<key>%@ octets</key>
+	<string>%@ octets</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>Toutes les données du support sélectionné seront effacées.</string>
+	<key>Annuler l’effacement</key>
+	<string>Annuler l’effacement</string>
 </dict>
 </plist>

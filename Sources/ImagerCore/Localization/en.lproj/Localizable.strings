@@ -294,5 +294,13 @@
 	<string>Eject verified card</string>
 	<key>Éjection de la carte…</key>
 	<string>Ejecting the card…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>Erase and flash this device?</string>
+	<key>%@ octets</key>
+	<string>%@ bytes</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>All data on the selected device will be erased.</string>
+	<key>Annuler l’effacement</key>
+	<string>Cancel erase</string>
 </dict>
 </plist>

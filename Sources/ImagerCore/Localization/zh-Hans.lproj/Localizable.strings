@@ -294,5 +294,13 @@
 	<string>推出已验证的卡</string>
 	<key>Éjection de la carte…</key>
 	<string>正在推出卡…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>要抹掉此设备并写入镜像吗？</string>
+	<key>%@ octets</key>
+	<string>%@ 字节</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>所选设备上的所有数据都将被抹掉。</string>
+	<key>Annuler l’effacement</key>
+	<string>取消抹掉</string>
 </dict>
 </plist>

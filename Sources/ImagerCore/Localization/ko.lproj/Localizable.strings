@@ -294,5 +294,13 @@
 	<string>확인된 카드 추출</string>
 	<key>Éjection de la carte…</key>
 	<string>카드 추출 중…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>이 장치를 지우고 이미지를 쓸까요?</string>
+	<key>%@ octets</key>
+	<string>%@바이트</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>선택한 장치의 모든 데이터가 지워집니다.</string>
+	<key>Annuler l’effacement</key>
+	<string>지우기 취소</string>
 </dict>
 </plist>

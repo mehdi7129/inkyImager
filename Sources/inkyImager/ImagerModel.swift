@@ -7,8 +7,12 @@ private typealias L10n = ImagerLocalization
 
 @MainActor
 final class ImagerModel: ObservableObject {
-    @Published var devices: [SDCard] = []
-    @Published var selectedDeviceID: String?
+    @Published private var targets = FlashTargetSelection()
+    var devices: [SDCard] { targets.devices }
+    var selectedDeviceID: String? {
+        get { targets.selectedID }
+        set { targets.selectedID = newValue }
+    }
     @Published var ssid = ""
     @Published var password = ""
     @Published var country = "FR"
@@ -24,6 +28,7 @@ final class ImagerModel: ObservableObject {
     private var resources: URL?
     private var workspace: URL?
     private var pendingRequest: URL?
+    private var presentingConfirmation = false
 
     init() {
         if let root = Bundle.main.resourceURL,
@@ -55,26 +60,43 @@ final class ImagerModel: ObservableObject {
         Task {
             do {
                 let found = try await Task.detached { try DiskService.listCards() }.value
-                devices = found
-                if !found.contains(where: { $0.id == selectedDeviceID }) { selectedDeviceID = nil }
-                if found.count == 1 && selectedDeviceID == nil { selectedDeviceID = found[0].id }
+                targets.replaceDevices(found)
             } catch { saveFailure(error); errorMessage = friendly(error) }
         }
     }
 
-    func startFlash() {
-        guard canFlash else { return }
+    func requestFlash(confirm: (SDCard) -> Bool) {
+        guard canFlash, !presentingConfirmation else { return }
         if ejectPending { ejectCard(); return }
+        let snapshot = targets
+        presentingConfirmation = true
+        defer { presentingConfirmation = false }
+        guard let card = snapshot.confirmed(using: confirm), snapshot == targets, canFlash else { return }
+        startFlash(card, snapshot: snapshot)
+    }
+
+    private func startFlash(_ card: SDCard, snapshot: FlashTargetSelection) {
         guard cleanup() else { return }
         guard let metadata = manifest, let resource = resources,
-              let configurationVersion = metadata.supportedPersonalizationSchemaVersion,
-              let card = devices.first(where: { $0.id == selectedDeviceID }) else { return }
+              let configurationVersion = metadata.supportedPersonalizationSchemaVersion else { return }
         let wifi = WiFiConfiguration(ssid: ssid, password: password, country: country)
         let language = ImagerLocalization.language
         isBusy = true; phase = .preparing; progress = 0; errorMessage = nil
         statusMessage = L10n.text("Vérification de l’image InkyOS…")
         Task {
             do {
+                let observed = try await Task.detached { try DiskService.listCards() }.value
+                guard observed == snapshot.devices, targets == snapshot else {
+                    targets.replaceDevices(observed)
+                    selectedDeviceID = nil
+                    throw ImagerError("La carte sélectionnée a changé. Sélectionnez-la à nouveau.")
+                }
+                do {
+                    try await Task.detached { try DiskService.requireSame(card) }.value
+                } catch {
+                    selectedDeviceID = nil
+                    throw error
+                }
                 let directory = try makeWorkspace()
                 workspace = directory
                 let image = directory.appendingPathComponent("InkyOS.img")

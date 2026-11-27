@@ -294,5 +294,13 @@
 	<string>Geprüfte Karte auswerfen</string>
 	<key>Éjection de la carte…</key>
 	<string>Karte wird ausgeworfen …</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>Dieses Laufwerk löschen und beschreiben?</string>
+	<key>%@ octets</key>
+	<string>%@ Byte</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>Alle Daten auf dem ausgewählten Laufwerk werden gelöscht.</string>
+	<key>Annuler l’effacement</key>
+	<string>Löschen abbrechen</string>
 </dict>
 </plist>

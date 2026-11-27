@@ -294,5 +294,13 @@
 	<string>Expulsar tarjeta verificada</string>
 	<key>Éjection de la carte…</key>
 	<string>Expulsando la tarjeta…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>¿Borrar este dispositivo y grabar la imagen?</string>
+	<key>%@ octets</key>
+	<string>%@ bytes</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>Se borrarán todos los datos del dispositivo seleccionado.</string>
+	<key>Annuler l’effacement</key>
+	<string>Cancelar borrado</string>
 </dict>
 </plist>

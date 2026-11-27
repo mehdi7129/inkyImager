@@ -294,5 +294,13 @@
 	<string>Espelli la scheda verificata</string>
 	<key>Éjection de la carte…</key>
 	<string>Espulsione della scheda…</string>
+	<key>Effacer et flasher ce support ?</key>
+	<string>Cancellare questo dispositivo e scrivere l’immagine?</string>
+	<key>%@ octets</key>
+	<string>%@ byte</string>
+	<key>Toutes les données du support sélectionné seront effacées.</key>
+	<string>Tutti i dati sul dispositivo selezionato verranno cancellati.</string>
+	<key>Annuler l’effacement</key>
+	<string>Annulla cancellazione</string>
 </dict>
 </plist>
