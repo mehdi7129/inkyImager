@@ -86,6 +86,40 @@ final class FlashWorkspaceTests: XCTestCase {
         }
     }
 
+    func testAbandonedAttachedFATImageIsDetachedBeforeRemoval() throws {
+        guard let fixture = ProcessInfo.processInfo.environment["INKY_IMAGER_FAT_FIXTURE"] else {
+            throw XCTSkip("Run with an explicit synthetic FAT fixture.")
+        }
+        let (fd, _) = try regularInput(fixture)
+        close(fd)
+        try withCache { cache in
+            var workspace: FlashWorkspace? = try FlashWorkspace.create(in: cache)
+            let directory = try XCTUnwrap(workspace?.url)
+            let image = directory.appendingPathComponent("InkyOS.img")
+            _ = try ImagePreparation.execute("/bin/cp", ["-c", fixture, image.path])
+            try manager.setAttributes([.posixPermissions: 0o600], ofItemAtPath: image.path)
+            try ImagePreparation.personalize(image: image,
+                wifi: WiFiConfiguration(ssid: "synthetic-test", password: "fixture-only-pass", country: "FR"),
+                filename: "inky-imager.json", personalizationSchemaVersion: 2, language: .ja)
+            _ = try ImagePreparation.execute("/usr/bin/hdiutil", ["attach", "-nomount", "-readonly", "-plist",
+                "-imagekey", "diskimage-class=CRawDiskImage", image.path])
+            defer { try? ImagePreparation.detachPrivateImage(image) }
+
+            func appearsAttached() throws -> Bool {
+                let raw = try ImagePreparation.execute("/usr/bin/hdiutil", ["info", "-plist"])
+                let info = try XCTUnwrap(try PropertyListSerialization.propertyList(from: raw, format: nil) as? [String: Any])
+                let entries = try XCTUnwrap(info["images"] as? [[String: Any]])
+                return entries.contains { $0["image-path"] as? String == image.path }
+            }
+
+            XCTAssertTrue(try appearsAttached())
+            workspace = nil
+            XCTAssertEqual(FlashWorkspace.reclaimAbandoned(in: cache), 1)
+            XCTAssertFalse(try appearsAttached())
+            XCTAssertFalse(manager.fileExists(atPath: directory.path))
+        }
+    }
+
     func testFailedDetachLeavesImageForLaterCleanup() throws {
         try withCache { cache in
             var workspace: FlashWorkspace? = try FlashWorkspace.create(in: cache)
