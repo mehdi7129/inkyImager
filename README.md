@@ -59,6 +59,16 @@ Le Pi l’importe au premier démarrage puis supprime le fichier transitoire de 
 partition de démarrage. Aucun mot de passe Wi-Fi n’est placé dans les arguments
 de commande ou les journaux.
 
+### Langue de l’app et du cadre
+
+À partir d’inkyImager 0.1.5, l’app choisit la première langue prise en charge
+dans les préférences de macOS. Elle propose les mêmes 11 langues qu’Inky Studio
+sur iPhone. Le français sert de langue de repli.
+
+Avec l’image InkyOS compatible, l’app enregistre cette langue lors du flash.
+Au premier démarrage, le cadre la mémorise et affiche les instructions autour
+du QR dans cette langue.
+
 ## Version Universal — 14 novembre 2026
 
 **inkyImager 0.1.3 (4)** contient les architectures `arm64` et `x86_64` dans
@@ -103,7 +113,7 @@ python3 scripts/build-app.py \
   --manifest /chemin/InkyOS.json \
   --destination /chemin/de/sortie/inkyImager.app \
   --scratch-path /chemin/de/build/sur/disque/externe \
-  --app-version 0.1.4 --build-number 5
+  --app-version 0.1.5 --build-number 6
 ```
 
 Le packaging compile explicitement `arm64` et `x86_64`, puis assemble les deux
@@ -114,6 +124,7 @@ L’image générique et son manifeste vérifiés proviennent du
 [profil d’assemblage InkyOS](https://github.com/mehdi7129/inkyOS/tree/main/inkyImager/OS).
 Le script exige une destination neuve, vérifie les hashes, assemble l’app avec
 son image et appose une signature locale. Compiler ou packager ne flashe pas de SD.
+L’image localisée déclare `"personalizationSchemaVersion": 2` dans `InkyOS.json`.
 
 `--jobs` limite le nombre de compilations simultanées (2 par défaut). Les
 caches et fichiers temporaires du packaging sont placés sous `--scratch-path`.
