@@ -2,16 +2,17 @@ import Foundation
 import Darwin
 import CryptoKit
 
-private func checkedDirectory(_ path: String, owner: uid_t, privateLeaf: Bool) throws -> (Int32, stat) {
-    let url = URL(fileURLWithPath: path)
-    guard path.hasPrefix("/"), !path.contains("\0"), url.standardizedFileURL.path == path else {
+func checkedDirectory(_ path: String, owner: uid_t, privateLeaf: Bool) throws -> (Int32, stat) {
+    let parts = path.split(separator: "/", omittingEmptySubsequences: false).dropFirst()
+    guard path.hasPrefix("/"), !path.contains("\0"),
+          parts.allSatisfy({ !$0.isEmpty && $0 != "." && $0 != ".." }) else {
         throw ImagerError("Chemin de travail invalide.")
     }
-    var fd = Darwin.open("/", O_RDONLY | O_DIRECTORY | O_NOFOLLOW)
+    var fd = Darwin.open("/", O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
     guard fd >= 0 else { throw ImagerError("Dossier de travail inaccessible.") }
     do {
-        for part in url.pathComponents.dropFirst() {
-            let next = openat(fd, part, O_RDONLY | O_DIRECTORY | O_NOFOLLOW)
+        for part in parts {
+            let next = openat(fd, String(part), O_RDONLY | O_DIRECTORY | O_NOFOLLOW | O_CLOEXEC)
             guard next >= 0 else { throw ImagerError("Un dossier de travail a changé ou est lié.") }
             close(fd); fd = next
             let value = try fileInfo(fd)
@@ -100,6 +101,10 @@ public enum FlashEngine {
         let (directory, directoryStat) = try checkedDirectory(requestURL.deletingLastPathComponent().path,
                                                              owner: requestStat.st_uid, privateLeaf: true)
         defer { close(directory) }
+        guard let lease = try FlashWorkspace.acquireLease(in: directory, exclusive: false) else {
+            throw ImagerError("Le dossier de travail n’est pas protégé.")
+        }
+        defer { close(lease) }
         let (requestFD, before) = try privateFile(requestURL.lastPathComponent, directory: directory,
                                                  owner: requestStat.st_uid, maximum: 64 * 1024)
         let request: FlashRequest

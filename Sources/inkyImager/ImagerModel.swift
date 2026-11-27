@@ -26,11 +26,12 @@ final class ImagerModel: ObservableObject {
 
     private var manifest: OSManifest?
     private var resources: URL?
-    private var workspace: URL?
+    private var workspace: FlashWorkspace?
     private var pendingRequest: URL?
     private var presentingConfirmation = false
 
     init() {
+        Task.detached(priority: .utility) { _ = FlashWorkspace.reclaimAbandoned() }
         if let root = Bundle.main.resourceURL,
            let data = try? Data(contentsOf: root.appendingPathComponent("InkyOS.json")),
            let metadata = try? JSONDecoder().decode(OSManifest.self, from: data),
@@ -97,8 +98,14 @@ final class ImagerModel: ObservableObject {
                     selectedDeviceID = nil
                     throw error
                 }
-                let directory = try makeWorkspace()
-                workspace = directory
+                let prepared = try FlashWorkspace.create()
+                workspace = prepared
+                let directory = prepared.url
+                let available = try directory.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey])
+                    .volumeAvailableCapacityForImportantUsage ?? 0
+                guard available >= metadata.imageBytes + 1_073_741_824 else {
+                    throw PreparationError.message("Il faut au moins 4 Go libres pour préparer la carte.")
+                }
                 let image = directory.appendingPathComponent("InkyOS.img")
                 try await Task.detached {
                     let compressed = resource.appendingPathComponent(metadata.imageFile)
@@ -201,27 +208,11 @@ final class ImagerModel: ObservableObject {
         throw PreparationError.message("La fin de l’installation n’a pas pu être confirmée.")
     }
 
-    private func makeWorkspace() throws -> URL {
-        let parent = FileManager.default.homeDirectoryForCurrentUser.appendingPathComponent("Library/Caches/fr.mehdiguiard.inkyimager")
-        try FileManager.default.createDirectory(at: parent, withIntermediateDirectories: true, attributes: [.posixPermissions: 0o700])
-        let directory = parent.appendingPathComponent(UUID().uuidString)
-        try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false, attributes: [.posixPermissions: 0o700])
-        if let metadata = manifest {
-            let available = try directory.resourceValues(forKeys: [.volumeAvailableCapacityForImportantUsageKey]).volumeAvailableCapacityForImportantUsage ?? 0
-            guard available >= metadata.imageBytes + 1_073_741_824 else {
-                try? FileManager.default.removeItem(at: directory)
-                throw PreparationError.message("Il faut au moins 4 Go libres pour préparer la carte.")
-            }
-        }
-        return directory
-    }
-
     @discardableResult private func cleanup() -> Bool {
-        guard let directory = workspace else { return true }
+        guard let workspace else { return true }
         do {
-            try ImagePreparation.detachPrivateImage(directory.appendingPathComponent("InkyOS.img"))
-            try FileManager.default.removeItem(at: directory)
-            workspace = nil; pendingRequest = nil
+            try workspace.remove()
+            self.workspace = nil; pendingRequest = nil
             return true
         } catch {
             errorMessage = L10n.text("macOS utilise encore la préparation. Réessayez pour la fermer avant de poursuivre.")
@@ -230,8 +221,12 @@ final class ImagerModel: ObservableObject {
     }
 
     private func writePrivate(_ data: Data, to url: URL) throws {
-        try data.write(to: url, options: .withoutOverwriting)
-        try FileManager.default.setAttributes([.posixPermissions: 0o600], ofItemAtPath: url.path)
+        let fd = open(url.path, O_WRONLY | O_CREAT | O_EXCL | O_NOFOLLOW | O_CLOEXEC, 0o600)
+        guard fd >= 0 else { throw ImagerError("Le fichier privé est indisponible.") }
+        let handle = FileHandle(fileDescriptor: fd, closeOnDealloc: true)
+        try handle.write(contentsOf: data)
+        try handle.synchronize()
+        try handle.close()
     }
 
     private func saveFailure(_ error: Error) {
@@ -245,7 +240,7 @@ final class ImagerModel: ObservableObject {
             var report: [String: Any] = ["schemaVersion": 1, "date": ISO8601DateFormatter().string(from: Date()),
                 "phase": phase.rawValue, "error": error.localizedDescription]
             if let workspace,
-               let data = try? Data(contentsOf: workspace.appendingPathComponent("progress.json")), data.count <= 65536,
+               let data = try? Data(contentsOf: workspace.url.appendingPathComponent("progress.json")), data.count <= 65536,
                let event = try? JSONDecoder().decode(FlashProgress.self, from: data),
                let object = try? JSONSerialization.jsonObject(with: JSONEncoder().encode(event)) {
                 report["helperProgress"] = object
