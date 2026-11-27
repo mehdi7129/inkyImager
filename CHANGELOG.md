@@ -1,14 +1,15 @@
 # Changelog
 
-## 0.1.5 (8) — 2026-11-27
+## 0.1.5 (9) — 2026-11-27
 
 - Onze langues pour l’app macOS et les instructions autour du QR du cadre, selon les préférences de langue du Mac au moment du flash.
+- Chargement du chinois simplifié et traditionnel même quand SwiftPM change la casse des dossiers de ressources.
 - Sélection explicite du support et confirmation d’effacement avec nom, identifiant BSD et capacité exacte. Une modification des supports entraîne une nouvelle sélection.
 - Nettoyage au lancement des espaces de flash abandonnés reconnus, avec protection des sessions encore actives.
 - InkyOS 2026.11.27-rc3 et backend PHOTO 0.5.0rc4. La capsule Wi-Fi est retirée après enregistrement durable. Le premier QR a une échéance fixe de cinq minutes.
 - Contrôle strict de la signature des deux architectures dans l’app et le helper. Distribution par DMG Universal pour macOS 14 et ultérieur.
 
-Validation logicielle locale : 48 tests Swift et 12 tests de packaging. Les essais de flash physique, de démarrage sur Raspberry Pi et de lecture optique du QR restent à effectuer sur cette version.
+Validation logicielle locale : 49 tests Swift et 13 tests de packaging. Les essais de flash physique, de démarrage sur Raspberry Pi et de lecture optique du QR restent à effectuer sur cette version.
 
 ## 0.1.4 — 2026-11-20
 

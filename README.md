@@ -77,7 +77,7 @@ python3 scripts/build-app.py \
   --manifest /chemin/InkyOS.json \
   --destination /chemin/de/sortie/inkyImager.app \
   --scratch-path /chemin/de/sortie/build \
-  --app-version 0.1.5 --build-number 8
+  --app-version 0.1.5 --build-number 9
 ```
 
 Le script assemble l’app et son helper pour `arm64` et `x86_64`. Le
