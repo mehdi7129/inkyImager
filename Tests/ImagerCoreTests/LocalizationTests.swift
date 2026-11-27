@@ -32,6 +32,23 @@ final class LocalizationTests: XCTestCase {
         XCTAssertEqual(ImagerLocalization.text("Carte prête", language: .fr), "Carte prête")
     }
 
+    func testSwiftPMLowercaseScriptDirectoriesStillLoadBothChineseCatalogs() throws {
+        let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
+        try FileManager.default.createDirectory(at: root, withIntermediateDirectories: false)
+        defer { try? FileManager.default.removeItem(at: root) }
+
+        for (language, value): (ImagerLanguage, String) in [(.zhHans, "刷新"), (.zhHant, "重新整理")] {
+            let directory = root.appendingPathComponent(language.rawValue.lowercased() + ".lproj")
+            try FileManager.default.createDirectory(at: directory, withIntermediateDirectories: false)
+            let data = try PropertyListSerialization.data(fromPropertyList: ["actualiser": value], format: .binary, options: 0)
+            try data.write(to: directory.appendingPathComponent("Localizable.strings"))
+        }
+
+        let bundles = ImagerLocalization.translationBundles(in: root)
+        XCTAssertEqual(bundles[.zhHans]?.localizedString(forKey: "actualiser", value: nil, table: nil), "刷新")
+        XCTAssertEqual(bundles[.zhHant]?.localizedString(forKey: "actualiser", value: nil, table: nil), "重新整理")
+    }
+
     func testCapsuleContractForEveryLanguageAndLegacyImage() throws {
         let wifi = WiFiConfiguration(ssid: "Inky localization fixture é", password: "synthetic-password-2026", country: "FR")
         let output = ProcessInfo.processInfo.environment["INKY_IMAGER_CAPSULE_FIXTURE_DIR"].map {

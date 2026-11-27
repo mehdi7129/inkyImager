@@ -14,6 +14,7 @@ import struct
 ROOT = Path(__file__).resolve().parents[1]
 RESOURCE_BUNDLE = 'inkyImager_ImagerCore.bundle'
 LOCALES = {'ar', 'de', 'en', 'es', 'fr', 'it', 'ja', 'ko', 'pt', 'zh-Hans', 'zh-Hant'}
+LOCALE_BY_LOWERCASE = {locale.lower(): locale for locale in LOCALES}
 PERMISSION = 'inkyImager prépare uniquement la carte SD que vous sélectionnez.'
 
 
@@ -30,9 +31,18 @@ def require(condition, message):
         raise ValueError(message)
 
 
+def catalog_directories(resources):
+    directories = {}
+    for path in resources.glob('*.lproj'):
+        locale = LOCALE_BY_LOWERCASE.get(path.stem.lower())
+        require(locale is not None and locale not in directories, f'Unexpected localization directory: {path.name}')
+        directories[locale] = path
+    return directories
+
+
 def load_catalogs(resources):
-    return {directory.stem: plistlib.loads((directory / 'Localizable.strings').read_bytes())
-            for directory in resources.glob('*.lproj')}
+    return {locale: plistlib.loads((directory / 'Localizable.strings').read_bytes())
+            for locale, directory in catalog_directories(resources).items()}
 
 
 def install_localizations(products, resources):
@@ -44,7 +54,12 @@ def install_localizations(products, resources):
     for architecture, directory in products.items():
         built = load_catalogs(directory / RESOURCE_BUNDLE / 'Contents/Resources')
         require(built == source, f'Localization resources differ from source for {architecture}')
-    shutil.copytree(products['arm64'] / RESOURCE_BUNDLE, resources / RESOURCE_BUNDLE)
+    copied_bundle = resources / RESOURCE_BUNDLE
+    shutil.copytree(products['arm64'] / RESOURCE_BUNDLE, copied_bundle)
+    for locale, directory in catalog_directories(copied_bundle / 'Contents/Resources').items():
+        expected_name = f'{locale}.lproj'
+        if directory.name != expected_name:
+            directory.rename(directory.with_name(expected_name))
     for language, catalog in source.items():
         directory = resources / f'{language}.lproj'
         directory.mkdir()

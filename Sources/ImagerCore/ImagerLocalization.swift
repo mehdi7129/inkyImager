@@ -51,13 +51,23 @@ public enum ImagerLocalization {
         return .module
     }()
 
-    private static let translations: [ImagerLanguage: Bundle] = Dictionary(
-        uniqueKeysWithValues: ImagerLanguage.allCases.compactMap { language in
-            guard let url = resourceBundle.url(forResource: language.rawValue, withExtension: "lproj"),
-                  let bundle = Bundle(url: url) else { return nil }
-            return (language, bundle)
+    static func translationBundles(in resources: URL) -> [ImagerLanguage: Bundle] {
+        // SwiftPM can lowercase script subtags in generated .lproj directory names.
+        guard let directories = try? FileManager.default.contentsOfDirectory(
+            at: resources, includingPropertiesForKeys: nil
+        ) else { return [:] }
+        var translations: [ImagerLanguage: Bundle] = [:]
+        for language in ImagerLanguage.allCases {
+            let expected = language.rawValue.lowercased() + ".lproj"
+            if let directory = directories.first(where: { $0.lastPathComponent.lowercased() == expected }),
+               let bundle = Bundle(url: directory) {
+                translations[language] = bundle
+            }
         }
-    )
+        return translations
+    }
+
+    private static let translations = resourceBundle.resourceURL.map(translationBundles) ?? [:]
 
     public static func text(_ french: String, language: ImagerLanguage = ImagerLocalization.language) -> String {
         translations[language]?.localizedString(forKey: french, value: french, table: nil) ?? french
